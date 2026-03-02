@@ -2,8 +2,6 @@
 
 > 中文（默认） | [English](KAIST.en.md)
 
-你提到的 KAIST 相关经典工作（按时间）。
-
 ## Concurrent Training of a Control Policy and a State Estimator for Dynamic and Robust Legged Locomotion（RAL 2022）
 - PDF： [推荐论文/KAIST/2022 - Concurrent Training of a Control Policy and a State Estimator for Dynamic and Robust Legged Locomotion.pdf](<../推荐论文/KAIST/2022 - Concurrent Training of a Control Policy and a State Estimator for Dynamic and Robust Legged Locomotion.pdf>)
 - 笔记：一阶段非对称学习（非教师-学生）：策略网络同时训练关键状态估计器（线速度、足端高度、触地概率，输入为历史可观测数据）；sim 中 critic 直接拿到关键状态真值，并引入 dynamics randomization，使用 PPO 训练后可部署并穿越多样连续复杂地形。

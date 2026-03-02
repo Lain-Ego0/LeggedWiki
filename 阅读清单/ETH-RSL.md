@@ -2,8 +2,6 @@
 
 > 中文（默认） | [English](ETH-RSL.en.md)
 
-以下为你提到的 ETH RSL 经典工作（按时间），侧重强化学习在四足运控中的落地与演进。
-
 ## Learning Agile and Dynamic Motor Skills for Legged Robots（Science Robotics 2019）
 - PDF： [推荐论文/ETH-RSL/2019 - Learning agile and dynamic motor skills for legged robots.pdf](<../推荐论文/ETH-RSL/2019 - Learning agile and dynamic motor skills for legged robots.pdf>)
 - 笔记：强化学习做四足运控的奠基之作：通过利用 real 数据训练的电机网络模型在 sim 中补偿的方式训练策略模型 + RL + dynamics randomization，并成功在 ANYmal 四足机器人上部署，实现了鲁棒的 locomotion 策略，包括以特定速度奔跑、跌倒恢复等。

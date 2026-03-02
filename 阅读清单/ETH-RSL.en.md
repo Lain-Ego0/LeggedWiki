@@ -2,8 +2,6 @@
 
 [中文（默认）](ETH-RSL.md) | English
 
-Selected ETH RSL classics (chronological), focusing on how reinforcement learning (RL) got deployed for quadruped locomotion and advanced skills.
-
 ## Learning Agile and Dynamic Motor Skills for Legged Robots (Science Robotics 2019)
 - PDF: [推荐论文/ETH-RSL/2019 - Learning agile and dynamic motor skills for legged robots.pdf](<../推荐论文/ETH-RSL/2019 - Learning agile and dynamic motor skills for legged robots.pdf>)
 - Notes: A foundational work for RL-based quadruped locomotion. It trains a motor network model from real data and uses it for sim compensation while training the policy with RL + dynamics randomization. The policy was deployed on ANYmal, demonstrating robust locomotion behaviors (speed tracking, recovery after falls, etc.).
