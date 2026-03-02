@@ -1,4 +1,4 @@
-# ROBOCON-Legged-Robot Resource Collection
+# LeggedWiki Resource Collection
 
 [中文（默认）](README.md) | English
 
