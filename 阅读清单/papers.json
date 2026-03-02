@@ -1,0 +1,326 @@
+[
+  {
+    "group": "ETH-RSL",
+    "title": "Learning Agile and Dynamic Motor Skills for Legged Robots",
+    "venue": "Science Robotics",
+    "year": 2019,
+    "notes": "强化学习做四足运控的奠基之作：通过利用 real 数据训练的电机网络模型在 sim 中补偿的方式训练策略模型 + RL + dynamics randomization，并成功在 ANYmal 四足机器人上部署，实现了鲁棒的 locomotion 策略，包括以特定速度奔跑、跌倒恢复等。",
+    "query": "Learning Agile and Dynamic Motor Skills for Legged Robots 2019 Science Robotics"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "Learning quadrupedal locomotion over challenging terrain",
+    "venue": "Science Robotics",
+    "year": 2020,
+    "notes": "首次提出两阶段教师-学生框架：教师策略利用模拟器里的“作弊信息”学习到好的运动策略，再通过在线模仿学习（DAgger）蒸馏给可部署（仅历史可观测数据）的学生策略（引入 encoder 估计隐式作弊信息）。同时提出地形课程，实现鲁棒的复杂连续地形行走。该阶段控制仍较复杂：网络用于辅助足端轨迹生成，还需 IK 求解得到最终 target joints；而后续主流更倾向策略直接输出 target joints。",
+    "query": "Learning quadrupedal locomotion over challenging terrain 2020 Science Robotics"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning",
+    "venue": "CoRL",
+    "year": 2021,
+    "notes": "里程碑工作：推动 RL + Robotics 后续发展。开发并验证 Isaac Gym 并行训练 + domain randomization 的强化学习运控训练方案，并开源 legged_gym 项目。",
+    "query": "Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning CoRL 2021"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "Learning robust perceptive locomotion for quadrupedal robots in the wild",
+    "venue": "Science Robotics",
+    "year": 2022,
+    "notes": "集成本体感知与外部视觉信号的鲁棒 locomotion 策略，实现大规模户外甚至极端条件行走（楼梯、隧道、雪山、浓雾、森林、碎岩等）。给出了学习“带外感知策略”（估计高程图）的范例。",
+    "query": "Learning robust perceptive locomotion for quadrupedal robots in the wild 2022 Science Robotics"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "Elevation Mapping for Locomotion and Navigation using GPU",
+    "venue": "IROS",
+    "year": 2022,
+    "notes": "提出利用 GPU 高效构建高程图的方法：接收外部传感器点云与机器人位姿信息，快速构建周围地形高程图；复杂环境中里程计漂移仍是实时建图最大挑战。代码已开源。",
+    "query": "Elevation Mapping for Locomotion and Navigation using GPU IROS 2022"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "Advanced Skills through Multiple Adversarial Motion Priors in Reinforcement Learning",
+    "venue": "ICRA",
+    "year": 2023,
+    "notes": "增强版 AMP：允许多种可离散切换的风格，在轮腿四足机器人上展示躲避、行走，以及四足与双足模式（站立）之间的风格切换；其中从“反向站立（双足）序列”学习“趴下（四足）”的案例较有意思。",
+    "query": "Advanced Skills through Multiple Adversarial Motion Priors in Reinforcement Learning ICRA 2023"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "Curiosity-Driven Learning of Joint Locomotion and Manipulation Tasks",
+    "venue": "CoRL",
+    "year": 2023,
+    "notes": "亮点：用轮腿四足学习把腿当作 manipulator 的 loco-manipulation 策略。",
+    "query": "Curiosity-Driven Learning of Joint Locomotion and Manipulation Tasks CoRL 2023"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "Learning Agile Locomotion on Risky Terrains",
+    "venue": "IROS",
+    "year": 2024,
+    "notes": "（@XueYeiii）有意思的工作之一：可能是较早的基于 RL 运控走离散地形的工作（虽非全向行走），demo 效果不错。",
+    "query": "Learning Agile Locomotion on Risky Terrains IROS 2024"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "ANYmal parkour: Learning agile navigation for quadrupedal robots",
+    "venue": "Science Robotics",
+    "year": 2024,
+    "notes": "多层级框架：感知模块重建环境信息，导航模块根据环境信息导航并驱动运动模块选择能力；运动模块具备跑酷基本技能。首篇实现四足动态跑酷的工作之一。",
+    "query": "ANYmal parkour Learning agile navigation for quadrupedal robots Science Robotics 2024"
+  },
+  {
+    "group": "ETH-RSL",
+    "title": "DTC: Deep Tracking Control",
+    "venue": "Science Robotics",
+    "year": 2024,
+    "notes": "结合 Model-based 与 Learning-based：上层 TO 根据环境与动力学实时优化机身轨迹与足端轨迹；底层 RL 严格跟踪优化轨迹，实现极端地形的精确运动（梅花桩、深沟、废墟等）。相较将任务制定为机身速度跟踪的方法，该分层框架更有利于腿足灵活落足点选择。",
+    "query": "Deep Tracking Control Science Robotics 2024 legged"
+  },
+
+  {
+    "group": "KAIST",
+    "title": "Concurrent Training of a Control Policy and a State Estimator for Dynamic and Robust Legged Locomotion",
+    "venue": "RAL",
+    "year": 2022,
+    "notes": "一阶段非对称学习（非教师-学生）：策略网络同时训练关键状态估计器（线速度、足端高度、触地概率，输入为历史可观测数据）；sim 中 critic 直接拿到关键状态真值，并引入 dynamics randomization，使用 PPO 训练后可部署并穿越多样连续复杂地形。",
+    "query": "Concurrent Training of a Control Policy and a State Estimator for Dynamic and Robust Legged Locomotion RAL 2022"
+  },
+  {
+    "group": "KAIST",
+    "title": "DreamWaQ: Learning Robust Quadrupedal Locomotion With Implicit Terrain Imagination via Deep Reinforcement Learning",
+    "venue": "ICRA",
+    "year": 2023,
+    "notes": "非对称强化学习结构：状态估计器从可观测信息中估计速度与隐式地形信息 z，z 通过 VAE 学习。在宇树 A1 上实现鲁棒的长距离多样户外地形行走，说明非对称 actor-critic 训练框架可在复杂环境获得很强的运动能力。",
+    "query": "DreamWaQ Learning Robust Quadrupedal Locomotion With Implicit Terrain Imagination via Deep Reinforcement Learning ICRA 2023"
+  },
+  {
+    "group": "KAIST",
+    "title": "Learning quadrupedal locomotion on deformable terrain",
+    "venue": "Science Robotics",
+    "year": 2023,
+    "notes": "针对模拟器多为刚性接触动力学，修改 RaiSim 底层接触模型，建模颗粒介质（granular media）接触动力学，实现 Raibo 在沙滩/海绵垫等松软地形的敏捷与鲁棒运动；采用非对称训练框架，进一步验证其有效性。",
+    "query": "Learning quadrupedal locomotion on deformable terrain Science Robotics 2023"
+  },
+  {
+    "group": "KAIST",
+    "title": "A Learning Framework for Diverse Legged Robot Locomotion Using Barrier-Based Style Rewards",
+    "venue": "ICRA",
+    "year": 2025,
+    "notes": "引入松弛对数障碍函数，设计基于运动模式特征的软约束奖励机制，引导机器人趋向预设运动形态参数（周期步态、关节范围限制等）。未使用运动先验也生成多种仿生四足步态，其中四足站立的“仿人行走”与 Gallop 奔跑步态令人印象深刻。",
+    "query": "Barrier-Based Style Rewards Diverse Legged Robot Locomotion ICRA 2025"
+  },
+  {
+    "group": "综述",
+    "title": "Learning-based legged locomotion state of the art and future perspectives",
+    "venue": "IJRR",
+    "year": 2025,
+    "notes": "学习方法腿足式机器人运动控制综述：系统概括过去几年学术界与工业界相关成果并展望未来方向（来自 Gatech）。",
+    "query": "Learning-based legged locomotion state of the art and future perspectives IJRR 2025"
+  },
+
+  {
+    "group": "其他四足",
+    "title": "Sim-to-Real: Learning Agile Locomotion For Quadruped Robots",
+    "venue": null,
+    "year": null,
+    "notes": "较早的四足 sim2real 工作：RL + analytical 解析式电机模型 + dynamics randomization，基于 Ghost Robotics 的 Minitaur，启发了 ETH ANYmal 系列。",
+    "query": "\"Sim-to-Real\" \"Learning Agile Locomotion\" quadruped Minitaur"
+  },
+  {
+    "group": "其他四足",
+    "title": "Learning Agile Robotic Locomotion Skills by Imitating Animals",
+    "venue": "RSS",
+    "year": 2020,
+    "notes": "在宇树早期的 Leika 狗上，基于 motion retargeting + DeepMimic 的 motion tracking 方案，学习动物自然风格运动行为。代码已开源（UCB）。",
+    "query": "Learning Agile Robotic Locomotion Skills by Imitating Animals RSS 2020"
+  },
+  {
+    "group": "其他",
+    "title": "Sim-to-Real Learning of All Common Bipedal Gaits via Periodic Reward Composition",
+    "venue": "ICRA",
+    "year": 2021,
+    "notes": "较早提出用概率周期函数定义足式步态（站立、行走、跳跃、跑步、单脚跳），在 Cassie 上测试；包含单步态策略与多步态切换策略，被后续工作参考。",
+    "query": "Sim-to-Real Learning of All Common Bipedal Gaits via Periodic Reward Composition ICRA 2021"
+  },
+  {
+    "group": "其他",
+    "title": "AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control",
+    "venue": "SIGGRAPH",
+    "year": 2021,
+    "notes": "非足式机器人论文，但框架迁移价值高：用 GAN 作为隐式 metric 获得风格引导奖励学习控制策略（UCB）。",
+    "query": "Adversarial Motion Priors for Stylized Physics-Based Character Control SIGGRAPH 2021"
+  },
+  {
+    "group": "其他四足",
+    "title": "RMA: Rapid Motor Adaptation for Legged Robots",
+    "venue": "RSS",
+    "year": 2021,
+    "notes": "Teacher-student + adaptation module（类似 ETH 的 encoder），随机采样地形 + domain randomization + RaiSim 并行训练，在宇树 A1 上实现无外感知的复杂连续地形穿越。代码已开源（CMU）。",
+    "query": "RMA Rapid Motor Adaptation for Legged Robots RSS 2021"
+  },
+  {
+    "group": "其他四足",
+    "title": "Walk These Ways: Tuning Robot Control for Generalization with Multiplicity of Behavior",
+    "venue": "CoRL",
+    "year": 2022,
+    "notes": "在宇树 Go1 上实现可细粒度调参的鲁棒 locomotion：速度、步态（pronking/trotting/bounding/pacing/galloping）、步频、机身高度、俯仰角、触地时间、抬腿高度等。代码已开源（MIT）。",
+    "query": "Walk These Ways Tuning Robot Control for Generalization with Multiplicity of Behavior CoRL 2022"
+  },
+  {
+    "group": "其他四足",
+    "title": "Rapid Locomotion via Reinforcement Learning",
+    "venue": "RSS",
+    "year": 2022,
+    "notes": "提出速度网格自适应采样课程，自动挖掘速度上限，减少手工速度课程与专家知识干预。代码已开源（MIT）。",
+    "query": "Rapid Locomotion via Reinforcement Learning RSS 2022"
+  },
+  {
+    "group": "其他",
+    "title": "Adversarial Motion Priors Make Good Substitutes for Complex Reward Functions",
+    "venue": "ICRA",
+    "year": 2022,
+    "notes": "首次将 AMP 应用于四足：仅任务奖励 + 风格奖励学习自然运动行为，推动后续四足模仿学习运控研究。代码已开源（UCB）。",
+    "query": "Adversarial Motion Priors Make Good Substitutes for Complex Reward Functions ICRA 2022"
+  },
+  {
+    "group": "其他四足",
+    "title": "Deep Whole-Body Control: Learning a Unified Policy for Manipulation and Locomotion",
+    "venue": "CoRL",
+    "year": 2022,
+    "notes": "在宇树 Go1 + WidowX 机械臂上验证 RL 运控实现臂-腿协同（基于遥操作），并提出 ROA 将环境隐变量 z 的两阶段估计改为一阶段在线估计；基于 Isaac Gym + rsl_rl 开发，代码已开源（CMU）。",
+    "query": "Deep Whole-Body Control Learning a Unified Policy for Manipulation and Locomotion CoRL 2022"
+  },
+  {
+    "group": "其他四足",
+    "title": "Learning robust and Agile Legged Locomotion Using Adversarial Motion Priors",
+    "venue": "RAL",
+    "year": 2023,
+    "notes": "教师-学生框架 + AMP：仅本体感知即可在宇树 Go1 上实现鲁棒复杂连续地形行走；自然步态数据用轨迹优化在平地生成。效果非常好（SJTU）。",
+    "query": "Learning robust and Agile Legged Locomotion Using Adversarial Motion Priors RAL 2023"
+  },
+  {
+    "group": "其他四足",
+    "title": "Lifelike Agility and Play on Quadrupedal Robots using Reinforcement Learning and Generative Pre-trained Models",
+    "venue": "Nature Machine Intelligence",
+    "year": 2023,
+    "notes": "利用生成模型：先在预训练阶段学习动物大规模运动数据，再在环境交互学习阶段复用技能；腾讯 Robotics X 代表作。",
+    "query": "Lifelike Agility and Play on Quadrupedal Robots using Reinforcement Learning and Generative Pre-trained Models 2023"
+  },
+  {
+    "group": "其他四足",
+    "title": "Learning Agile Skills via Adversarial Imitation of Rough Partial Demonstrations",
+    "venue": null,
+    "year": null,
+    "notes": "从不完整动作演示中学习四足动态运动：数据来自人为手工操作机器人收集，在低成本机器人上实现后空翻动作。",
+    "query": "Learning Agile Skills via Adversarial Imitation of Rough Partial Demonstrations quadruped backflip"
+  },
+  {
+    "group": "其他四足",
+    "title": "Extreme Parkour with Legged Robots",
+    "venue": "ICRA",
+    "year": 2024,
+    "notes": "domain randomization + 外感知将宇树 A1 连续地形 locomotion 能力推向极致，可跳箱、翻越、夹缝行走等（CMU/Stanford 等）。",
+    "query": "Extreme Parkour with Legged Robots ICRA 2024"
+  },
+  {
+    "group": "其他四足",
+    "title": "Robot Parkour Learning",
+    "venue": "CoRL",
+    "year": 2024,
+    "notes": "与 Extreme Parkour 同期：通过 domain randomization + 外感知提升跑酷能力（CoRL 2024）。",
+    "query": "Robot Parkour Learning CoRL 2024 legged"
+  },
+  {
+    "group": "其他四足",
+    "title": "Visual Whole-Body Control for Legged Loco-Manipulation",
+    "venue": "CoRL",
+    "year": 2024,
+    "notes": "在宇树 B1 + Z1 机械臂上验证视觉输入的双层策略（模仿学习 + 强化学习），通过 sim2real 实现自动移动抓取；基于 Isaac Gym + rsl_rl，代码已开源（UCSD）。",
+    "query": "Visual Whole-Body Control for Legged Loco-Manipulation CoRL 2024"
+  },
+  {
+    "group": "其他四足",
+    "title": "PIE: Parkour with Implicit-Explicit Learning Framework for Legged Robots",
+    "venue": "RAL",
+    "year": 2024,
+    "notes": "跑酷能力的增强版本：进一步提高动态能力，实现挑战环境高速运动并迁移到野外（ZJU）。",
+    "query": "PIE Parkour with Implicit-Explicit Learning Framework for Legged Robots RAL 2024"
+  },
+
+  {
+    "group": "人形",
+    "title": "Expressive Whole-Body Control for Humanoid Robots",
+    "venue": "RSS",
+    "year": 2024,
+    "notes": "基于 motion sequence retargeting 学习人形运动序列（UCSD）。",
+    "query": "Expressive Whole-Body Control for Humanoid Robots RSS 2024"
+  },
+  {
+    "group": "人形",
+    "title": "Exbody2: Advanced Expressive Humanoid Whole-Body Control",
+    "venue": null,
+    "year": 2024,
+    "notes": "Expressive Whole-Body Control 的后续工作（2024）。",
+    "query": "Exbody2 Advanced Expressive Humanoid Whole-Body Control 2024"
+  },
+  {
+    "group": "人形",
+    "title": "Open-TeleVision: Teleoperation with Immersive Active Visual Feedback",
+    "venue": "CoRL",
+    "year": 2024,
+    "notes": "开源 VR 人形机器人遥操作框架（仅上半身）。",
+    "query": "Open-TeleVision Teleoperation with Immersive Active Visual Feedback CoRL 2024"
+  },
+  {
+    "group": "人形",
+    "title": "Mobile-TeleVision: Predictive Motion Priors for Humanoid Whole-Body Control",
+    "venue": null,
+    "year": 2024,
+    "notes": "在 Mobile-TeleVision 工作中展示全身控制方式，其中 locomotion 控制器结合 Exbody 思路（2024）。",
+    "query": "Mobile-TeleVision Predictive Motion Priors for Humanoid Whole-Body Control 2024"
+  },
+  {
+    "group": "人形",
+    "title": "HOVER: Versatile Neural Whole-Body Controller for Humanoid Robots",
+    "venue": "ICRA",
+    "year": 2025,
+    "notes": "总结并统一多种人形全身控制方式（root velocity tracking、joint angle tracking、key-point tracking 等）（CMU）。",
+    "query": "HOVER Versatile Neural Whole-Body Controller for Humanoid Robots ICRA 2025"
+  },
+  {
+    "group": "人形",
+    "title": "HugWBC: A Unified and General Humanoid Whole-Body Controller for Fine-Grained Locomotion",
+    "venue": null,
+    "year": 2025,
+    "notes": "人形版 Walk These Ways：可细粒度调参的鲁棒连续地形 locomotion（步态、步频、机身高度、俯仰角、触地时间、抬腿高度等）；自然步态来自多项式足端轨迹引导奖励，并通过上肢介入课程实现上肢自由控制（SJTU/上海 AI Lab）。",
+    "query": "HugWBC A Unified and General Humanoid Whole-Body Controller for Fine-Grained Locomotion 2025"
+  },
+  {
+    "group": "人形",
+    "title": "Learning Humanoid Standing-up Control across Diverse Postures",
+    "venue": "RSS",
+    "year": 2025,
+    "notes": "效果很好的倒地起身控制（上海 AI Lab）。",
+    "query": "Learning Humanoid Standing-up Control across Diverse Postures RSS 2025"
+  },
+  {
+    "group": "人形",
+    "title": "Learning Getting-Up Policies for Real-World Humanoid Robots",
+    "venue": "RSS",
+    "year": 2025,
+    "notes": "同期起身策略工作（UIUC）。",
+    "query": "Learning Getting-Up Policies for Real-World Humanoid Robots RSS 2025"
+  },
+  {
+    "group": "人形",
+    "title": "BeyondMimic: From Motion Tracking to Versatile Humanoid Control via Guided Diffusion",
+    "venue": null,
+    "year": 2025,
+    "notes": "高质量 motion tracking + guided diffusion：测试时可用简单 cost functions 做 task-specific control（Berkeley/Stanford）。",
+    "query": "BeyondMimic From Motion Tracking to Versatile Humanoid Control via Guided Diffusion 2025"
+  }
+]
+
