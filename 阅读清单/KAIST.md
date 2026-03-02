@@ -1,5 +1,7 @@
 # KAIST（Raibo / Unitree 等）
 
+> 中文（默认） | [English](KAIST.en.md)
+
 你提到的 KAIST 相关经典工作（按时间）。
 
 ## Concurrent Training of a Control Policy and a State Estimator for Dynamic and Robust Legged Locomotion（RAL 2022）
@@ -17,4 +19,3 @@
 ## A Learning Framework for Diverse Legged Robot Locomotion Using Barrier-Based Style Rewards（ICRA 2025）
 - PDF： [推荐论文/KAIST/2025 - A Learning Framework for Diverse Legged Robot Locomotion Using Barrier-Based Style Rewards.pdf](<../推荐论文/KAIST/2025 - A Learning Framework for Diverse Legged Robot Locomotion Using Barrier-Based Style Rewards.pdf>)
 - 笔记：引入松弛对数障碍函数，设计基于运动模式特征的软约束奖励机制，引导机器人趋向预设运动形态参数（周期步态、关节范围限制等）。未使用运动先验也生成多种仿生四足步态，其中四足站立的“仿人行走”与 Gallop 奔跑步态令人印象深刻。
-

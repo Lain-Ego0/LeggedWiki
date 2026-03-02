@@ -1,5 +1,7 @@
 # ETH Robotics Systems Lab（RSL）
 
+> 中文（默认） | [English](ETH-RSL.en.md)
+
 以下为你提到的 ETH RSL 经典工作（按时间），侧重强化学习在四足运控中的落地与演进。
 
 ## Learning Agile and Dynamic Motor Skills for Legged Robots（Science Robotics 2019）
@@ -41,4 +43,3 @@
 ## DTC: Deep Tracking Control（Science Robotics 2024）
 - PDF： [推荐论文/ETH-RSL/2024 - DTC- Deep Tracking Control.pdf](<../推荐论文/ETH-RSL/2024 - DTC- Deep Tracking Control.pdf>)
 - 笔记：结合 Model-based 与 Learning-based：上层 TO 根据环境与动力学实时优化机身轨迹与足端轨迹；底层 RL 严格跟踪优化轨迹，实现极端地形的精确运动（梅花桩、深沟、废墟等）。相较将任务制定为机身速度跟踪的方法，该分层框架更有利于腿足灵活落足点选择。
-

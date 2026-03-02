@@ -25,7 +25,7 @@ This repository curates ROBOCON-related resources (e.g., Robot Equestrian / Bio-
 .
 ├── README.md          # Chinese (default)
 ├── README.en.md       # English
-├── 阅读清单/           # Reading list + notes (Chinese)
+├── 阅读清单/           # Reading list + notes (CN/EN)
 ├── scripts/            # Fetch/organize scripts
 ├── 比赛规则/           # Rulebooks (PDF)
 ├── 技术分享/           # Slides (PPTX, etc.)
@@ -55,7 +55,7 @@ This repository curates ROBOCON-related resources (e.g., Robot Equestrian / Bio-
   - `推荐论文/ETH-RSL/`, `推荐论文/KAIST/`, `推荐论文/其他/`, `推荐论文/人形/`, `推荐论文/综述/`
 
 ### Reading List
-- Reading list (with notes, mainly Chinese): [阅读清单/README.md](<阅读清单/README.md>)
+- Reading list (CN/EN): [阅读清单/README.en.md](<阅读清单/README.en.md>) / [阅读清单/README.md](<阅读清单/README.md>)
 
 ## External Links
 
@@ -97,4 +97,3 @@ python3 scripts/fetch_open_access_pdfs.py --download
 ## Disclaimer
 - This repository is for learning and indexing only. Copyright belongs to the original authors/publishers.
 - If any material should not be publicly shared, please open an issue or contact the maintainer for removal.
-
