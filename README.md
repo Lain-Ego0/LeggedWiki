@@ -1,5 +1,7 @@
 # ROBOCON-Legged-Robot 资源整合仓库
 
+> 中文（默认） | [English](README.en.md)
+
 本仓库整理 ROBOCON（机器马术 / 仿生足式机器人挑战赛等）相关资料，包含：比赛规则、技术分享、推荐论文，以及常用开源项目/组件/知识库链接，便于检索与复用。
 
 ## 内容导航
@@ -24,6 +26,7 @@
 ```
 .
 ├── README.md
+├── README.en.md       # English version
 ├── 阅读清单/          # 重点论文索引/笔记（可拆分）
 ├── scripts/           # 抓取/整理脚本
 ├── 比赛规则/          # 各届规则 PDF
