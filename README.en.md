@@ -1,6 +1,6 @@
 # LeggedWiki Resource Collection
 
-> English | [中文（默认）](README.md)
+> English | [中文](README.md)
 
 LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspired Legged Robot Challenge, etc.), including:
 
@@ -13,19 +13,21 @@ LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspir
 **Quick links:** [Rulebooks](<比赛规则/>) · [Slides](<技术分享/>) · [Papers](<推荐论文/>) · [Reading list](<阅读清单/README.en.md>)
 
 ## Contents
-- [Directory Layout](#directory-layout)
-- [Local Resources](#local-resources)
-  - [Competition Rules](#competition-rules)
-  - [Tech Sharing](#tech-sharing)
-  - [Papers](#papers)
-  - [Reading List](#reading-list)
-- [External Links](#external-links)
-  - [Full Projects](#full-projects)
-  - [Components](#components)
-  - [Challenge-Specific Repos](#challenge-specific-repos)
-  - [Knowledge Bases](#knowledge-bases)
-- [Contributing](#contributing)
-- [Disclaimer](#disclaimer)
+- [LeggedWiki Resource Collection](#leggedwiki-resource-collection)
+  - [Contents](#contents)
+  - [Directory Layout](#directory-layout)
+  - [Local Resources](#local-resources)
+    - [Competition Rules](#competition-rules)
+    - [Tech Sharing](#tech-sharing)
+    - [Papers](#papers)
+    - [Reading List](#reading-list)
+  - [External Links](#external-links)
+    - [Full Projects](#full-projects)
+    - [Components](#components)
+    - [Challenge-Specific Repos](#challenge-specific-repos)
+    - [Knowledge Bases](#knowledge-bases)
+  - [Contributing](#contributing)
+  - [Disclaimer](#disclaimer)
 
 ## Directory Layout
 
@@ -58,7 +60,7 @@ LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspir
 - Folder: [推荐论文/](<推荐论文/>)
 - Index: [推荐论文/README.md](<推荐论文/README.md>)
 - Local PDFs are organized under:
-  - `推荐论文/ETH-RSL/`, `推荐论文/KAIST/`, `推荐论文/其他/`, `推荐论文/人形/`, `推荐论文/综述/`
+  - `推荐论文/ETH-RSL/`, `推荐论文/KAIST/`, `推荐论文/MIT/`, `推荐论文/MTI/`, `推荐论文/中文/`, `推荐论文/其他/`, `推荐论文/人形/`, `推荐论文/综述/`
 
 ### Reading List
 - Reading list (CN/EN): [阅读清单/README.en.md](<阅读清单/README.en.md>) / [阅读清单/README.md](<阅读清单/README.md>)
