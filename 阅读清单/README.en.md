@@ -1,6 +1,6 @@
 # Reading List (RL Locomotion / Legged / Humanoids)
 
-[中文（默认）](README.md) | English
+[中文](README.md) | English
 
 This folder organizes the papers you listed by lab/source and topic, and (when possible) keeps **open-access PDFs** under `推荐论文/` (preferably arXiv preprints). For works without an open-access PDF, we keep the citation and a note on where to find it.
 

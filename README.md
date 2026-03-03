@@ -2,12 +2,28 @@
 
 > 中文 | [English](README.en.md)
 
-本仓库整理 ROBOCON仿生足式机器人挑战赛相关资料，包含：比赛规则、技术分享、推荐论文，以及常用开源项目/组件/知识库链接，便于检索与复用。
-- 请配套教程使用：
-  [足式机器人运控开发入门](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
-  ![image](assets/image.png)
+本仓库（LeggedWiki）汇总 ROBOCON 仿生足式机器人挑战赛相关资料，面向比赛备赛与科研/开发检索，包含：
+
+- 比赛规则（PDF）
+- 技术分享（PPTX 等）
+- 推荐论文（本地 PDF，优先公开版本）
+- 阅读清单（索引/笔记）
+- 常用开源项目/组件/知识库链接
+
+**快速入口：** [比赛规则](<比赛规则/>) · [技术分享](<技术分享/>) · [推荐论文](<推荐论文/README.md>) · [阅读清单](<阅读清单/README.md>) · [脚本](<scripts/>)
+
+**配套讲解：** [足式机器人运控开发入门](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
+
+<p align="center">
+  <a href="https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home">
+    <img src="assets/image.png" alt="足式机器人运控开发入门" width="820" />
+  </a>
+</p>
 
 ## 内容导航
+<details>
+<summary>点击展开</summary>
+
 - [LeggedWiki 资源整合仓库](#leggedwiki-资源整合仓库)
   - [内容导航](#内容导航)
   - [文件夹结构](#文件夹结构)
@@ -23,8 +39,20 @@
     - [知识库](#知识库)
   - [贡献方式](#贡献方式)
   - [免责声明](#免责声明)
+</details>
 
 ## 文件夹结构
+
+| 路径 | 说明 |
+| --- | --- |
+| [`比赛规则/`](<比赛规则/>) | 各届规则 PDF |
+| [`技术分享/`](<技术分享/>) | 分享材料（PPTX 等） |
+| [`推荐论文/`](<推荐论文/>) | 论文/讲义/笔记 PDF |
+| [`阅读清单/`](<阅读清单/>) | 重点论文索引/笔记（可拆分） |
+| [`scripts/`](<scripts/>) | 抓取/整理脚本 |
+
+<details>
+<summary>展开目录树</summary>
 
 ```
 .
@@ -36,6 +64,7 @@
 ├── 技术分享/          # 分享材料（PPTX 等）
 └── 推荐论文/          # 论文/讲义/笔记 PDF
 ```
+</details>
 
 ## 本地资料
 
@@ -52,10 +81,9 @@
 
 ### 推荐论文
 - 论文 PDF（本地）：见 [推荐论文/README.md](<推荐论文/README.md>)
-- 重点论文阅读索引/笔记：见 [阅读清单/README.md](<阅读清单/README.md>)
 
 ### 阅读清单
-- ETH RSL / KAIST / 其他四足 / 人形 等分类阅读：见 [阅读清单/README.md](<阅读清单/README.md>)
+- 论文索引/笔记（按 ETH RSL / KAIST / 其他 / 人形 等分类）：见 [阅读清单/README.md](<阅读清单/README.md>)
 
 ## 外部链接
 

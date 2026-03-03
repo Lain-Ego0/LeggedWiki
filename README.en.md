@@ -2,7 +2,9 @@
 
 > English | [中文](README.md)
 
-LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspired Legged Robot Challenge, etc.), including:
+LeggedWiki curates resources for the ROBOCON legged-robot challenges (Robot Equestrian / Bio-inspired Legged Robot Challenge, etc.). It also serves as a searchable index of legged-robot papers and open-source resources for developers and researchers.
+
+It includes:
 
 - Competition rulebooks (PDF)
 - Tech-sharing slides (PPTX, etc.)
@@ -10,9 +12,20 @@ LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspir
 - Reading lists (index/notes)
 - Links to commonly referenced open-source projects/components/knowledge bases
 
-**Quick links:** [Rulebooks](<比赛规则/>) · [Slides](<技术分享/>) · [Papers](<推荐论文/>) · [Reading list](<阅读清单/README.en.md>)
+**Quick links:** [Rulebooks](<比赛规则/>) · [Slides](<技术分享/>) · [Papers](<推荐论文/README.md>) · [Reading list](<阅读清单/README.en.md>)
+
+**Companion walkthrough (CN):** [足式机器人运控开发入门](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
+
+<p align="center">
+  <a href="https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home">
+    <img src="assets/image.png" alt="Legged-robot locomotion walkthrough (CN)" width="820" />
+  </a>
+</p>
 
 ## Contents
+<details>
+<summary>Table of contents</summary>
+
 - [LeggedWiki Resource Collection](#leggedwiki-resource-collection)
   - [Contents](#contents)
   - [Directory Layout](#directory-layout)
@@ -28,6 +41,7 @@ LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspir
     - [Knowledge Bases](#knowledge-bases)
   - [Contributing](#contributing)
   - [Disclaimer](#disclaimer)
+</details>
 
 ## Directory Layout
 
@@ -63,7 +77,7 @@ LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspir
   - `推荐论文/ETH-RSL/`, `推荐论文/KAIST/`, `推荐论文/MIT/`, `推荐论文/中文/`, `推荐论文/其他/`, `推荐论文/人形/`, `推荐论文/综述/`
 
 ### Reading List
-- Reading list (CN/EN): [阅读清单/README.en.md](<阅读清单/README.en.md>) / [阅读清单/README.md](<阅读清单/README.md>)
+- Reading list + notes (CN/EN): [阅读清单/README.en.md](<阅读清单/README.en.md>) / [阅读清单/README.md](<阅读清单/README.md>)
 
 ## External Links
 
