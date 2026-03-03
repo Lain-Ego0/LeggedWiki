@@ -60,7 +60,7 @@ LeggedWiki curates ROBOCON legged-robot resources (Robot Equestrian / Bio-inspir
 - Folder: [推荐论文/](<推荐论文/>)
 - Index: [推荐论文/README.md](<推荐论文/README.md>)
 - Local PDFs are organized under:
-  - `推荐论文/ETH-RSL/`, `推荐论文/KAIST/`, `推荐论文/MIT/`, `推荐论文/MTI/`, `推荐论文/中文/`, `推荐论文/其他/`, `推荐论文/人形/`, `推荐论文/综述/`
+  - `推荐论文/ETH-RSL/`, `推荐论文/KAIST/`, `推荐论文/MIT/`, `推荐论文/中文/`, `推荐论文/其他/`, `推荐论文/人形/`, `推荐论文/综述/`
 
 ### Reading List
 - Reading list (CN/EN): [阅读清单/README.en.md](<阅读清单/README.en.md>) / [阅读清单/README.md](<阅读清单/README.md>)

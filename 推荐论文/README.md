@@ -9,7 +9,6 @@
 - ETH RSL：`推荐论文/ETH-RSL/`
 - KAIST：`推荐论文/KAIST/`
 - MIT：`推荐论文/MIT/`
-- MTI（执行器/硬件）：`推荐论文/MTI/`
 - 中文资料（学位论文/笔记等）：`推荐论文/中文/`
 - 其他（四足/双足/通用）：`推荐论文/其他/`
 - 人形：`推荐论文/人形/`
@@ -17,10 +16,7 @@
 
 ## MIT
 - [Dynamic Locomotion in the MIT Cheetah 3 Through Convex Model-Predictive Control](<MIT/Dynamic Locomotion in the MIT Cheetah 3 Through Convex Model-Predictive Control.pdf>)
-- [legged_that_balanced](<MIT/legged_that_balanced.pdf>)
-
-## MTI
-- [A Low Cost Modular Actuator for Dynamic Robots](<MTI/MTI - A Low Cost Modular Actuator for Dynamic Robots.pdf>)
+- [A Low Cost Modular Actuator for Dynamic Robots](<MIT/MIT - A Low Cost Modular Actuator for Dynamic Robots.pdf>)
 
 ## 中文资料
 - [SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计](<中文/SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计.pdf>)
