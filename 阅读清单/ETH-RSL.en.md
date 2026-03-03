@@ -1,6 +1,6 @@
 # ETH Robotics Systems Lab (RSL)
 
-[中文（默认）](ETH-RSL.md) | English
+> English | [中文](ETH-RSL.md)
 
 ## Learning Agile and Dynamic Motor Skills for Legged Robots (Science Robotics 2019)
 - PDF: [推荐论文/ETH-RSL/2019 - Learning agile and dynamic motor skills for legged robots.pdf](<../推荐论文/ETH-RSL/2019 - Learning agile and dynamic motor skills for legged robots.pdf>)
@@ -41,4 +41,3 @@
 ## DTC: Deep Tracking Control (Science Robotics 2024)
 - PDF: [推荐论文/ETH-RSL/2024 - DTC- Deep Tracking Control.pdf](<../推荐论文/ETH-RSL/2024 - DTC- Deep Tracking Control.pdf>)
 - Notes: Combines model-based and learning-based methods. The upper-level trajectory optimization (TO) layer optimizes body and foot trajectories in real time; a lower-level RL policy tightly tracks those trajectories, enabling precise motion over extreme terrains (stepping stones, trenches, rubble/ruins, etc.). Compared to setups that only do base-velocity tracking, this hierarchical design better leverages legged robots’ ability to choose footholds.
-

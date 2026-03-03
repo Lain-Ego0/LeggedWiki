@@ -2,7 +2,7 @@
 
 > 中文 | [English](README.en.md)
 
-这里按来源与主题整理论文，并尽可能在 `推荐论文/` 中提供**可公开获取**的 PDF（优先 arXiv 预印本）。若某些期刊/会议论文未找到公开 PDF，会只保留引用与获取建议。
+本目录按来源与主题整理论文，并尽可能在 `推荐论文/` 中提供**可公开获取**的 PDF（优先 arXiv 预印本）。若某些期刊/会议论文未找到公开 PDF，会只保留引用与获取建议。
 
 ## 索引
 - ETH Robotics Systems Lab（RSL）：[阅读清单/ETH-RSL.md](<ETH-RSL.md>)
@@ -12,7 +12,7 @@
 - 综述：[阅读清单/综述.md](<综述.md>)
 
 ## 如何更新/抓取
-1. 在 `阅读清单/papers.json` 增加条目（title / venue / year / notes / group）。
+1. 在 `阅读清单/papers.json` 新增/更新条目（title / venue / year / notes / group）。
 2. 运行：
 
 ```bash
