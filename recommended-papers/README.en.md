@@ -1,38 +1,38 @@
-# 推荐论文（本地 PDF）
+# Recommended Papers (Local PDFs)
 
-> 中文 | [English](README.en.md)
+> English | [中文](README.md)
 
-该目录收录论文 / 讲义 / 笔记等 PDF（优先保存可公开获取版本，如 arXiv 预印本）。
+This folder stores paper / lecture / note PDFs (prefer open-access versions such as arXiv preprints when possible).
 
-- 技术方向主索引：见 [reading-list/README.md](<../reading-list/README.md#tech-index>)
-- 重点论文索引/笔记：见 [reading-list/README.md](<../reading-list/README.md>)
-- 如需批量抓取可公开 PDF：更新 `reading-list/papers.json` 后运行 `python3 scripts/fetch_open_access_pdfs.py --download`
+- Main index by technical direction: see [reading-list/README.en.md](../reading-list/README.en.md#tech-index)
+- Key papers index / notes: see [reading-list/README.en.md](../reading-list/README.en.md)
+- Batch-fetch open-access PDFs: update `reading-list/papers.json`, then run `python3 scripts/fetch_open_access_pdfs.py --download`
 
-## 目录结构（文件存放）
-- ETH RSL：`ETH-RSL/`
-- KAIST：`KAIST/`
-- MIT：`MIT/`
-- 人形：`humanoid/`
-- 综述：`surveys/`
-- 其他（四足/双足/通用）：`other/`
-- 中文资料（学位论文/笔记等）：`chinese/`
+## Directory Layout (Storage)
+- ETH RSL: `ETH-RSL/`
+- KAIST: `KAIST/`
+- MIT: `MIT/`
+- Humanoids: `humanoid/`
+- Surveys: `surveys/`
+- Other (quadruped/biped/general): `other/`
+- Chinese materials (theses/notes, etc.): `chinese/`
 
-说明：文件存放结构按来源/类型历史演进；阅读索引以「技术方向」为主（见下方）。
+Note: the storage layout evolved historically by source/type; the primary reading index is organized by **technical direction** (see the reading-list pages).
 
-## 按技术方向索引（本地 PDF）
-## 综述 / 教材
+## Technical Direction Index (Local PDFs)
+## Surveys / Tutorials
 - Learning-based legged locomotion: State of the art and future perspectives（IJRR 2025）— [PDF](<surveys/2025 - Learning-based legged locomotion- State of the art and future perspectives.pdf>)
 - Robot Dynamics Lecture Notes（2017）— [PDF](<ETH-RSL/2017 - Robot Dynamics Lecture Notes.pdf>)
 
-## 模型驱动控制 / 轨迹优化
+## Model-based Control / Trajectory Optimization
 - Dynamic Locomotion in the MIT Cheetah 3 Through Convex Model-Predictive Control — [PDF](<MIT/Dynamic Locomotion in the MIT Cheetah 3 Through Convex Model-Predictive Control.pdf>)
 - DTC: Deep Tracking Control（Science Robotics 2024）— [PDF](<ETH-RSL/2024 - DTC- Deep Tracking Control.pdf>)
-- [中文] 基于虚拟模型的四足机器人对角小跑步态控制方法 — [PDF](<chinese/基于虚拟模型的四足机器人对角小跑步态控制方法.pdf>)
-- [中文] 仿生四足机器人多步态规划与控制 — [PDF](<chinese/仿生四足机器人多步态规划与控制.pdf>)
-- [中文] 基于稳定性的仿生四足机器人控制系统设计（于宪元）— [PDF](<chinese/SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计.pdf>)
+- [ZH] 基于虚拟模型的四足机器人对角小跑步态控制方法 — [PDF](<chinese/基于虚拟模型的四足机器人对角小跑步态控制方法.pdf>)
+- [ZH] 仿生四足机器人多步态规划与控制 — [PDF](<chinese/仿生四足机器人多步态规划与控制.pdf>)
+- [ZH] 基于稳定性的仿生四足机器人控制系统设计（于宪元）— [PDF](<chinese/SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计.pdf>)
 
-## 学习运控（本体感知为主）
-### 四足
+## Learning-based Locomotion (Proprioception-focused)
+### Quadrupeds
 - Learning agile and dynamic motor skills for legged robots（Science Robotics 2019）— [PDF](<ETH-RSL/2019 - Learning agile and dynamic motor skills for legged robots.pdf>)
 - Learning Quadrupedal Locomotion over Challenging Terrain（Science Robotics 2020）— [PDF](<ETH-RSL/2020 - Learning Quadrupedal Locomotion over Challenging Terrain.pdf>)
 - Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning（CoRL 2021）— [PDF](<ETH-RSL/2021 - Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning.pdf>)
@@ -40,18 +40,18 @@
 - DreamWaQ: Learning Robust Quadrupedal Locomotion With Implicit Terrain Imagination via Deep Reinforcement Learning（ICRA 2023）— [PDF](<KAIST/2023 - DreamWaQ- Learning Robust Quadrupedal Locomotion With Implicit Terrain Imagination via Deep Reinforcement Learning.pdf>)
 - Rapid Locomotion via Reinforcement Learning（RSS 2022）— [PDF](<other/2022 - Rapid Locomotion via Reinforcement Learning.pdf>)
 
-### 双足
+### Bipeds
 - Sim-to-Real Learning of All Common Bipedal Gaits via Periodic Reward Composition（ICRA 2021）— [PDF](<other/2021 - Sim-to-Real Learning of All Common Bipedal Gaits via Periodic Reward Composition.pdf>)
 
-## Sim-to-Real / 适应
+## Sim-to-Real / Adaptation
 - Sim-to-Real: Learning Agile Locomotion for Quadruped Robots（2018）— [PDF](<other/2018 - Sim-to-Real- Learning Agile Locomotion For Quadruped Robots.pdf>)
 - RMA: Rapid Motor Adaptation for Legged Robots（RSS 2021）— [PDF](<other/2021 - RMA- Rapid Motor Adaptation for Legged Robots.pdf>)
 
-## 感知 / 建图
+## Perception / Mapping
 - Learning robust perceptive locomotion for quadrupedal robots in the wild（Science Robotics 2022）— [PDF](<ETH-RSL/2022 - Learning robust perceptive locomotion for quadrupedal robots in the wild.pdf>)
 - Elevation Mapping for Locomotion and Navigation using GPU（IROS 2022）— [PDF](<ETH-RSL/2022 - Elevation Mapping for Locomotion and Navigation using GPU.pdf>)
 
-## 运动先验 / 模仿学习 / 风格奖励 / 生成模型
+## Motion Priors / Imitation / Style Rewards / Generative Models
 - Learning Agile Robotic Locomotion Skills by Imitating Animals（RSS 2020）— [PDF](<other/2020 - Learning Agile Robotic Locomotion Skills by Imitating Animals.pdf>)
 - Learning Agile Skills via Adversarial Imitation of Rough Partial Demonstrations — [PDF](<other/Learning Agile Skills via Adversarial Imitation of Rough Partial Demonstrations.pdf>)
 - AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control（SIGGRAPH 2021）— [PDF](<other/2021 - AMP- Adversarial Motion Priors for Stylized Physics-Based Character Control.pdf>)
@@ -62,19 +62,19 @@
 - Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild（RAL 2023）— [PDF](<other/2023 - Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild.pdf>)
 - Lifelike Agility and Play on Quadrupedal Robots using Reinforcement Learning and Generative Pre-trained Models（Nature Machine Intelligence 2023）— [PDF](<other/2023 - Lifelike Agility and Play in Quadrupedal Robots using Reinforcement Learning and Generative Pre-trained Models.pdf>)
 
-## 跑酷 / 离散地形 / 高动态
+## Parkour / Discrete Terrain / High Dynamics
 - Learning Agile Locomotion on Risky Terrains（IROS 2024）— [PDF](<ETH-RSL/2024 - Learning Agile Locomotion on Risky Terrains.pdf>)
 - ANYmal Parkour: Learning Agile Navigation for Quadrupedal Robots（Science Robotics 2024）— [PDF](<ETH-RSL/2024 - ANYmal Parkour- Learning Agile Navigation for Quadrupedal Robots.pdf>)
 - Extreme Parkour with Legged Robots（ICRA 2024）— [PDF](<other/2024 - Extreme Parkour with Legged Robots.pdf>)
 - Robot Parkour Learning（CoRL 2024）— [PDF](<other/2024 - Robot Parkour Learning.pdf>)
 - PIE: Parkour with Implicit-Explicit Learning Framework for Legged Robots（RAL 2024）— [PDF](<other/2024 - PIE- Parkour with Implicit-Explicit Learning Framework for Legged Robots.pdf>)
-- [中文] 四足机器人跳跃步态主动柔顺控制研究 — [PDF](<chinese/四足机器人跳跃步态主动柔顺控制研究.pdf>)
+- [ZH] 四足机器人跳跃步态主动柔顺控制研究 — [PDF](<chinese/四足机器人跳跃步态主动柔顺控制研究.pdf>)
 
-## Loco-manipulation / Whole-body
+## Loco-manipulation / Whole-body Control
 - Deep Whole-Body Control: Learning a Unified Policy for Manipulation and Locomotion（CoRL 2022）— [PDF](<other/2022 - Deep Whole-Body Control- Learning a Unified Policy for Manipulation and Locomotion.pdf>)
 - Visual Whole-Body Control for Legged Loco-Manipulation（CoRL 2024）— [PDF](<other/2024 - Visual Whole-Body Control for Legged Loco-Manipulation.pdf>)
 
-## 人形（Whole-Body / Teleop / Getting-Up / 生成）
+## Humanoids (Whole-body / Teleop / Getting-up / Generative)
 - Expressive Whole-Body Control for Humanoid Robots（RSS 2024）— [PDF](<humanoid/2024 - Expressive Whole-Body Control for Humanoid Robots.pdf>)
 - ExBody2: Advanced Expressive Humanoid Whole-Body Control（2024）— [PDF](<humanoid/2024 - ExBody2- Advanced Expressive Humanoid Whole-Body Control.pdf>)
 - Open-TeleVision: Teleoperation with Immersive Active Visual Feedback（CoRL 2024）— [PDF](<humanoid/2024 - Open-TeleVision- Teleoperation with Immersive Active Visual Feedback.pdf>)
@@ -85,13 +85,15 @@
 - Learning Getting-Up Policies for Real-World Humanoid Robots（RSS 2025）— [PDF](<humanoid/2025 - Learning Getting-Up Policies for Real-World Humanoid Robots.pdf>)
 - BeyondMimic: From Motion Tracking to Versatile Humanoid Control via Guided Diffusion（2025）— [PDF](<humanoid/2025 - BeyondMimic- From Motion Tracking to Versatile Humanoid Control via Guided Diffusion.pdf>)
 
-## 硬件 / 机构
+## Hardware / Mechanism
 - A Low Cost Modular Actuator for Dynamic Robots — [PDF](<MIT/MIT - A Low Cost Modular Actuator for Dynamic Robots.pdf>)
-- [中文] 新型电驱式四足机器人研制与测试（王兴兴）— [PDF](<chinese/新型电驱式四足机器人研制与测试-王兴兴.pdf>)
+- [ZH] 新型电驱式四足机器人研制与测试（王兴兴）— [PDF](<chinese/新型电驱式四足机器人研制与测试-王兴兴.pdf>)
 
 ## Others
-- [中文] 四足机器人随笔 — [PDF](<chinese/四足机器人随笔.pdf>)
+- [ZH] 四足机器人随笔 — [PDF](<chinese/四足机器人随笔.pdf>)
 
-## 待补充（暂无公开 PDF）
+## To Be Added (No Open PDF Yet)
 - Learning Quadrupedal Locomotion on Deformable Terrain（Science Robotics 2023）
 - Curiosity-Driven Learning of Joint Locomotion and Manipulation Tasks（CoRL 2023）
+
+Back to overview: [README.en.md](../README.en.md)
