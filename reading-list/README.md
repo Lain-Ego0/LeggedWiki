@@ -297,3 +297,5 @@ python3 scripts/fetch_open_access_pdfs.py --download
 - [中文] 仿生四足机器人多步态规划与控制 — [PDF](<../recommended-papers/chinese/仿生四足机器人多步态规划与控制.pdf>)
 - [中文] 基于虚拟模型的四足机器人对角小跑步态控制方法 — [PDF](<../recommended-papers/chinese/基于虚拟模型的四足机器人对角小跑步态控制方法.pdf>)
 - [中文] SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计 — [PDF](<../recommended-papers/chinese/SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计.pdf>)
+
+返回总览：[README.md](../README.md)

@@ -297,3 +297,5 @@ Note: this is a quick index; for short notes/introductions, see “Notes by Lab/
 - [CN] 仿生四足机器人多步态规划与控制 — [PDF](<../recommended-papers/chinese/仿生四足机器人多步态规划与控制.pdf>)
 - [CN] 基于虚拟模型的四足机器人对角小跑步态控制方法 — [PDF](<../recommended-papers/chinese/基于虚拟模型的四足机器人对角小跑步态控制方法.pdf>)
 - [CN] SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计 — [PDF](<../recommended-papers/chinese/SY1807103-于宪元-基于稳定性的仿生四足机器人控制系统设计.pdf>)
+
+Back to overview: [README.en.md](../README.en.md)
