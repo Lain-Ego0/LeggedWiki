@@ -9,11 +9,11 @@
   },
   {
     "group": "ETH-RSL",
-    "title": "Learning quadrupedal locomotion over challenging terrain",
+    "title": "Learning Quadrupedal Locomotion over Challenging Terrain",
     "venue": "Science Robotics",
     "year": 2020,
     "notes": "首次提出两阶段教师-学生框架：教师策略利用模拟器里的“作弊信息”学习到好的运动策略，再通过在线模仿学习（DAgger）蒸馏给可部署（仅历史可观测数据）的学生策略（引入 encoder 估计隐式作弊信息）。同时提出地形课程，实现鲁棒的复杂连续地形行走。该阶段控制仍较复杂：网络用于辅助足端轨迹生成，还需 IK 求解得到最终 target joints；而后续主流更倾向策略直接输出 target joints。",
-    "query": "Learning quadrupedal locomotion over challenging terrain 2020 Science Robotics"
+    "query": "Learning Quadrupedal Locomotion over Challenging Terrain 2020 Science Robotics"
   },
   {
     "group": "ETH-RSL",
@@ -65,11 +65,11 @@
   },
   {
     "group": "ETH-RSL",
-    "title": "ANYmal parkour: Learning agile navigation for quadrupedal robots",
+    "title": "ANYmal Parkour: Learning Agile Navigation for Quadrupedal Robots",
     "venue": "Science Robotics",
     "year": 2024,
     "notes": "多层级框架：感知模块重建环境信息，导航模块根据环境信息导航并驱动运动模块选择能力；运动模块具备跑酷基本技能。首篇实现四足动态跑酷的工作之一。",
-    "query": "ANYmal parkour Learning agile navigation for quadrupedal robots Science Robotics 2024"
+    "query": "ANYmal Parkour Learning Agile Navigation for Quadrupedal Robots Science Robotics 2024"
   },
   {
     "group": "ETH-RSL",
@@ -98,11 +98,11 @@
   },
   {
     "group": "KAIST",
-    "title": "Learning quadrupedal locomotion on deformable terrain",
+    "title": "Learning Quadrupedal Locomotion on Deformable Terrain",
     "venue": "Science Robotics",
     "year": 2023,
     "notes": "针对模拟器多为刚性接触动力学，修改 RaiSim 底层接触模型，建模颗粒介质（granular media）接触动力学，实现 Raibo 在沙滩/海绵垫等松软地形的敏捷与鲁棒运动；采用非对称训练框架，进一步验证其有效性。",
-    "query": "Learning quadrupedal locomotion on deformable terrain Science Robotics 2023"
+    "query": "Learning Quadrupedal Locomotion on Deformable Terrain Science Robotics 2023"
   },
   {
     "group": "KAIST",
@@ -114,11 +114,11 @@
   },
   {
     "group": "综述",
-    "title": "Learning-based legged locomotion state of the art and future perspectives",
+    "title": "Learning-based legged locomotion: State of the art and future perspectives",
     "venue": "IJRR",
     "year": 2025,
-    "notes": "学习方法腿足式机器人运动控制综述：系统概括过去几年学术界与工业界相关成果并展望未来方向（来自 Gatech）。",
-    "query": "Learning-based legged locomotion state of the art and future perspectives IJRR 2025"
+    "notes": "学习方法腿足式机器人运动控制综述：系统概括过去几年学术界与工业界相关成果并展望未来方向（Georgia Tech）。",
+    "query": "Learning-based legged locomotion: State of the art and future perspectives IJRR 2025"
   },
 
   {
@@ -134,7 +134,7 @@
     "title": "Learning Agile Robotic Locomotion Skills by Imitating Animals",
     "venue": "RSS",
     "year": 2020,
-    "notes": "在宇树早期的 Leika 狗上，基于 motion retargeting + DeepMimic 的 motion tracking 方案，学习动物自然风格运动行为。代码已开源（UCB）。",
+    "notes": "在宇树早期的 Laikago 平台上，基于 motion retargeting + DeepMimic 的 motion tracking 方案，学习动物自然风格运动行为。代码已开源（UCB）。",
     "query": "Learning Agile Robotic Locomotion Skills by Imitating Animals RSS 2020"
   },
   {
@@ -195,11 +195,11 @@
   },
   {
     "group": "其他四足",
-    "title": "Learning robust and Agile Legged Locomotion Using Adversarial Motion Priors",
+    "title": "Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild",
     "venue": "RAL",
     "year": 2023,
-    "notes": "教师-学生框架 + AMP：仅本体感知即可在宇树 Go1 上实现鲁棒复杂连续地形行走；自然步态数据用轨迹优化在平地生成。效果非常好（SJTU）。",
-    "query": "Learning robust and Agile Legged Locomotion Using Adversarial Motion Priors RAL 2023"
+    "notes": "教师-学生框架 + AMP：仅本体感知即可在宇树 Go1 上实现鲁棒复杂连续地形行走；自然步态数据用轨迹优化在平地生成。注：期刊标题为 “Learning robust and Agile Legged Locomotion Using Adversarial Motion Priors”（SJTU）。",
+    "query": "Learning Robust, Agile, Natural Legged Locomotion Skills in the Wild RAL 2023"
   },
   {
     "group": "其他四足",
@@ -260,11 +260,11 @@
   },
   {
     "group": "人形",
-    "title": "Exbody2: Advanced Expressive Humanoid Whole-Body Control",
+    "title": "ExBody2: Advanced Expressive Humanoid Whole-Body Control",
     "venue": null,
     "year": 2024,
     "notes": "Expressive Whole-Body Control 的后续工作（2024）。",
-    "query": "Exbody2 Advanced Expressive Humanoid Whole-Body Control 2024"
+    "query": "ExBody2 Advanced Expressive Humanoid Whole-Body Control 2024"
   },
   {
     "group": "人形",
@@ -279,7 +279,7 @@
     "title": "Mobile-TeleVision: Predictive Motion Priors for Humanoid Whole-Body Control",
     "venue": null,
     "year": 2024,
-    "notes": "在 Mobile-TeleVision 工作中展示全身控制方式，其中 locomotion 控制器结合 Exbody 思路（2024）。",
+    "notes": "在 Mobile-TeleVision 工作中展示全身控制方式，其中 locomotion 控制器结合 ExBody 思路（2024）。",
     "query": "Mobile-TeleVision Predictive Motion Priors for Humanoid Whole-Body Control 2024"
   },
   {
@@ -323,4 +323,3 @@
     "query": "BeyondMimic From Motion Tracking to Versatile Humanoid Control via Guided Diffusion 2025"
   }
 ]
-
