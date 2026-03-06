@@ -16,10 +16,10 @@ LeggedWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource repos
 ### 🚀 Quick Navigation
 | Module | Direct Access |
 | :--- | :--- |
-| Competition Rules | [Competition Rules](<比赛规则/>) |
-| Technical Sharing | [Technical Sharing](<技术分享/>) |
-| Recommended Papers | [Recommended Papers/README.md](<推荐论文/README.md>) |
-| Learning & Reading List | [Reading List/README.md](<阅读清单/README.md>) |
+| Competition Rules | [Competition Rules](<competition-rules/>) |
+| Technical Sharing | [Technical Sharing](<technical-sharing/>) |
+| Recommended Papers | [Recommended Papers/README.md](<recommended-papers/README.md>) |
+| Learning & Reading List | [Reading List/README.md](<reading-list/README.md>) |
 | Supporting Tool Scripts | [scripts](<scripts/>) |
 
 **Supporting Systematic Tutorial**: [Introductory Knowledge Base for Legged Robot Motion Control Development](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
@@ -34,24 +34,24 @@ LeggedWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource repos
 
 ## 📋 Competition Rules
 A collection of official rule versions for the ROBOCON Bionic Legged Robot Challenge (formerly Equestrian Robot Competition) from 2022 to 2026, including revised and updated releases:
-- [Rules of the 21st National College Student Robot Competition ROBOCON Equestrian Competition (Revised on 2021-12-20)](<比赛规则/2022年第二十一届全国大学生机器人大赛ROBOCON机器马术赛规则（20211220修订）.pdf>)
-- [Rules of the 22nd National College Student Robot Competition Equestrian Competition (Proposed Draft V2)](<比赛规则/2023年第二十二届全国大学生机器人大赛-机器马术赛规则（拟发布稿V2）.pdf>)
-- [Competition Rulebook of the 23rd National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge](<比赛规则/2024年第二十三届全国大学生机器人大赛 ROBOCON仿生足式机器人挑战赛比赛规则手册.pdf>)
-- [Rules of the 24th National College Student Robot Competition "Bionic Legged Robot Challenge" (V1.0)](<比赛规则/2025年第二十四届全国大学生机器人大赛“仿生足式机器人挑战赛”规则-V1.0.pdf>)
-- [Rules of the 24th National College Student Robot Competition "Bionic Legged Robot Challenge" (V2.0)](<比赛规则/2025年第二十四届全国大学生机器人大赛“仿生足式机器人挑战赛”规则-V2.0.pdf>)
-- [Competition Rules of the 25th National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge (V1.0)](<比赛规则/2026年第二十五届全国大学生机器人大赛ROBOCON仿生足式机器人挑战赛比赛规则-V1.0.pdf>)
-- [Competition Rules of the 25th National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge (V2.0)](<比赛规则/2026年第二十五届全国大学生机器人大赛ROBOCON仿生足式机器人挑战赛比赛规则-V2.0.pdf>)
+- [Rules of the 21st National College Student Robot Competition ROBOCON Equestrian Competition (Revised on 2021-12-20)](<competition-rules/2022年第二十一届全国大学生机器人大赛ROBOCON机器马术赛规则（20211220修订）.pdf>)
+- [Rules of the 22nd National College Student Robot Competition Equestrian Competition (Proposed Draft V2)](<competition-rules/2023年第二十二届全国大学生机器人大赛-机器马术赛规则（拟发布稿V2）.pdf>)
+- [Competition Rulebook of the 23rd National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge](<competition-rules/2024年第二十三届全国大学生机器人大赛 ROBOCON仿生足式机器人挑战赛比赛规则手册.pdf>)
+- [Rules of the 24th National College Student Robot Competition "Bionic Legged Robot Challenge" (V1.0)](<competition-rules/2025年第二十四届全国大学生机器人大赛“仿生足式机器人挑战赛”规则-V1.0.pdf>)
+- [Rules of the 24th National College Student Robot Competition "Bionic Legged Robot Challenge" (V2.0)](<competition-rules/2025年第二十四届全国大学生机器人大赛“仿生足式机器人挑战赛”规则-V2.0.pdf>)
+- [Competition Rules of the 25th National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge (V1.0)](<competition-rules/2026年第二十五届全国大学生机器人大赛ROBOCON仿生足式机器人挑战赛比赛规则-V1.0.pdf>)
+- [Competition Rules of the 25th National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge (V2.0)](<competition-rules/2026年第二十五届全国大学生机器人大赛ROBOCON仿生足式机器人挑战赛比赛规则-V2.0.pdf>)
 
 ## 📢 Technical Sharing
 Technical reviews, solution sharing, and industry exchange materials from participating universities:
-- [2023 Dalian Polytechnic University Equestrian Competition Technical Sharing](<技术分享/2023大连工业大学马术分享.pptx>)
-- [2026 Annual Meeting Fujian University of Technology: From Competition to Embodiment? A Discussion on Legged Robots](<技术分享/2026年会 福建理工 从赛事到“具身”？足式机器人杂谈.pptx>)
+- [2023 Dalian Polytechnic University Equestrian Competition Technical Sharing](<technical-sharing/2023大连工业大学马术分享.pptx>)
+- [2026 Annual Meeting Fujian University of Technology: From Competition to Embodiment? A Discussion on Legged Robots](<technical-sharing/2026年会 福建理工 从赛事到“具身”？足式机器人杂谈.pptx>)
 
 ## 📄 Recommended Papers
-- Local PDF files and categorized indexes of papers: See [Recommended Papers/README.md](<推荐论文/README.md>)
+- Local PDF files and categorized indexes of papers: See [Recommended Papers/README.md](<recommended-papers/README.md>)
 
 ## 📖 Reading List
-- Paper indexes, categorization, and study notes (classified by ETH RSL / KAIST / Others / Humanoid Robots, etc.): See [Reading List/README.md](<阅读清单/README.md>)
+- Paper indexes, categorization, and study notes (classified by ETH RSL / KAIST / Others / Humanoid Robots, etc.): See [Reading List/README.md](<reading-list/README.md>)
 
 ---
 
@@ -87,9 +87,9 @@ Technical reviews, solution sharing, and industry exchange materials from partic
 
 ## 🤝 Contribution Guidelines
 We welcome all developers and participating teams to improve this repository. Contribution methods are as follows:
-1. **Add New Materials**: Place files in the corresponding directories `比赛规则/`, `技术分享/`, `推荐论文/` by content type. File names should include key information such as "edition/year/theme/version" for easy retrieval.
+1. **Add New Materials**: Place files in the corresponding directories `competition-rules/`, `technical-sharing/`, `recommended-papers/` by content type. File names should include key information such as "edition/year/theme/version" for easy retrieval.
 2. **Add New External Links**: Prioritize official/original author open-source addresses, clearly mark the project purpose and affiliated institution to ensure traceable information.
-3. **Update Reading List**: Prioritize maintaining paper entries in `阅读清单/papers.json`, then run `python3 scripts/fetch_open_access_pdfs.py --download` to fetch open-source PDF files.
+3. **Update Reading List**: Prioritize maintaining paper entries in `reading-list/papers.json`, then run `python3 scripts/fetch_open_access_pdfs.py --download` to fetch open-source PDF files.
 4. **Large File Handling**: For single files exceeding ~100MB, please use Git LFS for management or replace them with compliant external links.
 
 ---

@@ -275,12 +275,12 @@ def _pick_best_arxiv_match(query: PaperQuery, candidates: list[dict[str, Any]]) 
 def _group_to_dir(group: str) -> str:
     group = group.strip()
     mapping = {
-        "ETH-RSL": "推荐论文/ETH-RSL",
-        "KAIST": "推荐论文/KAIST",
-        "综述": "推荐论文/综述",
-        "人形": "推荐论文/人形",
+        "ETH-RSL": "recommended-papers/ETH-RSL",
+        "KAIST": "recommended-papers/KAIST",
+        "综述": "recommended-papers/surveys",
+        "人形": "recommended-papers/humanoid",
     }
-    return mapping.get(group, "推荐论文/其他")
+    return mapping.get(group, "recommended-papers/other")
 
 
 def main() -> int:
@@ -289,13 +289,13 @@ def main() -> int:
     )
     parser.add_argument(
         "--papers",
-        default="阅读清单/papers.json",
-        help="Path to papers.json (default: 阅读清单/papers.json)",
+        default="reading-list/papers.json",
+        help="Path to papers.json (default: reading-list/papers.json)",
     )
     parser.add_argument(
         "--report",
-        default="阅读清单/fetch_report.json",
-        help="Where to write JSON report (default: 阅读清单/fetch_report.json)",
+        default="reading-list/fetch_report.json",
+        help="Where to write JSON report (default: reading-list/fetch_report.json)",
     )
     parser.add_argument(
         "--download",
