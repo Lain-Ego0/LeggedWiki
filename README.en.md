@@ -32,31 +32,6 @@ LeggedWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource repos
 
 ---
 
-## 📋 Competition Rules
-A collection of official rule versions for the ROBOCON Bionic Legged Robot Challenge (formerly Equestrian Robot Competition) from 2022 to 2026, including revised and updated releases:
-- [Rules of the 21st National College Student Robot Competition ROBOCON Equestrian Competition (Revised on 2021-12-20)](<competition-rules/2022年第二十一届全国大学生机器人大赛ROBOCON机器马术赛规则（20211220修订）.pdf>)
-- [Rules of the 22nd National College Student Robot Competition Equestrian Competition (Proposed Draft V2)](<competition-rules/2023年第二十二届全国大学生机器人大赛-机器马术赛规则（拟发布稿V2）.pdf>)
-- [Competition Rulebook of the 23rd National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge](<competition-rules/2024年第二十三届全国大学生机器人大赛 ROBOCON仿生足式机器人挑战赛比赛规则手册.pdf>)
-- [Rules of the 24th National College Student Robot Competition "Bionic Legged Robot Challenge" (V1.0)](<competition-rules/2025年第二十四届全国大学生机器人大赛“仿生足式机器人挑战赛”规则-V1.0.pdf>)
-- [Rules of the 24th National College Student Robot Competition "Bionic Legged Robot Challenge" (V2.0)](<competition-rules/2025年第二十四届全国大学生机器人大赛“仿生足式机器人挑战赛”规则-V2.0.pdf>)
-- [Competition Rules of the 25th National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge (V1.0)](<competition-rules/2026年第二十五届全国大学生机器人大赛ROBOCON仿生足式机器人挑战赛比赛规则-V1.0.pdf>)
-- [Competition Rules of the 25th National College Student Robot Competition ROBOCON Bionic Legged Robot Challenge (V2.0)](<competition-rules/2026年第二十五届全国大学生机器人大赛ROBOCON仿生足式机器人挑战赛比赛规则-V2.0.pdf>)
-
-## 📢 Technical Sharing
-Technical reviews, solution sharing, and industry exchange materials from participating universities:
-- [2023 Dalian Polytechnic University Equestrian Competition Technical Sharing](<technical-sharing/2023大连工业大学马术分享.pptx>)
-- [2026 Annual Meeting Fujian University of Technology: From Competition to Embodiment? A Discussion on Legged Robots](<technical-sharing/2026年会 福建理工 从赛事到“具身”？足式机器人杂谈.pptx>)
-
-## 📄 Recommended Papers
-- Local PDFs & index: See [recommended-papers/README.en.md](recommended-papers/README.en.md)
-- Reading list index (by technical direction): See [reading-list/README.en.md](reading-list/README.en.md#tech-index)
-
-## 📖 Reading List
-- Paper indexes, categorization, and study notes (primarily indexed by technical direction, with supplementary notes by lab/source): See [reading-list/README.en.md](reading-list/README.en.md)
-
----
-
-## 🔗 High-Quality External Open-Source Resources
 ### 🏆 Complete Competition Solution Open-Source
 | Institution | Season/Project | Open-Source Repository |
 | :--- | :--- | :--- |
