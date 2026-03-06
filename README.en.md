@@ -16,13 +16,13 @@ LeggedWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource repos
 ### 🚀 Quick Navigation
 | Module | Direct Access |
 | :--- | :--- |
-| Competition Rules | [Competition Rules](<competition-rules/>) |
-| Technical Sharing | [Technical Sharing](<technical-sharing/>) |
-| Recommended Papers | [Recommended Papers/README.md](<recommended-papers/README.md>) |
-| Learning & Reading List | [Reading List/README.md](<reading-list/README.md>) |
-| Supporting Tool Scripts | [scripts](<scripts/>) |
+| Competition Rules | [Competition Rules](competition-rules/README.en.md) |
+| Technical Sharing | [Technical Sharing](technical-sharing/README.en.md) |
+| Recommended Papers | [Local PDFs & index](recommended-papers/README.en.md) |
+| Learning & Reading List | [Reading list (entry)](reading-list/README.en.md) |
+| Supporting Tool Scripts | [scripts](scripts/README.en.md) |
 
-**Supporting Systematic Tutorial**: [Introductory Knowledge Base for Legged Robot Motion Control Development](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
+**Supporting Systematic Tutorial**: [Introductory Knowledge Base for Legged Robot Motion Control Development](https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home)
 
 <p align="center">
   <a href="https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home">
@@ -48,10 +48,11 @@ Technical reviews, solution sharing, and industry exchange materials from partic
 - [2026 Annual Meeting Fujian University of Technology: From Competition to Embodiment? A Discussion on Legged Robots](<technical-sharing/2026年会 福建理工 从赛事到“具身”？足式机器人杂谈.pptx>)
 
 ## 📄 Recommended Papers
-- Local PDF files and categorized indexes of papers: See [Recommended Papers/README.md](<recommended-papers/README.md>)
+- Local PDFs & index: See [recommended-papers/README.en.md](recommended-papers/README.en.md)
+- Reading list index (by technical direction): See [reading-list/README.en.md](reading-list/README.en.md#tech-index)
 
 ## 📖 Reading List
-- Paper indexes, categorization, and study notes (classified by ETH RSL / KAIST / Others / Humanoid Robots, etc.): See [Reading List/README.md](<reading-list/README.md>)
+- Paper indexes, categorization, and study notes (primarily indexed by technical direction, with supplementary notes by lab/source): See [reading-list/README.en.md](reading-list/README.en.md)
 
 ---
 
