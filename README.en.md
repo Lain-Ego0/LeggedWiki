@@ -2,6 +2,8 @@
 
 <img src="assets/Logo1.png" alt="Introduction to Legged Robot Motion Control Development" width="820" />
 
+Project website:https://leggedwiki.github.io/
+
 > [中文](README.md) | English
 
 LeggedWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource repository built for the ROBOCON Bionic Legged Robot Challenge. It is designed for competition preparation, academic research, and development reference, covering the full-stack core resources for legged robot development:
