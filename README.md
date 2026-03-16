@@ -1,12 +1,12 @@
-# 🦿 LeggedWiki 足式机器人资源整合仓库
+# 🦿 LocoWiki 足式机器人资源整合仓库
 
 <img src="assets/Logo1.png" alt="足式机器人运控开发入门" width="820" />
 
-项目网站：https://leggedwiki.github.io/
+项目网站：https://locowiki.github.io/
 
 > 中文 | [English](README.en.md)
 
-LeggedWiki 原名 ROBOCON_Legged_Robot，是专为 ROBOCON 仿生足式机器人挑战赛打造的一站式资源整合仓库，面向比赛备赛、科研学习与开发检索场景，全链路覆盖足式机器人开发核心资源：
+LocoWiki 原名 ROBOCON_Legged_Robot，是专为 ROBOCON 仿生足式机器人挑战赛打造的一站式资源整合仓库，面向比赛备赛、科研学习与开发检索场景，全链路覆盖足式机器人开发核心资源：
 
 - 📋 历届赛事官方规则文档
 - 📢 高校参赛队伍技术分享
