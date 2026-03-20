@@ -50,7 +50,7 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 ### 🧩 Core Component & Driver Open-Source
 - Shiwei Technology: Damiao USB to CAN / Lingzu Motor + MC02 Driver [DM_RS](https://github.com/zeitvex/DM_RS)
 - Jinzhong College of Information: MC02 Unitree Motor Driver [MC02_for_Unitree](https://github.com/Lain-Ego0/MC02_for_Unitree)
-- Guilin University of Aerospace Technology: Lingzu Motor Keil Driver Package [RobStride-motorDrive](https://github.com/heartpain-kong/RobStride-motorDrive)
+- Guilin University of Aerospace Technology: Damia DM02 Development Board Motor Drive YuShu(DMA)\lingzu\damiao\dji [DM02-motorDrive](https://github.com/heartpain-kong/DM02_motorDrive)
 
 ### 🎯 Competition Task Functional Open-Source
 - Hefei University of Technology: 2026 Season Competition Venue 3D Model [26RC_Field](https://github.com/Ruixi-Cheng/26RC_Field)
