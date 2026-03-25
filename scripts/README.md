@@ -1,5 +1,7 @@
 # 🛠️ 配套脚本（scripts/）
 
+> 中文 | [English](README.en.md)
+
 本目录包含仓库维护相关的辅助脚本。
 
 ## fetch_open_access_pdfs.py

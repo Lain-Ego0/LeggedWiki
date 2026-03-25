@@ -1,5 +1,7 @@
 # 🛠️ Supporting Scripts (scripts/)
 
+> [中文](README.md) | English
+
 This folder contains helper scripts for maintaining this repository.
 
 ## fetch_open_access_pdfs.py
