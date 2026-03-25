@@ -1,11 +1,12 @@
-# Reading List (RL Locomotion / Legged / Humanoids)
+# Paper Study Hub (Reading List + Recommended Papers)
 
 > English | [中文](README.md)
 
-This folder collects key papers in legged / humanoid locomotion and related topics, and (when possible) keeps **open-access PDFs** under `recommended-papers/` (preferably arXiv preprints). For works without an open-access PDF, we keep the citation and a note on where to find it.
+This folder is the unified entry for the paper module: technical-direction index, key paper notes, and maintenance workflow. The `recommended-papers/` folder is now the storage layer for **open-access local PDFs** (preferably arXiv preprints). For works without an open-access PDF, we keep citations and retrieval notes.
 
 ## Quick Navigation
 - [Update / Fetch PDFs](#update-fetch)
+- [Local PDF Storage Folder](../recommended-papers/README.en.md)
 - [Technical Direction Index (Quick Lookup)](#tech-index)
 - [Notes by Lab/Source (Detailed)](#source-notes)
   - [ETH RSL](#eth-rsl)
