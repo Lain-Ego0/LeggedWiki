@@ -1,5 +1,7 @@
 # 📢 Technical Sharing (technical-sharing/)
 
+> [中文](README.md) | English
+
 This folder collects technical reviews, solution sharing slides, and exchange materials from participating teams (PPT/PPTX).
 
 - [2023 Dalian Polytechnic University Equestrian Competition Technical Sharing](<2023大连工业大学马术分享.pptx>)
