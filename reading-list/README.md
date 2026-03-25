@@ -1,11 +1,12 @@
-# 阅读清单（RL 运控 / 足式 / 人形）
+# 论文学习清单（阅读清单 + 推荐论文）
 
 > 中文 | [English](README.en.md)
 
-本目录整理足式 / 人形等方向的代表论文，并尽可能在 `recommended-papers/` 中提供 **可公开获取** 的 PDF（优先 arXiv 预印本）。若某些期刊/会议论文未找到公开 PDF，会保留引用与获取建议。
+本目录是论文功能的统一入口：负责技术方向索引、重点论文笔记与更新维护说明。`recommended-papers/` 目录仅用于存放 **可公开获取** 的本地 PDF（优先 arXiv 预印本）。若某些期刊/会议论文未找到公开 PDF，会保留引用与获取建议。
 
 ## 快速跳转
 - [如何更新/抓取](#update)
+- [本地 PDF 存储目录](../recommended-papers/README.md)
 - [按技术方向索引（快速查找）](#tech-index)
 - [按来源/团队笔记（详细介绍）](#source-notes)
   - [ETH RSL](#eth-rsl)

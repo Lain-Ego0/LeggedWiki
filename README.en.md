@@ -10,7 +10,7 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 
 - 📋 Official rule documents of past competitions
 - 📢 Technical sharing from participating university teams
-- 📄 Recommended papers in the field of legged robotics
+- 📄 Paper study hub (reading list + recommended PDF collection)
 - 🔗 Collection of mainstream open-source projects, core components, and learning knowledge bases
 
 ---
@@ -20,8 +20,7 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 | :--- | :--- |
 | Competition Rules | [Competition Rules](competition-rules/README.en.md) |
 | Technical Sharing | [Technical Sharing](technical-sharing/README.en.md) |
-| Recommended Papers | [Local PDFs & index](recommended-papers/README.en.md) |
-| Learning & Reading List | [Reading list (entry)](reading-list/README.en.md) |
+| Paper Study Hub | [Reading list (index + recommended PDFs)](reading-list/README.en.md) |
 | Supporting Tool Scripts | [scripts](scripts/README.en.md) |
 
 **Supporting Systematic Tutorial**: [Introductory Knowledge Base for Legged Robot Motion Control Development](https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home)
@@ -65,9 +64,9 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 
 ## 🤝 Contribution Guidelines
 We welcome all developers and participating teams to improve this repository. Contribution methods are as follows:
-1. **Add New Materials**: Place files in the corresponding directories `competition-rules/`, `technical-sharing/`, `recommended-papers/` by content type. File names should include key information such as "edition/year/theme/version" for easy retrieval.
+1. **Add New Materials**: Place files in `competition-rules/`, `technical-sharing/`, and `recommended-papers/` by content type. For new paper entries, also update the index in `reading-list/README.en.md` or `reading-list/papers.json` for easier lookup.
 2. **Add New External Links**: Prioritize official/original author open-source addresses, clearly mark the project purpose and affiliated institution to ensure traceable information.
-3. **Update Reading List**: Prioritize maintaining paper entries in `reading-list/papers.json`, then run `python3 scripts/fetch_open_access_pdfs.py --download` to fetch open-source PDF files.
+3. **Update Paper List**: Maintain paper entries in `reading-list/papers.json`, then run `python3 scripts/fetch_open_access_pdfs.py --download` to fetch open-access PDF files.
 4. **Large File Handling**: For single files exceeding ~100MB, please use Git LFS for management or replace them with compliant external links.
 
 ---
