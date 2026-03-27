@@ -1,34 +1,36 @@
-# 🦿 LocoWiki 足式机器人资源整合仓库
+# 🦿 LocoWiki 机器人运控仓库
 
-<img src="assets/Logo1.png" alt="足式机器人运控开发入门" width="820" />
+<img src="assets/LOGO-LocoWiki1-cut.jpg" alt="足式机器人运控开发入门" width="820" />
 
 项目网站：https://locowiki.github.io/
 
 > 中文 | [English](README.en.md)
 
-LocoWiki 原名 ROBOCON_Legged_Robot，是专为 ROBOCON 仿生足式机器人挑战赛打造的一站式资源整合仓库，面向比赛备赛、科研学习与开发检索场景，全链路覆盖足式机器人开发核心资源：
+LocoWiki 原名 ROBOCON_Legged_Robot，是专为机器人运控学习打造的一站式资源整合仓库，面向比赛备赛、科研学习与开发检索场景，全链路覆盖足式机器人开发核心资源：
 
 - 📋 历届赛事官方规则文档
 - 📢 高校参赛队伍技术分享
 - 📄 论文学习清单（阅读清单 + 推荐论文 PDF）
 - 🔗 主流开源项目、核心组件与学习知识库汇总
+
+**配套系统讲解**：[机器人运控开发飞书知识库](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
+
+<p align="center">
+  <a href="https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home">
+    <img src="assets/image.png" alt="机器人运控开发入门" width="820" />
+  </a>
+</p>
+
 ---
 
 ### 🚀 快速导航
 | 模块 | 直达入口 |
 | :--- | :--- |
 | 赛事规则 | [比赛规则](competition-rules/README.md)|
+| 网络开源 | [网络开源](network-open-source/README.md)|
 | 技术分享 | [技术分享](technical-sharing/README.md) |
 | 论文学习清单 | [阅读清单（含推荐论文与本地 PDF）](reading-list/README.md) |
 | 配套工具脚本 | [scripts](scripts/README.md)|
-
-**配套系统讲解**：[足式机器人运控开发入门知识库](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
-
-<p align="center">
-  <a href="https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home">
-    <img src="assets/image.png" alt="足式机器人运控开发入门" width="820" />
-  </a>
-</p>
 
 ---
 
