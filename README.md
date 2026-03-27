@@ -1,6 +1,6 @@
 # 🦿 LocoWiki 足式机器人资源整合仓库
 
-<img src="assets/Logo1.png" alt="足式机器人运控开发入门" width="820" />
+<img src="assets/LOGO-LocoWiki1-cut.png" alt="足式机器人运控开发入门" width="820" />
 
 项目网站：https://locowiki.github.io/
 

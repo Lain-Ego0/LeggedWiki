@@ -1,6 +1,6 @@
 # 🦿 LocoWiki Legged Robot Resource Repository
 
-<img src="assets/Logo1.png" alt="Introduction to Legged Robot Motion Control Development" width="820" />
+<img src="assets/LOGO-LocoWiki1-cut.png" alt="Introduction to Legged Robot Motion Control Development" width="820" />
 
 Project website:https://locowiki.github.io/
 
