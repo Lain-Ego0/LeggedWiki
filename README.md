@@ -50,7 +50,7 @@ LocoWiki 原名 ROBOCON_Legged_Robot，是专为机器人运控学习打造的�
 ### 🧩 核心组件驱动开源
 - 时维科技：达妙USB转CAN/灵足电机+MC02驱动 [DM_RS](https://github.com/zeitvex/DM_RS)
 - 晋中信息学院：MC02 宇树电机驱动 [MC02_for_Unitree](https://github.com/Lain-Ego0/MC02_for_Unitree)
-- 桂林航天工业学院：达妙02电机驱动包含了宇树(DMA)灵足大疆达妙和大疆遥控器例程 [DM02-motorDrive](https://github.com/heartpain-kong/DM02_motorDrive)
+- 桂林航天工业学院：基于达妙H7中常用开源,包括宇树+DMA、灵足、达妙、大疆的电机驱动库、大疆遥控器和底盘控制 [DM02_control](https://github.com/heartpain-kong/DM02_control)
 
 ### 🎯 赛题功能性开源
 - 合肥工业大学：2026赛季赛事场地三维模型 [26RC_Field](https://github.com/Ruixi-Cheng/26RC_Field)
