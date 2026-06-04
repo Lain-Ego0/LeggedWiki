@@ -4,7 +4,7 @@
 
 ## 前置自测
 
-📋 **前置自测**（答不出 ≥ 2 题 → 先回 M11 / `02_C++基础与进阶/50_ROS2工程化` 复习）
+📋 **前置自测**（答不出 $\ge$ 2 题 → 先回 M11 / `02_C++基础与进阶/50_ROS2工程化` 复习）
 
 1. 什么是 `SCHED_FIFO` 调度策略？它与 `SCHED_OTHER` 的延迟差异量级是多少？（M11）
 2. `pluginlib` 的动态加载机制是什么？它与 `dlopen` 的关系是什么？（`02_C++基础与进阶/50_ROS2工程化/40_硬件集成与RL部署`）
@@ -19,6 +19,65 @@
 2. **独立编写** 一个符合实时约束的 `SystemInterface` 硬件驱动插件
 3. **熟练配置** JointTrajectoryController / ForwardCommandController / AdmittanceController 三大机械臂控制器
 4. **掌握** 从 RL 策略导出到 ros2_control 执行的完整部署流水线
+
+---
+
+## 知识导航
+
+本章围绕"如何让控制算法与真实/仿真硬件安全高效地对话"这一核心问题展开。ros2_control 是 ROS2 生态中连接上层规划/控制与下层硬件驱动的中间件抽象层，理解它的分层架构是后续 MoveIt2 集成（M14）和 RL 真机部署的前提。
+
+```
+                 控制算法（MoveIt2 / RL / 自定义）
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │    Controller Manager    │ ← 编排一切（M12.1）
+                 │  ┌─────┬───────┬──────┐ │
+                 │  │ JTC │Forward│Admit.│ │ ← 控制器层（M12.4）
+                 │  └──┬──┴───┬───┴──┬───┘ │
+                 │     │      │      │      │
+                 │  ┌──▼──────▼──────▼───┐  │
+                 │  │  Resource Manager   │  │ ← 接口独占/共享（M12.1）
+                 │  └──┬──────┬──────┬───┘  │
+                 │     ▼      ▼      ▼      │
+                 │  [System] [Actu.] [Sens.]│ ← 硬件组件（M12.2/M12.3）
+                 └─────────────────────────┘
+                              │
+              ┌───────────────┼───────────────┐
+              ▼               ▼               ▼
+          Franka          UR5e          Gazebo/Mock
+        (libfranka)    (ur_driver)    (gz_ros2_control)
+        M12.7           M12.7          M12.10
+```
+
+**§号与正文的一一对应**：
+
+| § | 标题 | 难度 | 一句话定位 |
+|---|------|------|----------|
+| M12.1 | 架构全景 | ⭐⭐ | 四大组件 + RT 主循环 + 独占/共享语义 |
+| M12.2 | 三种硬件组件类型 | ⭐⭐ | System/Actuator/Sensor 的选型与 URDF 声明 |
+| M12.3 | 编写自定义 SystemInterface | ⭐⭐ | 生命周期回调 + RT-safe read/write 完整实现 |
+| M12.4 | 机械臂常用控制器 | ⭐⭐ | JTC/Forward/Admittance/Gripper 配置与选型 |
+| M12.5 | generate_parameter_library | ⭐⭐⭐ | 类型安全的参数声明与代码生成 |
+| M12.6 | Chainable Controllers | ⭐⭐⭐ | 链式控制器拓扑 + 错误恢复机制 |
+| M12.7 | 参考驱动精读 | ⭐⭐ | libfranka vs ur_robot_driver 源码走读 |
+| M12.8 | EtherCAT 集成 | ⭐⭐⭐⭐ | 工业总线 + SOEM/IgH 驱动开发 |
+| M12.9 | RL 策略部署 | ⭐⭐ | LibTorch vs ONNX Runtime + CRISP 架构 |
+| M12.10 | Chainable 实战与 gz_ros2_control | ⭐⭐⭐ | 链式拓扑实战 + Gazebo 最新集成 |
+
+**推荐阅读路径**：
+
+- **快速上手路径**（只需会配置）：M12.1 → M12.2 → M12.4 → M12.7（跳过自定义驱动和 EtherCAT）
+- **驱动开发者路径**（需要写硬件插件）：M12.1 → M12.2 → M12.3 → M12.5 → M12.7 → M12.8
+- **RL 部署路径**（从仿真到真机）：M12.1 → M12.4（Forward）→ M12.9 → M12.10
+
+### 预计阅读时间
+
+| 档位 | 时长 | 路径 |
+|------|------|------|
+| **精读**（推荐） | 15-20 学时（约 1.5 周） | 全章顺序读 + 完成 M12.3 自定义 SystemInterface 编程练习 + 用 mock_hardware 跑完整 pipeline |
+| **速读** | 4-6 小时 | M12.1 架构全景 + M12.2 三种类型 + M12.4 控制器选型 + M12.9 RL 部署概览，跳过 EtherCAT 和 Chainable 细节 |
+| **速查** | 30 分钟 | 直接看 M12.1 架构图、M12.4 控制器选型决策流程、M12.9 LibTorch vs ONNX 对比表、章末故障排查手册 |
 
 ---
 
@@ -137,15 +196,15 @@ Controller 实现控制算法。它的 `update()` 方法在每个 RT 循环中�
   t=0                                 t=T
 ```
 
-关键约束：`read() + Σ update() + write()` 的总耗时必须小于周期 T。在 1kHz 控制频率下，T = 1ms。典型的 read/write 各需 50-200μs（取决于通信协议），控制器 update 通常 10-100μs。
+关键约束：`read() + Σ update() + write()` 的总耗时必须小于周期 T。在 1kHz 控制频率下，T = 1ms。典型的 read/write 各需 50-200$\mu$s（取决于通信协议），控制器 update 通常 10-100$\mu$s。
 
 | 组件 | 典型耗时 | 瓶颈来源 |
 |------|---------|---------|
-| `read()` | 50-200μs | EtherCAT/USB 通信延迟 |
-| `update()` (JTC) | 10-50μs | 样条插值 + PID 计算 |
-| `update()` (Admittance) | 50-100μs | 质量-弹簧-阻尼器模型 + FK |
-| `write()` | 50-200μs | 命令帧发送 |
-| **总计** | 160-550μs | 留约 450-840μs 余量 |
+| `read()` | 50-200$\mu$s | EtherCAT/USB 通信延迟 |
+| `update()` (JTC) | 10-50$\mu$s | 样条插值 + PID 计算 |
+| `update()` (Admittance) | 50-100$\mu$s | 质量-弹簧-阻尼器模型 + FK |
+| `write()` | 50-200$\mu$s | 命令帧发送 |
+| **总计** | 160-550$\mu$s | 留约 450-840$\mu$s 余量 |
 
 ### ⚠️ 常见陷阱
 
@@ -1627,7 +1686,7 @@ UR 控制箱                           你的工作站
 
 ### EtherCAT 基础
 
-EtherCAT（Ethernet for Control Automation Technology）由 Beckhoff 2003 年提出，核心特征是**飞行式帧处理**：以太网帧不在从站停留——每个从站在帧经过时直接读取/写入自己的数据，然后让帧继续传递。整条总线的通信延迟与从站数量几乎无关（每个从站增加约 1μs）。
+EtherCAT（Ethernet for Control Automation Technology）由 Beckhoff 2003 年提出，核心特征是**飞行式帧处理**：以太网帧不在从站停留——每个从站在帧经过时直接读取/写入自己的数据，然后让帧继续传递。整条总线的通信延迟与从站数量几乎无关（每个从站增加约 1$\mu$s）。
 
 ```
 Master (你的工作站)
@@ -1648,7 +1707,7 @@ Master (你的工作站)
 
 | 维度 | EtherCAT | Franka UDP | UR TCP/RTDE |
 |------|----------|------------|-------------|
-| 实时性 | 硬实时（<1μs jitter） | 硬实时（~100μs jitter） | 软实时（~1ms jitter） |
+| 实时性 | 硬实时（<1$\mu$s jitter） | 硬实时（~100$\mu$s jitter） | 软实时（~1ms jitter） |
 | 拓扑 | 菊花链/星型/树型 | 点对点 | 点对点 |
 | 从站数 | 理论 65535 | 1 | 1 |
 | 协议层 | 数据链路层（L2） | 网络层（L3） | 传输层（L4） |
@@ -2121,6 +2180,21 @@ admittance_controller:
 > **跨领域类比**：gz_ros2_control 的角色类似于 Docker 的虚拟网络——它让 ros2_control 控制器"以为"自己在和真实硬件通信，实际上对面是 Gazebo 的物理引擎。这种"虚拟硬件"模式是 sim-to-real 的基础——M15 的 Mini-Manip 项目正是通过切换这一层来实现 Gazebo/Mock/真机三态切换。
 
 ---
+
+## 本章常见误解汇总
+
+以下是初学者最容易产生的错误认知，以及对应的正确理解。每条误解都在正文相关小节有详细展开，此处集中列出以便自检。
+
+| # | 常见误解 | 正确理解 | 相关小节 |
+|---|---------|---------|---------|
+| 1 | "ros2_control 只能控制关节（joint）" | ros2_control 的 State/Command Interface 是通用的名值对抽象，不仅限于关节。力/力矩传感器（Sensor 类型）、GPIO、IMU 等任何可读可写的硬件资源都能通过 `export_state_interfaces()` / `export_command_interfaces()` 暴露给控制器。关节只是最常见的用例，但框架本身对"接口是什么物理量"不做假设。 | M12.2 |
+| 2 | "HardwareInterface 必须用 C++ 编写" | 硬件驱动的核心确实要求 C++（因为 pluginlib 加载的是 .so 动态库，且实时循环对性能有硬约束）。但 C++ 插件内部可以通过 socket、共享内存或 gRPC 与 Python 进程通信——例如 RL 推理可以用 Python/LibTorch 在非实时进程中执行，C++ 侧仅负责收发数据。此外，`mock_components` 和 `gz_ros2_control` 等仿真后端实际上并不与真实硬件通信，也可用于快速原型验证。 | M12.3, M12.9 |
+| 3 | "Controller 一定要自己写" | ros2_control 生态已经提供了大量开箱即用的控制器：JointTrajectoryController（轨迹跟踪）、ForwardCommandController（直接转发）、AdmittanceController（导纳力控）、DiffDriveController（差速底盘）、JointStateBroadcaster（状态发布）等。绝大多数机械臂应用只需**配置参数**而不需要写新控制器。只有当需要自定义控制逻辑（如链式级联、特殊滤波）时才需要继承 `ControllerInterface` 编写插件。 | M12.4 |
+| 4 | "Controller Manager 只是一个普通的 ROS2 节点" | Controller Manager 表面上是 ROS2 节点，但它的主循环运行在 `SCHED_FIFO` 实时线程上，与普通节点的 `spin()` 完全不同。它不依赖 ROS2 的 executor 来驱动控制循环——`read() → update() → write()` 是在专用实时线程中以固定频率硬执行的。ROS2 的 service/topic 只用于**非实时路径**（如加载控制器、切换模式）。混淆实时路径和非实时路径是最危险的架构错误之一。 | M12.1 |
+| 5 | "在 `read()`/`write()` 中调用 ROS2 服务或 topic 发布是安全的" | **绝对不安全**。`read()` 和 `write()` 运行在实时线程中，任何可能阻塞或触发内存分配的操作（ROS2 publish、service call、日志打印、`new`/`delete`）都会导致不可预测的延迟（jitter），轻则控制抖动、重则触发看门狗紧急停止。实时线程中只能操作预分配的 `double` 数组和无锁数据结构。诊断信息应通过 lock-free 队列传递到非实时线程再发布。 | M12.1, M12.3 |
+| 6 | "command interface 和 state interface 是同一个变量" | 虽然很多 `SystemInterface` 实现中 command 和 state 指向相同的 `double` 变量（尤其是 mock hardware），但**概念上它们完全不同**：command interface 是控制器"写入期望值"的通道，state interface 是硬件"上报实际值"的通道。在真实硬件中，写入 command 后 state 不会立刻等于 command——因为有执行延迟、PID 跟踪误差、物理惯性等。`on_activate()` 中必须用当前 state 初始化 command，否则切换瞬间会出现跳变。 | M12.3, M12.4 |
+| 7 | "use_mock_hardware 只用于单元测试" | `mock_components::GenericSystem` 不仅用于测试，更是**开发流程的核心工具**。正确的工作流是：先用 mock hardware 验证控制器配置、launch 文件和参数——不需要真实硬件或仿真器就能跑通完整的 ros2_control 管线。只有 mock 验证通过后才切换到 Gazebo 仿真或真实硬件。这一步能提前发现 90% 的配置错误，大幅缩短调试周期。 | M12.3, M12.10 |
+| 8 | "EtherCAT 驱动和普通串口驱动的 SystemInterface 写法一样" | EtherCAT 是工业实时总线，其 `read()`/`write()` 必须与 EtherCAT 的分布式时钟（DC）同步——不是"想读就读"，而是在总线周期的精确时间窗内完成 PDO 交换。这要求驱动层使用 SOEM 或 IgH EtherLAB 等专用协议栈，并处理从站状态机（INIT → PRE-OP → SAFE-OP → OP）。普通串口驱动只需简单的 `read()`/`write()` 系统调用，复杂度完全不在同一量级。 | M12.8 |
 
 ## 本章小结
 
