@@ -5,7 +5,7 @@
 | 难度 | ⭐⭐⭐（MPC代价扩展 + Lie群误差 + 碰撞约束） |
 | 预计时间 | 1.5 周（25-30 小时） |
 | 前置依赖 | 足式/30_Pinocchio深度精读(Pinocchio CRTP), 足式/50_空间向量与浮动基座动力学(空间向量), 足式/60_QP_NLP建模(QP/NLP), 足式/110_OCS2完整栈与双线程MPC(OCS2 MPC栈), 复合/20_浮动基座臂统一动力学(统一动力学) |
-| 下游章节 | 复合/40_RL全身控制基础(RL全身控制), 复合/120_底盘臂联合规划-85(移动操作应用) |
+| 下游章节 | 复合/40_RL全身控制基础(RL全身控制), 复合/120_底盘臂联合规划(移动操作应用) |
 
 ---
 
@@ -283,8 +283,12 @@ $$
 完整的梯度计算链：
 
 $$
-\frac{\partial J_{ee}}{\partial \mathbf{q}} = \boldsymbol{\xi}_{err}^\top \mathbf{W} \cdot \underbrace{\mathbf{J}_{log}(\mathbf{T}_{err})}_{\text{Jlog6}} \cdot \underbrace{\text{Ad}(\mathbf{T}_{ref}^{-1})}_{\text{坐标变换}} \cdot \underbrace{\mathbf{J}_{ee}(\mathbf{q})}_{\text{FK Jacobian}}
+\frac{\partial C}{\partial \mathbf{q}} = \boldsymbol{\xi}_{err}^\top \mathbf{W} \cdot \underbrace{\frac{\partial \boldsymbol{\xi}_{err}}{\partial \mathbf{q}}}_{J_{err}},
+\qquad
+J_{err} = -\,\underbrace{\mathbf{J}_{log}(\mathbf{T}_{err}^{-1})}_{\text{Jlog6, 取 } \mathbf{T}_{err}^{-1}} \cdot \underbrace{\mathbf{J}_{ee}^{\text{LOCAL}}(\mathbf{q})}_{\text{FK Jacobian (LOCAL)}}
 $$
+
+其中 $C = \tfrac{1}{2}\boldsymbol{\xi}_{err}^\top \mathbf{W}\,\boldsymbol{\xi}_{err}$ 是末端位姿跟踪代价，$\boldsymbol{\xi}_{err} = \mathrm{Log}(\mathbf{T}_{err})$，$\mathbf{T}_{err} = \mathbf{T}_{ee}^{-1}\mathbf{T}_{ref}$。**关键细节**：`Jlog6` 必须以 $\mathbf{T}_{err}^{-1}$ 为参数（这与 Pinocchio 官方 CLIK 例程 `Jlog6(iMd.inverse(), Jlog); J = -Jlog * J;` 完全一致）；负号源于 $\mathbf{T}_{err}$ 对 $\mathbf{q}$ 的左扰动方向，而伴随变换 $\mathrm{Ad}$ 已被 $\mathbf{T}_{err}^{-1}$ 处的 `Jlog6` 吸收，无需再单独乘出。$\mathbf{J}_{ee}^{\text{LOCAL}}$ 是 `LOCAL` 帧下的物体 Jacobian。
 
 ### Pinocchio API 实现
 
@@ -318,9 +322,9 @@ void computeEETrackingError(
     // Step 3: 对数映射 -> 6维误差向量
     error = pinocchio::log6(T_err).toVector();  // [omega(3), v(3)]
 
-    // Step 4: 对数映射的 Jacobian (Jlog6)
+    // Step 4: 对数映射的 Jacobian (Jlog6)——注意以 T_err 的逆为参数
     Eigen::Matrix<double, 6, 6> J_log;
-    pinocchio::Jlog6(T_err, J_log);  // d_log(T_err)/d_T_err
+    pinocchio::Jlog6(T_err.inverse(), J_log);  // 与官方 CLIK 例程一致：Jlog6(iMd.inverse(), ...)
 
     // Step 5: FK Jacobian（body frame）
     Eigen::Matrix<double, 6, Eigen::Dynamic> J_fk(6, model.nv);
@@ -328,8 +332,8 @@ void computeEETrackingError(
     pinocchio::computeFrameJacobian(model, data, q, eeFrameId,
                                      pinocchio::LOCAL, J_fk);
 
-    // Step 6: 链式法则 = Jlog * (-J_fk)
-    // 注意负号：误差定义为 T_ee^{-1} * T_ref，T_ee 增大时误差减小
+    // Step 6: 链式法则 J_error = -Jlog6(T_err^{-1}) * J_fk(LOCAL)
+    // 负号来自 T_err 对 q 的左扰动方向；伴随变换已被 T_err^{-1} 处的 Jlog6 吸收
     J_error = -J_log * J_fk;
 }
 ```
@@ -863,7 +867,7 @@ T_{solve} \propto (N \cdot (n_x + n_u))^{2 \sim 3}
 $$
 
 > **陷阱警告** ⚠️
-> 论文中声称"实时 MPC"时要仔细看 DOF 数和时域长度。Sleiman 2021 的 "unified MPC" 在 Go2+Z1 上实现 ~8ms，但这是 centroidal dynamics（6维动量而非 full state）+ SQP-RTI（仅1次迭代）的结果。Full dynamics MPC 在同样 DOF 下需要 50ms+。
+> 论文中声称"实时 MPC"时要仔细看 DOF 数和时域长度。Sleiman 2021 的 "unified MPC" 在 ANYmal C+DynaArm 上实现 ~20ms，但这是 centroidal dynamics（6维动量而非 full state）+ SQP-RTI（仅1次迭代）的结果。Full dynamics MPC 在同样 DOF 下需要 50ms+。
 
 ### 解决方案一：减少时域节点
 
@@ -1674,8 +1678,8 @@ VLA 能否替代 MPC 用于四足+臂？
 - **可调试**：MPC 层有物理可解释性
 
 代表工作：
-- UMI on Legs (He et al. 2024)：Universal Manipulation Interface 部署在四足上，locomotion 用 RL policy，manipulation 用 diffusion policy
-- Deep Whole-Body Control (ETH 2024)：RL locomotion + MPC manipulation
+- UMI on Legs (Ha et al. 2024)：Universal Manipulation Interface 部署在四足上，locomotion 用 RL policy，manipulation 用 diffusion policy
+- Deep Whole-Body Control (CMU, CoRL 2022)：RL locomotion + MPC manipulation
 - RAMBO (2024)：MPC + RL 混合全身控制，根据任务阶段动态切换
 
 ### 何时 MPC 仍然是最优选择？

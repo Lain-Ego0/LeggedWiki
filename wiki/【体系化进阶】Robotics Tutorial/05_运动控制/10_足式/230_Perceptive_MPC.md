@@ -34,6 +34,28 @@
 
 ---
 
+## 论文-代码映射表（总览）
+
+本章是**论文解读型**教学章，核心论文是 Grandia et al. 2023 (T-RO, arXiv:2208.08373)，对照代码是 [`leggedrobotics/ocs2`](https://github.com/leggedrobotics/ocs2) 的 `ocs2_perceptive` 模块及 ANYmal perceptive 示例。下表把论文的方法论各部分映射到代码模块，并标注**清晰度级别**（SPECIFIED = 论文明确且与代码一致；PARTIAL = 论文提及但细节须从代码补全；UNSPECIFIED = 论文未提及但代码存在；CONFLICT = 论文与代码/本章简化叙述不一致）。所有 PARTIAL/UNSPECIFIED/CONFLICT 项在正文对应小节展开，并汇总于章末"歧义审计汇总表"。
+
+| 论文部分 | 核心内容 | 对应代码 | 清晰度 | 本章小节 |
+|---------|---------|---------|--------|---------|
+| §III 系统综述 | 感知-规划-控制三层管线 | ANYmal perceptive 示例（多包） | SPECIFIED | 67.2 |
+| §IV-A 可踩性分类 | 坡度/粗糙度/台阶阈值 | `convex_plane_decomposition`（独立仓库） | PARTIAL（阈值从配置提取） | 67.3 |
+| §IV-B 平面分割 | 连通域 + 凸分解 | `convex_plane_decomposition` | PARTIAL | 67.3 |
+| §IV-C SDF 预计算 | 从分割平面构建 3D SDF | `SegmentedPlanesSignedDistanceField`、`ComputeDistanceTransform.h` | PARTIAL | 67.4, 67.7 |
+| §V-A 落脚可行性约束 | 凸不等式（半空间）序列 | OCP 约束装配（示例 `*Interface.cpp`） | SPECIFIED | 67.3 |
+| §V-B 碰撞回避约束 | 末端-地形距离约束 | `EndEffectorDistanceConstraint(CppAd).h/.cpp` | SPECIFIED | 67.4, 67.7 |
+| §V-C 地形代价 | 躯体高度跟踪等 | 代价装配（示例代码） | PARTIAL（权重从 `.info` 提取） | 67.5 |
+| §V 地图查询可微化 | 双线性插值的值与梯度 | `interpolation/BilinearInterpolation.h` | SPECIFIED | 67.4, 67.7 |
+| §VI 求解器 | SQP + HPIPM，RTI | `ocs2_sqp`、`ocs2_qp_solver`（见 110 章） | SPECIFIED | 67.7, 67.9 |
+| §VII 实验 | gaps/slopes/stepping stones | 无对应开源复现脚本 | UNSPECIFIED | 67.8 数据 |
+| 全章"2D SDF"叙述 | 本章降维简化 | 接口实为 3D（`vector3_t`） | CONFLICT | 67.4, 67.7 |
+
+> **使用方法**：读到任一小节遇到"论文-代码差异"或"论文没告诉你的"标注时，可回到本表定位该项的清晰度级别与代码出处。`convex_plane_decomposition` 与高程图、`grid_map_sdf` 等是 ANYmal perceptive 示例引入的**外部工程包**，不全在 `ocs2_perceptive` 目录内——这点本身就是初次读 OCS2 perceptive 容易踩的坑（详见 67.7）。
+
+---
+
 ## 67.1 从盲 MPC 到感知 MPC ⭐
 
 > **本节解决什么问题**：建立"为什么需要把感知嵌入 MPC"的动机——不是因为技术上能做，而是因为盲 MPC 在真实崎岖地形上会系统性地失效。
@@ -147,6 +169,8 @@ Grandia 2023 的历史地位在于：它是较早系统性展示**实机 100 Hz 
 
 > **跨领域类比**：感知 MPC 中地形数据 $M$ 嵌入优化问题的方式,类似于计算机图形学中纹理映射(Texture Mapping)嵌入渲染管线的方式。在图形学中,纹理是一张离散的像素图,但 GPU 的光栅化管线需要在任意连续坐标处查询颜色——解决方案是双线性插值。感知 MPC 面临完全相同的问题:高程图是离散栅格,SQP 需要在任意连续足端坐标处查询地面高度——解决方案同样是双线性插值。不同之处在于,图形学只需要插值的值,而 MPC 还需要插值的梯度(用于 SQP 的 Jacobian)——这要求插值方案本身是可微的。
 
+> **跨章桥接（回顾足式/110_OCS2完整栈与双线程MPC）**：上面写的 OCP $\min \sum l(x,u)$ s.t. $\dot{x}=f(x,u),\ h(x,u)\geq 0$ 正是 110 章 OCS2 求解的标准连续时间最优控制问题——状态 $x$ 含躯体位姿/速度与关节状态，输入 $u$ 含接触力/关节指令，$f$ 是 Centroidal 或全身动力学，$h$ 是摩擦锥与关节限位。110 章用 SQP 把它线性化、用 HPIPM 求解，RTI 模式每周期只做 1 次迭代。本章**不重写这套求解机制**，只在已有 OCP 上新增 $M$ 依赖的项 $l(x,u,M)$ 和 $g(x,M)\geq 0$。换句话说：感知 MPC = 110 章的 OCS2 求解器 + 本章的地形项，求解器一行代码都不用改——这正是"地形感知是增量"（67.5）在 OCP 层面的体现。
+
 ### ⚠️ 常见陷阱
 
 > ⚠️ **概念误区：认为"感知 MPC"只是在 MPC 代价里加一个地形罚项**
@@ -254,6 +278,30 @@ Grandia 2023 的管线可以分为三个层次、六个模块：
 | 状态估计 | 400 Hz | <1 ms | CPU | Kalman 更新 |
 
 **端到端延迟**：从传感器看到障碍到 MPC 输出避障轨迹，总延迟约为 **30-60 ms**。在 0.5 m/s 行走速度下，这对应 1.5-3 cm 的移动距离——对于 4cm 分辨率的高程图来说可以接受。
+
+**延迟链的分解推演**：上面这个"30-60ms"不是拍脑袋的，把它沿管线拆开能看清每一段的来源，也能看清"为什么这个延迟可容忍"：
+
+```
+障碍进入视野
+  │  ① 传感器曝光+传输      5-10 ms   (帧率上限决定)
+  ▼
+点云到达
+  │  ② Elevation Mapping    10-20 ms  (点云投影+Kalman, 最重一段)
+  ▼
+高程图更新
+  │  ③ 分类+分割+SDF        10-25 ms  (三个子模块串行)
+  ▼
+约束/SDF 就绪
+  │  ④ 等待下一个 MPC 周期  0-10 ms   (相位等待, 100Hz 即 0-10ms)
+  ▼
+MPC 触发
+  │  ⑤ SQP+HPIPM 求解       5-10 ms
+  ▼
+轨迹输出 → WBC
+合计 ≈ 30-75 ms (典型 40-50 ms)
+```
+
+> **本质洞察**：这条链里有一段最容易被忽略却很关键——**④ 相位等待**。感知是 20 Hz、MPC 是 100 Hz，但感知更新和 MPC 触发**不同步**，所以新地图就绪后，最坏要等近一个 MPC 周期（10ms）才被消费。这解释了"为什么单纯把感知提到 100 Hz 也救不了延迟"（67.2 后面的陷阱）：瓶颈在②③的绝对耗时，不在触发频率。而整条链可容忍的根本原因是**地形是准静态的**——在 50ms 内地形几乎不变，机器人只移动了 2.5cm（半个格子），MPC 用"50ms 前的地形 + 实时的本体状态"做预测，误差被高程图分辨率（4cm）吸收掉了。这正是 67.2 开头"地形时间尺度远慢于运动时间尺度"那句话的定量兑现。
 
 ### 管线的三个子管线 (A)(B)(C) 详解
 
@@ -421,6 +469,30 @@ $$\text{Plane}_k = (\boldsymbol{n}_k, d_k, \mathcal{B}_k)$$
 $$\boldsymbol{n}_k \cdot \boldsymbol{p} = d_k$$
 
 任何在这个平面上的落脚点 $\boldsymbol{p}_{\text{foot}}$ 都应满足此方程（在法向方向上）。
+
+### 步骤 2.5：凸内接多边形分解（论文-代码补全）
+
+> 📄 **论文没告诉你的（来源：论文 §IV-B + 外部包 `convex_plane_decomposition`）**：本章到这里只讲了"把可踩区域拟合成平面"。但仅有平面方程 $\boldsymbol{n}_k\cdot\boldsymbol{p}=d_k$ 只约束了**法向高度**，没约束"脚是否落在这块平面的边界内"。真实的 Grandia 2023 多了一步——对每个分割出的平面区域，提取一个**凸内接多边形**（convex inscribed polygon）。这一步不在 `ocs2_perceptive`，而在独立的 `convex_plane_decomposition` 包里。
+
+**为什么需要凸分解**：平面分割得到的可踩区域边界通常是**非凸、不规则**的多边形（比如 L 形平台、带缺口的台阶）。直接用这种边界做约束，会引入非凸约束，破坏 SQP 的实时性（67.3 开头的"非凸"问题就在这里复现）。解决办法是在不规则区域内部**内接一个最大凸多边形**：
+
+```
+不规则可踩区域            内接凸多边形（约束用）
+┌──────┐                ┌──────┐
+│██████│___              │░░░░░░│
+│████████ │   ──凸分解──> │░░░░░░│   ← 只保留这块凸区域做落脚约束
+│██████│‾‾‾              │░░░░░░│
+└──────┘                └──────┘
+(L形, 非凸)              (矩形, 凸, 略小但安全)
+```
+
+**凸多边形如何变成约束**：一个凸多边形可以表示为若干半空间的交集。设凸多边形有 $m$ 条边，每条边给出一个 2D 半空间约束 $\boldsymbol{a}_j^\top (x_{\text{foot}}, y_{\text{foot}}) \leq b_j$，则"脚落在凸多边形内"等价于：
+
+$$\boldsymbol{a}_j^\top \begin{bmatrix} x_{\text{foot}} \\ y_{\text{foot}} \end{bmatrix} \leq b_j, \quad j = 1, \dots, m$$
+
+这就是 WebSearch 核实的论文摘要里那句"a sequence of convex inequality constraints is extracted as local approximations of foothold feasibility"的真实含义——**落脚可行性 = 法向高度等式（步骤3）+ 切向的凸多边形半空间约束序列（本步骤）**。每条边一个线性不等式，全部凸，HPIPM 高效处理。
+
+> **本质洞察**：凸内接多边形是"**用可行性换凸性**"的经典手法——内接凸多边形比原区域小，牺牲了一点可落脚面积（边角踩不到了），但换来了约束的凸性和求解器的实时性。这与 67.3 开头"把全局非凸问题转化为局部凸问题"的主线完全一致，只是这次发生在**切向（水平面内）**，而半空间高度约束发生在**法向**。两者正交互补，共同把"脚落在这块不规则平台上"翻译成 MPC 能实时处理的凸约束集。
 
 ### 步骤 3：落脚点约束的凸不等式形式
 
@@ -644,6 +716,33 @@ for (size_t i = 0; i < num_ee; ++i) {
 }
 ```
 
+### 三级近似：SQP 到底向距离约束要什么
+
+读 OCS2 源码会发现 `EndEffectorDistanceConstraintCppAd` 暴露了**三个**层级递增的方法，而不只是上面用到的 `getLinearApproximation`。这对应 SQP 在不同求解模式下对约束的不同需求：
+
+| 方法（源码核实） | 返回 | SQP 用途 | 计算成本 |
+|----------------|------|---------|---------|
+| `getValue(t,x,u,·)` | 约束值向量 $g$ | 检查约束违反、线搜索 | 最低（仅正运动学 + 查表） |
+| `getLinearApproximation(...)` | $g$ 与 $\partial g/\partial(x,u)$ | 一阶 SQP（RTI 默认） | 中（加末端雅可比） |
+| `getQuadraticApproximation(...)` | 再加二阶项 | 完整二阶 SQP / 罚函数 Hessian | 高（加二阶导） |
+
+> **本质洞察**：很多人以为"MPC 求解器只要约束的雅可比就够了"，这只在**一阶 SQP（RTI）**下成立。当 OCS2 用 Augmented Lagrangian 把距离约束转成罚项并入代价时，求解器需要罚项的 **Hessian** 才能构造正定的 QP 子问题——这就要到 `getQuadraticApproximation`。理解"约束有三个近似层级、求解模式决定调用哪个"，才算真正读懂了 OCS2 约束接口的设计：它不是为某一种求解器写死的，而是把"提供多少阶信息"的选择权交给上层。
+
+**距离约束 Hessian 的结构**：把约束写成 $g_i(x) = \phi(p_i(x)) - c_i$，对状态求二阶导，用链式法则得到：
+
+$$\frac{\partial^2 g_i}{\partial x^2} = \underbrace{J_{p}^\top \, \nabla_p^2\phi \, J_{p}}_{\text{距离场曲率项}} + \underbrace{(\nabla_p\phi)^\top \frac{\partial^2 p_i}{\partial x^2}}_{\text{运动学曲率项}}$$
+
+其中 $J_p = \partial p_i/\partial x$ 是末端运动学雅可比。工程上几乎总是用 **Gauss-Newton 近似**——丢掉第二项（运动学二阶导，张量、昂贵），并把 $\nabla_p^2\phi$ 近似为零或小正定项（因为 SDF 在远离障碍处近似线性，曲率小）。
+
+> 💡 **论文没告诉你的（数值 trick，来源：SQP 通用实践 + OCS2 罚函数实现）**：为什么敢丢掉 $\nabla_p^2\phi$？因为理想 SDF 满足 $\|\nabla\phi\|=1$（单位梯度，eikonal 性质），其等值面曲率在平直障碍附近接近零；只有在凹角/狭缝处曲率才显著。Gauss-Newton 丢掉这一项的代价，是在这些高曲率区域收敛略慢——但换来了**保证正定**的 QP 子问题（$J_p^\top J_p \succeq 0$ 天然半正定），避免了 SQP 因不定 Hessian 而失败。这是"用收敛速度换数值稳定"的经典工程取舍，论文不会讨论，但决定了实机上 MPC 跑不跑得稳。
+
+### ⚠️ 符号约定陷阱：clearance 的正负与约束方向
+
+源码里 `g(i) = weight * (distance - clearances(i))`，OCS2 约定 `StateInputConstraint` 表示 $g \geq 0$ 的不等式。代入得约束 $\phi(p_i) \geq c_i$——即"末端到障碍的有符号距离不小于 clearance"。这个方向看似显然，但有两个隐藏陷阱：
+
+- **支撑腿与摆动腿用不同 clearance**：摆动腿要 $c_i>0$（悬空避障），支撑腿却要允许 $\phi \approx 0$ 甚至接触（脚本就该踩在地面上）。若给所有腿同一个正 clearance，支撑腿会被"推离地面"，MPC 直接不可行。真实代码用逐末端 `clearances_` 向量正是为此（67.7 的 `set(vector_t clearances,...)` 重载）。
+- **clearance 是运行时量，不是编译期常量**：它通过 `set()` 注入，可随步态相位在线切换。这与"SDF 进 AD tape"是两回事——改 clearance 不需要重生成 `.so`（67.7 陷阱）。
+
 ### 光滑近似：处理 SDF 梯度不连续点
 
 SDF 在某些点的梯度不存在——具体来说，在"等距面"（equidistant loci）上，即到两个最近障碍表面距离相等的点。这些点的 SDF 值连续，但梯度有跳变。
@@ -762,6 +861,20 @@ $$J = \underbrace{J_{\text{vel}} + J_{\text{ori}} + J_{\text{input}}}_{\text{盲
 
 **地形感知代价只是"增量"**——它不改变盲 MPC 的基础结构，只是在上面加了三项。这使得系统可以优雅降级：如果感知失效，把地形感知代价的权重设为零，就回到了盲 MPC。
 
+### 同一地形需求：硬约束、软约束、还是代价？
+
+读到这里你应该有个疑问：地形信息一会儿做成"约束"（67.4 的 SDF $\phi\geq d_{\min}$），一会儿做成"代价"（67.5 的三个 $J$），它们到底怎么选？这是 Perceptive MPC 工程实现中最高频的决策，OCS2 提供了三个层级的工具，对应三种"违反的代价"：
+
+| 实现层级 | 数学形式 | 违反的后果 | 适用场景 | OCS2 工具 |
+|---------|---------|-----------|---------|----------|
+| 硬约束 | $g(x)\geq 0$ 强制满足 | 不可行则 MPC 失败 | 物理铁律（摩擦锥、关节限位） | `StateInputConstraint` |
+| 软约束（罚函数） | 违反量进代价，权重大 | 强烈不鼓励但允许 | 安全关键但偶尔需妥协（SDF 避障） | `SoftConstraintPenalty` + Augmented Lagrangian |
+| 纯代价 | 直接加权进 $J$ | 只是"不够好" | 偏好引导（躯体高度、摆动裕度） | 加进 `StateInputCost` |
+
+> **本质洞察**：硬→软→代价是一条"**强制力递减、可行性递增**"的光谱。把所有地形需求都做成硬约束，理论最安全，但实际会让 MPC 频繁不可行（狭窄环境里硬约束互相矛盾）；全做成代价，MPC 永远有解，但可能输出穿透地形的"低代价不可行解"。Grandia 2023 的工程智慧在于**按需求的物理刚性分配层级**：摩擦锥是硬约束（违反=物理上不可能），SDF 避障是软约束（违反=危险但有时是唯一出路，靠 Augmented Lagrangian 用逐渐增大的罚权逼近可行），躯体高度是纯代价（违反=不舒服但安全）。理解这条光谱，比记住"SDF 是约束、高度是代价"这种结论重要得多——它让你面对一个新地形需求时，能自己判断该放在光谱的哪一档。
+
+> 💡 **论文没告诉你的（来源：OCS2 `SoftConstraintPenalty` 实现）**：软约束不是"把约束乘个大权重塞进代价"那么简单。OCS2 的 Augmented Lagrangian 实现会**在迭代中动态调整罚权和对偶变量**——初期罚权小（允许探索），随迭代增大（逼近可行）。这避免了固定大权重导致的两个老问题：权重太小约束形同虚设，权重太大 QP 病态（Hessian 条件数爆炸、SQP 数值失败）。这正是 67.4 末尾"光滑惩罚 + Augmented Lagrangian"那句话的工程内核。
+
 ### ⚠️ 常见陷阱
 
 > ⚠️ **编程陷阱：代价函数中 max(0, x) 的不可微点**
@@ -847,6 +960,8 @@ Step 3: 生成参数化摆动曲线
 
 输出: 摆动轨迹的初始猜测 p_swing(t), t in [t_liftoff, t_touchdown]
 ```
+
+> 📄 **论文没告诉你的（UNSPECIFIED，来源：本教学重构）**：上面算法里的几个魔数——`h_min=3cm`、`d_clearance=5cm`、落点侧抬高系数 `0.3`——都是**本章为讲清三段样条结构而设的教学值，不是 Grandia 2023 的源码原文**。论文把"摆动轨迹由 MPC 优化器决定"作为卖点，并未公布初始猜测生成器的具体参数（这类 warm-start 启发式通常藏在示例代码里，随机器人尺寸而变）。这里的 `0.3` 表示"落脚点上方的中间控制点比抬起侧低一些"，让轨迹呈现"快抬、缓落"的不对称形状以减小着地冲击——系数本身可调，读者复现时应以本机示例代码为准，把它当作可调超参而非定值。
 
 **MPC 在此基础上进一步优化**：初始猜测提供了一条"大致安全"的轨迹，MPC 的 SQP 会在此基础上微调，考虑动力学约束（关节速度限制、力矩限制）和代价函数（最小化能量、保持平衡）。最终的轨迹通常比初始猜测更平滑、更高效。
 
@@ -980,9 +1095,47 @@ auto [distance, grad_xy] =
 
 这个设计有一个微妙后果：当查询点移动越过格子边界时，梯度可能跳变（因为参与插值的四个角点变了）。工程上依赖三件事来降低影响：较细的地图分辨率、良好的 warm start，以及对 SDF/惩罚函数的适度平滑。不能把它理解成全局光滑函数。
 
+### 真实接口 2.5：`DistanceTransformInterface` 与 `ComputeDistanceTransform`（源码核实）
+
+在写 `TeachingSignedDistanceTransform` 教学模块之前，必须先把真实接口讲清楚——否则会形成一个根深蒂固的误解："OCS2 的距离场是 2D 的"。核对 `main` 分支源码后，真实的抽象接口签名是：
+
+```cpp
+// 来源：ocs2_perceptive/.../distance_transform/DistanceTransformInterface.h（源码原文）
+class DistanceTransformInterface {
+ public:
+  using vector3_t = Eigen::Matrix<scalar_t, 3, 1>;
+
+  // 给定 3D 点 p，返回有符号距离值
+  virtual scalar_t getValue(const vector3_t& p) const = 0;
+
+  // 给定 3D 点 p，返回其在零等值面（障碍表面）上的投影点
+  virtual vector3_t getProjectedPoint(const vector3_t& p) const = 0;
+
+  // 给定 3D 点 p，返回 {距离值, 距离对 p 的 3D 梯度}
+  virtual std::pair<scalar_t, vector3_t> getLinearApproximation(const vector3_t& p) const = 0;
+};
+```
+
+> 📄 **论文-代码差异（CONFLICT，源码核实）**：本章 67.4 出于教学简化，把 SDF 讲成"2D EDT + 高程图垂直检查"。这在**直觉层面**没错（水平避障是主要矛盾），但在**接口层面**与真实代码不一致——`DistanceTransformInterface` 的三个方法全部接收 `vector3_t`，返回 3D 梯度。Grandia 2023 的 ANYmal 示例（`SegmentedPlanesSignedDistanceField`）从分割平面构建的是**3D 体素 SDF**，沿高度方向也有距离信息。约束侧的 `EndEffectorDistanceConstraintCppAd` 拿到的 `grad` 是完整的 3D 向量，与末端运动学雅可比 `middleRows<3>` 相乘。
+> **判断**：本章前文的 2D 叙述是**降维教学近似**，适合先建立直觉；但读者读源码时会看到 3D 接口，二者必须能对上。正确理解是：*距离场的数学定义和 OCS2 接口都是 3D 的；2D EDT 只是某些轻量实现（或本教学简化）选择的具体计算方式，不是接口契约。*
+
+底层的距离变换由 `ComputeDistanceTransform.h` 提供，它不是一个类，而是一对模板函数——关键设计是**用 lambda 解耦"数据怎么存"**：
+
+```cpp
+// 来源：ocs2_perceptive/.../distance_transform/ComputeDistanceTransform.h（源码原文，简化注释）
+// GetValFunc: Scalar(size_t index)        —— 取第 index 个采样点的当前值
+// SetValFunc: void(size_t index, Scalar)  —— 把结果写回第 index 个采样点
+template <typename GetValFunc, typename SetValFunc, typename Scalar = float>
+void computeDistanceTransform(size_t numSamples, GetValFunc&& getValue, SetValFunc&& setValue,
+                              size_t start, size_t end,
+                              std::vector<size_t>& vBuffer, std::vector<Scalar>& zBuffer);
+```
+
+> 💡 **论文没告诉你的（工程 trick，来源：`ComputeDistanceTransform.h`）**：这个模板函数实现的就是 67.4 讲的 Felzenszwalb & Huttenlocher 一维抛物线下包络算法（`vBuffer` 存抛物线的分界横标、`zBuffer` 存交点）。它故意不接收任何具体的栅格/图像类型，而是用 `getValue`/`setValue` 两个 lambda 抽象"第 $i$ 个采样点怎么读写"。这样同一份 1D 变换代码既能在 $x$ 方向扫，也能在 $y$、$z$ 方向扫（多维 EDT = 沿各维顺序做 1D EDT），还能适配 `grid_map`、稠密 `Eigen::Matrix` 或自定义体素容器——这是论文完全不会提、但工程上极其关键的可复用性设计。
+
 ### 教学简化模块 2：`TeachingSignedDistanceTransform`
 
-这个教学模块解释从二值可踩性图到 2D SDF 的计算链路。当前 OCS2 main 分支没有 `TeachingSignedDistanceTransform` 这个文件，也没有把下面这些步骤封装成同名类；真实代码中请查看 `ComputeDistanceTransform.h`、`DistanceTransformInterface.h`，以及 perceptive ANYmal 示例中的 `SegmentedPlanesSignedDistanceField` / `grid_map_sdf` 相关链路。下面代码是概念伪代码，用来表达数据流，不是可直接编译的源码。
+这个教学模块解释从二值可踩性图到 SDF 的计算链路。当前 OCS2 main 分支没有 `TeachingSignedDistanceTransform` 这个文件，也没有把下面这些步骤封装成同名类；真实代码中请查看 `ComputeDistanceTransform.h`、`DistanceTransformInterface.h`，以及 perceptive ANYmal 示例中的 `SegmentedPlanesSignedDistanceField` / `grid_map_sdf` 相关链路。下面代码是概念伪代码（按 2D 简化叙述），用来表达数据流，不是可直接编译的源码；真实链路按上面的 3D 接口工作。
 
 ```cpp
 // 概念伪代码：说明 SDF 计算流程，不对应 OCS2 中的真实类名。
@@ -1029,14 +1182,37 @@ private:
 
 ### 真实接口 3：`EndEffectorDistanceConstraint(CppAd)`
 
-`EndEffectorDistanceConstraint.h` 和 `EndEffectorDistanceConstraintCppAd.h` 把距离场查询包装成 OCS2 约束接口。非 CppAD 版本使用普通运动学线性化；CppAD 版本用 `CppAdInterface` 生成末端位置关于状态的雅可比。两者共同点是：距离场本身通过 `set(clearance, distanceTransform)` 在运行时注入。
+`EndEffectorDistanceConstraint.h` 和 `EndEffectorDistanceConstraintCppAd.h` 把距离场查询包装成 OCS2 约束接口。读源码时第一个要注意的差异是**两者的基类不同**——这直接决定了约束依赖哪些 OCP 变量：
+
+| 类 | 基类 | 约束依赖 | 雅可比来源 |
+|----|------|---------|-----------|
+| `EndEffectorDistanceConstraint` | `StateConstraint` | 仅状态 $x$ | `EndEffectorKinematics::getPositionLinearApproximation` 普通运动学线性化 |
+| `EndEffectorDistanceConstraintCppAd` | `StateInputConstraint` | 状态 $x$ 与输入 $u$ | `CppAdInterface` 生成的末端位置雅可比 |
+
+> 📄 **论文-代码差异（源码核实）**：很多二手资料笼统地说"OCS2 用 CppAD 对距离约束求导"。核对 `main` 分支源码后更准确的说法是：**距离场本身不进 AD tape**。CppAd 版本只用 `CppAdInterface` 对"末端正运动学 $p(x)$"求导，距离值 $\phi$ 和空间梯度 $\nabla_p\phi$ 由 `DistanceTransformInterface` 在运行时显式提供，最后两者相乘。非 CppAd 版本连 AD 都不用，直接拿运动学的解析线性化。两个版本共享同一个 `set()` 注入接口。
+
+真实的 `set()` 有多个重载，覆盖"不带 clearance""统一 clearance""逐末端 clearance"三种用法（`EndEffectorDistanceConstraintCppAd` 没有第一个重载，因为它要求显式给出 clearance）：
 
 ```cpp
-// 当前 OCS2 结构的简化版
-class EndEffectorDistanceConstraintCppAd : public StateInputConstraint {
-public:
-  void set(vector_t clearances,
-           const DistanceTransformInterface& distanceTransform) {
+// 来源：ocs2_perceptive/.../EndEffectorDistanceConstraint.h（源码原文）
+void set(const DistanceTransformInterface& distanceTransform);                       // clearance 全 0
+void set(scalar_t clearance, const DistanceTransformInterface& distanceTransform);   // 统一 clearance
+void set(const scalar_array_t& clearances, const DistanceTransformInterface&);       // 逐末端 clearance
+```
+
+下面是对齐 `main` 分支结构的 CppAd 版本骨架。相比早期教学稿，这里补上了真实存在的 `Config`（权重 + 是否生成模型 + 是否打印日志）和 `getQuadraticApproximation`：
+
+```cpp
+// 教学简化（结构对齐 main 分支，省略构造细节）
+class EndEffectorDistanceConstraintCppAd final : public ocs2::StateInputConstraint {
+ public:
+  struct Config {                       // 源码原文：默认 weight=1, generateModel=true, verbose=true
+    scalar_t weight;
+    bool generateModel;
+    bool verbose;
+  };
+
+  void set(vector_t clearances, const DistanceTransformInterface& distanceTransform) {
     clearances_ = std::move(clearances);
     distanceTransformPtr_ = &distanceTransform;
   }
@@ -1044,23 +1220,27 @@ public:
   VectorFunctionLinearApproximation getLinearApproximation(
       scalar_t t, const vector_t& state, const vector_t& input,
       const PreComputation& preComp) const override {
+    // 末端位置与其对 (x) 的雅可比：CppAD 生成的部分仅限这一步
     auto eePositions = kinematicsModelPtr_->getFunctionValue(state);
     auto eeJacobians = kinematicsModelPtr_->getJacobian(state);
 
+    const size_t numEEs = clearances_.size();
     VectorFunctionLinearApproximation approx =
         VectorFunctionLinearApproximation::Zero(numEEs, stateDim_, inputDim_);
     for (size_t i = 0; i < numEEs; ++i) {
+      // 距离值 + 3D 空间梯度：运行时由距离场提供，不在 AD tape 内
       auto [distance, grad] =
           distanceTransformPtr_->getLinearApproximation(
               eePositions.segment<3>(3 * i));
-      approx.f(i) = weight * (distance - clearances_(i));
-      approx.dfdx.row(i) = weight * grad.transpose()
-                          * eeJacobians.middleRows<3>(3 * i);
+      approx.f(i) = config_.weight * (distance - clearances_(i));
+      approx.dfdx.row(i) = config_.weight * grad.transpose()
+                          * eeJacobians.middleRows<3>(3 * i);   // 链式法则的显式相乘
     }
     return approx;
   }
 
-private:
+ private:
+  Config config_;
   std::unique_ptr<CppAdInterface> kinematicsModelPtr_;
   const DistanceTransformInterface* distanceTransformPtr_ = nullptr;
   vector_t clearances_;
@@ -1102,6 +1282,8 @@ sqp_iterations = 1             ; RTI: 只做 1 次 SQP 迭代
 hpipm_mode = "SPEED"           ; HPIPM 求解模式
 ```
 
+> **配置项注解（HPIPM 模式）**：`hpipm_mode` 有 `SPEED_ABS`、`SPEED`、`BALANCE`、`ROBUST` 几档，本质是内点法**精度/迭代次数与速度**的权衡。`SPEED` 用较松的收敛容差换最少迭代，适合 100 Hz 实时 MPC（每周期只有 5-10ms）；`ROBUST` 收敛更稳但更慢，适合离线或对数值稳定要求极高的场景。加入 SDF 约束后 QP 子问题变大，若出现求解不稳，可先尝试 `BALANCE` 再决定是否降频——这比盲目增大 `sqp_iterations` 更对症。
+
 ### ⚠️ 常见陷阱
 
 > ⚠️ **编程陷阱：分清运行时参数和 AD 代码生成内容**
@@ -1120,6 +1302,51 @@ hpipm_mode = "SPEED"           ; HPIPM 求解模式
 2. **[源码阅读题]** 阅读 `EndEffectorDistanceConstraintCppAd.h` 的完整实现。画出从 MPC 调用 `getLinearApproximation()` 到最终得到雅可比矩阵的完整调用链（包括 CppADCodeGen 的 `.so` 加载和调用）。
 
 3. **[实操题]** 修改 OCS2 perceptive 的配置文件，把 `min_distance` 从 5cm 改为 10cm。观察 MPC 在仿真中的行为变化——摆动腿是否抬得更高了？有没有出现 SQP 不收敛的情况？
+
+---
+
+## 🔬 研究视角：Grandia 2023 的贡献结构分析 ⭐⭐⭐
+
+> **本节解决什么问题**：前七节讲清了 Grandia 2023"做了什么、怎么做的"。本节从**研究方法论**的角度退一步问：这篇论文为什么够发 T-RO？它的贡献是如何分层的？读完它，你应该学会的不只是"感知 MPC 怎么写"，而是"如何评估一篇系统类机器人论文的贡献结构"。这是论文解读教学区别于普通技术讲解的核心价值。
+
+### 维度一：问题定义贡献——它开创了新问题吗？
+
+Grandia 2023 **没有**开创"感知运动"这个问题——Fankhauser (2014) 的高程图、Mastalli (2016) 的地形感知规划、Jenelten (2022) 的 TAMOLS 都在它之前。它的问题定义贡献更精确地说是**问题的重新框定（reframing）**：
+
+把"感知运动"从"离线/准静态地形优化问题"重新框定为"**在线、全自由度、实时 NMPC 问题**"。这个 reframing 不是换个说法，而是抬高了难度门槛——它要求在 100 Hz 的预算内，同时处理离散感知数据、非凸碰撞约束、全身动力学。
+
+> **本质洞察**：系统类论文的"问题定义贡献"往往不是发明新问题，而是**把一个已知问题推到一个新的、更难的工作点**（operating point）。判断这类贡献的价值，要看这个新工作点是否"卡在真实部署的关键路径上"。Grandia 2023 选的工作点——*实时 + 全自由度 + 真机*——恰恰是工业落地必须跨过、而此前没人系统跨过的那道坎。这就是它的问题定义价值。
+
+### 维度二：框架贡献——它给出了完整端到端方案吗？
+
+这是 Grandia 2023 最强的一维。它的框架贡献可以拆成三个"翻译层"（这也是本章 67.3-67.5 的主线）：
+
+| 翻译层 | 把什么翻译成什么 | 关键技术 | 没有它会怎样（反事实） |
+|--------|----------------|---------|---------------------|
+| 几何翻译 | 离散栅格 -> 凸落脚约束 | 平面分割 + 半空间不等式 | 落脚约束非凸，HPIPM 实时性崩溃 |
+| 距离翻译 | 障碍占据 -> 可微距离场 | SDF + 双线性插值 | 优化器没有"远离障碍的方向"，无法做梯度步 |
+| 时间翻译 | 20 Hz 异步感知 -> 100 Hz 同步优化 | 三线程 + double/triple buffer | 数据竞争导致 SQP 内梯度跳变、不收敛 |
+
+> **本质洞察**：框架贡献的"完整性"不在于模块多，而在于**模块之间的接口是否闭合**——上一层的输出恰好是下一层能直接消费的输入，中间没有需要人工干预的缝隙。Grandia 2023 的三个翻译层首尾相接：感知前端吐出凸约束 + SDF + 参考高度，MPC 直接装进 OCP。这种"接口闭合"才是它能在真机上 24/7 跑起来的根本原因，也是区分"demo 级"和"系统级"工作的分水岭。
+
+### 维度三：实验方法论贡献——消融是否系统？
+
+Grandia 2023 的实验在 gaps（间隙）、slopes（斜坡）、stepping stones（踏石）三类地形上做了仿真 + ANYmal 真机验证（来源：论文 §VII，WebSearch 核实摘要）。从方法论看，它的实验设计有两个值得学习的点：
+
+1. **任务难度梯度**：三类地形对应三种不同的失效模式（间隙=落脚不可行、斜坡=高度不匹配、踏石=落脚精度），系统性地覆盖了 67.1 提出的"盲 MPC 三重失效"。这不是随便选的地形，而是**针对动机逐项验证**。
+2. **真机闭环**：很多优化类论文止步于仿真。Grandia 2023 在 ANYmal 上跑通，证明了延迟预算（67.9）和降级策略在真实噪声下成立。
+
+> 📄 **论文没告诉你的（实验复现，来源：未提及/无开源脚本）**：论文给出了实验结论，但**没有公开端到端复现脚本**（映射表中标 UNSPECIFIED）。这意味着想精确复现 Figure/Table 的数字，需要自己拼装 `ocs2_perceptive` + `convex_plane_decomposition` + elevation_mapping + ANYmal 模型，并自行调参。这是系统类论文的普遍现象——*算法开源 $\neq$ 实验可一键复现*。评估这类论文时，要区分"方法可信"（核心模块开源、接口清晰）和"数字可复现"（需要完整环境与调参），两者是不同的可信度等级。
+
+### 局限：从 Grandia 2023 通向下一篇的动机
+
+任何论文的局限都是下一篇的起点。Grandia 2023 有三个明确局限，恰好驱动了本章后续两节（67.8 的 RL 对比、67.10 的前沿）的内容：
+
+1. **依赖确定性感知**：MPC 把高程图当确定性输入，没有概率框架。感知噪声直接传播为轨迹误差（67.9 的 sim-to-real 调参就是在补偿这一点）。-> 驱动 **Miki 2022 的 RL 方案**，用 domain randomization 学会对噪声鲁棒（67.8）。
+2. **手工设计的代价/约束**：三个地形代价的权重靠人工调（67.5）。固定权重在所有测试地形上"够用"，但不是每种地形的最优。-> 驱动 **DTC (Jenelten 2024)** 等"用 RL 学习 MPC 参数/参考"的混合范式（67.8、67.10）。
+3. **几何感知，非语义感知**：可踩性只看几何（坡度/粗糙度/台阶），区分不了"看起来平但很滑的冰面"或"草丛 vs 实地"。-> 驱动 **NaVILA (2025) 等把感知从几何扩展到语义**的方向（67.10）。
+
+这三个局限不是缺陷，而是**把 Grandia 2023 精确定位在技术树上的坐标**：它是"经典 MPC + 几何感知 + 确定性"这一支的集大成者；它的每个边界，都是另一条技术路线的入口。下一节就从它最直接的"对手兼互补者"——Miki 2022 的 RL 方案——开始。
 
 ---
 
@@ -1214,7 +1441,14 @@ RL 策略通常是**反应式**的——只看当前观测，输出当前动作�
 
 鉴于 RL 和 MPC 各有优势，近年的趋势是**混合**：
 
-**DTC（Deep Tracking Control, Jenelten 2024, Science Robotics）**：RL 策略输出**参考轨迹**，MPC 负责跟踪。RL 处理感知理解（高层决策），MPC 处理动力学约束（低层执行）。
+**DTC（Deep Tracking Control, Jenelten 2024, Science Robotics, arXiv:2309.15462）**：**TO/MPC 生成参考轨迹，RL 策略负责跟踪**。注意方向——是优化器（基于模型、planning 准确、可泛化）输出运动参考，RL（离线学习、对模型失配鲁棒）把这条参考在真实动力学下执行下去。论文原话是"prior knowledge of motion can be rolled out from MPC"，RL 策略学的是"如何稳健地跟踪 MPC 给的参考"。
+
+> ⚠️ **常见记反的点（事实核实）**：很多人把 DTC 说成"RL 出参考、MPC 跟踪"——**方向反了**。DTC 的设计动机恰恰是：MPC 擅长**规划**（用模型前瞻、给出最优且满足约束的参考），但在真实机器人上因模型失配而**执行**不稳；RL 擅长**执行**（从数据中学会对抗失配），但缺乏前瞻规划。所以让各自做擅长的：**MPC 规划参考，RL 跟踪执行**。这正好把 Grandia 2023 的局限（确定性感知、执行端对噪声敏感，见 67.7 后 🔬 研究视角）补上了——参考仍由可审计的 MPC 给出，鲁棒性由 RL 兜住。
+
+| 分工 | 谁来做 | 为什么 |
+|------|--------|--------|
+| 感知 + 规划参考 | TO/MPC（保留约束满足） | 模型前瞻准确、可泛化、可审计 |
+| 真实执行跟踪 | RL 策略 | 离线学习对模型失配/噪声鲁棒 |
 
 **RL-augmented MPC（2023-2025 多项工作）**：用 RL 学习 MPC 的代价函数权重或终端代价，使 MPC 能适应更多场景。
 
@@ -1446,7 +1680,11 @@ def sdf_constraint(
 | ANYmal Parkour (Hoeller et al.) | 2024, Science Robotics | 纯 RL + 深度图 | 在极端地形上超越 MPC | 证明端到端 RL 在感知运动上的上限 |
 | Extreme Parkour (Cheng et al.) | 2024, ICRA | RL + 深度图 + 特权学习 | 跑酷级别的敏捷运动 | 不需要高程图/SDF 等中间表示 |
 | DTC (Jenelten et al.) | 2024, Science Robotics | RL + MPC 混合 | MPC 生成参考 + RL 跟踪补偿 | 保留 MPC 的约束满足能力 |
+| High-speed discrete terrain (Jenelten et al.) | 2025, Science Robotics | RL + 离散落脚 | 复杂离散地形上的高速控制导航 | 把 DTC 路线推向高速 + 踏石极限 |
+| Attention map encoding (Lee et al.) | 2025, Science Robotics | RL + 注意力地图编码 | 泛化的腿足运动地图表征 | 给"感知如何编码进策略"提供新表征 |
 | NaVILA | 2025, RSS | VLA + 运动策略 | 语言指令驱动的感知导航运动 | 把感知从几何扩展到语义 |
+
+> **本质洞察**：把上表按年份纵看，2023→2025 有一条清晰的演进主轴——**感知运动的"竞争前沿"正从"能不能过崎岖地形"转向"能多快、多泛化、多语义地过"**。Grandia 2023 解决了"能不能"（约束满足保证通过性）；DTC 2024 和 Jenelten 2025 把战线推向"多快"（高速 + 离散踏石）；Lee 2025 的注意力地图编码攻"多泛化"（一个表征适配多地形）；NaVILA 攻"多语义"（听懂"走到那张桌子旁"）。Perceptive MPC 在这条主轴上的位置没有被淘汰，而是**沉淀为"安全基座"**——越往高速/语义走，越需要一个可证明约束满足的底层来兜底，这正是 DTC 把 MPC 留作参考生成器的根本原因。
 
 **端到端 vs 模块化管线的深层对比**：
 
@@ -1520,6 +1758,100 @@ def sdf_constraint(
 
 ---
 
+## 设计空间全景分析：感知运动方案如何选型
+
+前面各节分散讲了 Grandia 2023（MPC）、Miki 2022（RL）、DTC（混合）、Parkour（纯 RL）等方案。本节做**文档级**的系统综合——不是简单罗列优缺点，而是定义统一的对比维度，并给出一张决策流程图，帮助你在面对真实选型时做出有理有据的判断。
+
+### 五维设计空间
+
+把感知运动控制方案放进五个正交维度比较：
+
+| 维度 | Grandia 2023 (Perceptive MPC) | Miki 2022 (RL) | DTC (Jenelten 2024, 混合) | Parkour (Hoeller 2024, 纯 RL) |
+|------|------------------------------|----------------|--------------------------|------------------------------|
+| **感知表示** | 显式：高程图 + 分割平面 + 3D SDF | 隐式：高程图扫描点 -> 注意力编码 | 显式（MPC 侧）+ 隐式（RL 侧） | 隐式：深度图 -> CNN |
+| **决策机制** | 在线优化（SQP/HPIPM） | 前向推理（NN） | MPC 出参考 + RL 跟踪 | 前向推理（NN） |
+| **安全保证** | 强（约束满足，SQP 收敛时） | 弱（统计安全） | 中（MPC 约束 + RL 残差） | 弱（统计安全） |
+| **极限敏捷** | 受限（实时 + 模型精度） | 高 | 中高 | 最高（跳跃/攀爬/跑酷） |
+| **工程可调性** | 高（改 `.info` 即生效） | 低（须重训） | 中（MPC 可调，RL 须重训） | 低（须重训） |
+
+> **本质洞察**：这五个维度不是独立的，而是被一条主轴串起来——**"把多少决策权交给离线学习 vs 在线优化"**。从 Grandia（几乎全在线优化）到 Parkour（几乎全离线学习），是一条连续光谱。安全保证、可调性沿光谱单调递减，极限敏捷单调递增。理解了这条主轴，就不会把这些方法看成"四个孤立选项"，而是"同一权衡的四个采样点"——你的应用需求决定了应该落在光谱的哪个位置。
+
+### 决策流程图
+
+```
+感知运动方案选型决策树
+
+开始：你的首要约束是什么？
+│
+├── 安全/可审计性优先（工业巡检、矿井、管道、有人环境）
+│   │
+│   ├── 地形以结构化为主（台阶/斜坡/平台）？
+│   │   └── 是 → Perceptive MPC（Grandia 2023）
+│   │            理由：约束满足可审计，失败可定位，改配置即调
+│   │
+│   └── 需要一定敏捷但仍要安全网？
+│       └── 混合（DTC 模式）：MPC 提供安全参考 + RL 补偿
+│                理由：保留约束满足，同时获得 RL 的鲁棒性
+│
+├── 极限性能优先（跑酷、极端地形探索、科研 demo）
+│   └── 纯 RL（Parkour / Extreme Parkour）
+│            理由：性能上限最高，可学到人类设计不出的策略
+│            代价：黑盒、失败灾难性、须大量训练
+│
+├── 算力极度受限（低成本小型机器人，无专用核）
+│   └── 纯 RL（NN 推理 <1ms） 优于 MPC（SQP 5-10ms）
+│            理由：MPC 的实时 QP 在弱算力上跑不到 100 Hz
+│
+└── 频繁更换机器人/任务，无 GPU 训练资源
+    └── Perceptive MPC
+             理由：换 URDF + 配置即可，无 sim-to-real gap，无需重训
+```
+
+> **使用方法**：这张决策树的每个分支都对应正文某一节的论证（安全 vs 性能见 67.8；算力预算见 67.9；可调性见 67.7 配置）。它不是"标准答案"，而是把分散的权衡浓缩成一条可操作的判断路径——真实项目里往往多个约束并存，此时沿树走到第一个"硬约束"节点决策即可。
+
+---
+
+## 范式总结与研究启发
+
+> 这一节是**跨论文、跨方向**的全局视角，区别于 67.7 后 🔬 研究视角对单篇 Grandia 2023 的分析。目标是帮你从"理解方法"上升到"理解范式"。
+
+### 本方向的核心范式
+
+读完 Grandia 2023、Miki 2022、TAMOLS、DTC、Parkour 这批工作，可以提炼出一个统一视角：
+
+> **本质洞察**：感知运动控制这一整个方向，本质上都在解决同一个问题——**如何把"高维、离散、含噪、异步"的感知信号，转化为"满足物理约束、实时可执行"的全身运动**。所有方法的分歧，仅在于这个"转化"在哪里发生、由谁完成：
+> - **Perceptive MPC**：转化发生在**显式优化**里，由人设计的约束/代价完成（白盒）；
+> - **RL**：转化发生在**神经网络权重**里，由数据和奖励塑造（黑盒）；
+> - **混合（DTC）**：转化被**拆成两段**——感知理解交给 RL，物理约束交给 MPC。
+>
+> 一旦看清"转化在哪发生"是唯一的根本分歧，就能预测任何新方法的位置：它要么移动转化的发生地，要么改变转化的分工方式。这正是评估"下一篇感知运动论文"的统一标尺。
+
+### 跨方向迁移
+
+本章的"离散感知 -> 连续优化"翻译范式，可以迁移到机器人学的其他方向：
+
+| 迁移目标 | 为什么可行 | 预期挑战 |
+|---------|-----------|---------|
+| **移动机械臂避障 MPC**（复合/30_多模态MPC） | 障碍 SDF + 末端距离约束的数学结构完全一致，只是把"脚"换成"夹爪/连杆" | 机械臂自碰撞约束更多，SDF 需覆盖整个臂体而非几个末端点 |
+| **自动驾驶的占据栅格 MPC** | 占据栅格 -> ESDF -> 距离约束，与高程图 -> SDF 同构 | 动态障碍预测（行人/车辆）引入时变 SDF，比静态地形难 |
+| **无人机穿越 gap 的 NMPC** | 3D SDF + 可微插值正是无人机走廊飞行的核心，本章 67.4 的梯度推导可直接复用 | 3D SDF 计算量比 2.5D 高程图大，须 GPU 或稀疏表示 |
+| **灵巧手抓取的接触隐式优化** | 接触切换的不可微性（67.10）与抓取中的接触模式切换同构 | 接触点数量远多于四足，组合复杂度爆炸 |
+
+### 组合创新头脑风暴
+
+把本章范式与其他方向的技术组合，列出潜在创新方向（捕捉想法，不深入可行性分析）：
+
+| 组合方案 | 预期效果 | 可行性 | 最大风险 |
+|---------|---------|--------|---------|
+| Neural SDF（160 章）替换双线性插值 SDF | 更平滑的梯度，内存不随地形复杂度增长 | 中（Jacquet 2025 已验证雏形） | NN 推理延迟可能挤占 MPC 时间预算 |
+| 可微 MPC（67.10）+ RL 端到端学代价权重 | 让 67.5 的三个权重自适应地形，告别人工调参 | 中低（接触不可微仍是拦路虎） | 接触切换处梯度偏差导致训练不稳定 |
+| 语义分割（VLA/NaVILA）增强可踩性分类 | 区分冰面/草丛/实地，弥补几何感知盲区 | 中（语义实时性是瓶颈） | 语义误判比几何误判更难检测和降级 |
+| 概率 SDF（含不确定性）+ chance-constrained MPC | 把感知噪声显式建模，约束变为机会约束 | 低（chance constraint 实时求解难） | 实时性与保守性难两全 |
+
+> **定位**：以上是教学文档的**附加产出**，旨在记录想法种子。若某条值得深入，可启动科研实现工作流系统评估。它们也呼应了 67.10 的前沿讨论——前沿不是终点，而是这些组合方向的当前进度条。
+
+---
+
 ## 累积项目：本章新增模块
 
 **足式累积项目：从零构建四足感知控制器**
@@ -1548,6 +1880,95 @@ def sdf_constraint(
 
 ---
 
+## 复现指南
+
+论文解读教学的硬性要求之一是给出可操作的复现路径。如映射表所述，Grandia 2023 **没有官方一键复现脚本**，但其核心模块（`ocs2_perceptive`、`convex_plane_decomposition`、elevation_mapping）均开源。下面给出一条从环境到运行的最小路径，以及最容易踩的复现坑。
+
+### 环境配置
+
+> ⚠️ **前提**：以下命令基于 Ubuntu 20.04 + ROS Noetic（OCS2 的 perceptive 示例对 ROS1/catkin 支持最成熟）。ROS2 移植仍在演进，新分支以本机 checkout 为准。
+
+```bash
+# 1. 系统依赖（OCS2 核心依赖，与 110 章一致）
+sudo apt install ros-noetic-pybind11-catkin libglpk-dev
+sudo apt install ros-noetic-grid-map ros-noetic-elevation-mapping
+
+# 2. 建立 catkin 工作区
+mkdir -p ~/perceptive_ws/src && cd ~/perceptive_ws/src
+
+# 3. 拉取 OCS2（含 ocs2_perceptive）
+git clone https://github.com/leggedrobotics/ocs2.git
+
+# 4. 拉取外部感知前端（平面分割，独立于 ocs2_perceptive）
+git clone https://github.com/leggedrobotics/elevation_mapping_cupy.git
+git clone https://github.com/leggedrobotics/convex_plane_decomposition_ros.git
+
+# 5. 依赖项（OCS2 文档列出的第三方）
+#    Pinocchio、HPIPM、blasfeo、raisim（可选仿真器）等
+#    建议严格按 OCS2 官方 installation 文档逐项装，版本敏感
+```
+
+### 编译命令
+
+```bash
+cd ~/perceptive_ws
+# 先编译 OCS2 核心 + perceptive（注意 Release 模式，Debug 下 SQP 慢 10 倍以上）
+catkin build ocs2_perceptive -DCMAKE_BUILD_TYPE=Release
+# 再编译 ANYmal perceptive 示例（包名以本机 checkout 为准）
+catkin build ocs2_legged_robot_ros -DCMAKE_BUILD_TYPE=Release
+source devel/setup.bash
+```
+
+### 运行与预期结果
+
+```bash
+# 启动 perceptive MPC 示例（具体 launch 名以仓库为准）
+roslaunch ocs2_legged_robot_ros legged_robot_sqp.launch
+# 在 RViz 中：发布速度指令，观察机器人通过台阶/斜坡
+# 预期：开感知时摆动腿自动抬高越过台阶；关感知（盲 MPC）时脚趾撞台阶
+```
+
+| 复现目标 | 预期现象 | 对应论文结论 |
+|---------|---------|------------|
+| 平地行走 | 三个地形代价趋近 0，行为退化为盲 MPC | 67.5 平地等价性 |
+| 通过台阶 | 摆动腿抬高 > 台阶高 + 裕度 | §VII 台阶攀爬 |
+| 通过斜坡 | 躯体高度跟随地形升降 | §V-C 高度跟踪 |
+| 关感知对照 | 通过率显著下降 | 67.1 三重失效 |
+
+### 常见复现问题
+
+| 问题 | 原因 | 解决 |
+|------|------|------|
+| SQP 求解慢（>50ms） | Debug 模式编译 | 改 `-DCMAKE_BUILD_TYPE=Release` |
+| 找不到分割平面 | `convex_plane_decomposition` 未编译或话题未连 | 确认平面分割节点在跑，topic remap 正确 |
+| 高程图为空 | elevation_mapping 没收到点云/里程计 | 检查 TF 树与点云话题，确认 odometry 对齐 |
+| 首次启动卡顿数十秒 | CppADCodeGen 正在生成 `.so` | 正常，仅首次；勿误删生成缓存（见 67.7 陷阱） |
+| 改了 `.info` 不生效 | 节点缓存了旧配置 | 重启节点，而非删 `.so`（见 67.7 陷阱） |
+
+> 💡 **论文没告诉你的（复现陷阱，来源：实际复现经验 + OCS2 文档）**：复现 Grandia 2023 的最大障碍**不是 `ocs2_perceptive` 本身，而是把分散在多个仓库的感知前端（elevation_mapping + convex_plane_decomposition）正确接上 OCS2**。论文 §IV 把这条链路讲得很顺，但代码里它们是**三个独立维护、版本各异的包**，topic/TF/坐标系约定的对接才是真正耗时的地方。这正是 67.7"`ocs2_perceptive` 不是独立模块"那条陷阱在复现层面的体现。
+
+---
+
+## 歧义审计汇总表
+
+下表汇总本章在解读 Grandia 2023 + OCS2 源码过程中识别的所有 PARTIAL/UNSPECIFIED/CONFLICT 项。SPECIFIED 项不在此列（它们论文明确且与代码一致，正文正常讲解）。每一项都在正文对应小节有展开分析。
+
+| 项目 | 级别 | 论文说法 | 代码/真实情况 | 判断与处理 | 小节 |
+|------|------|---------|--------------|-----------|------|
+| 可踩性阈值（坡度/粗糙度/台阶） | PARTIAL | 给出判据，未给全部具体阈值 | 从 `.info`/配置提取（如 max_slope≈0.6、max_step≈0.15） | 以配置为准，本章给典型值 | 67.3 |
+| 地形代价权重 $w_h,w_c,w_s$ | PARTIAL | "固定权重，表现良好" | 具体数值在 `.info`（如 100/30/50） | 数值须从配置读取 | 67.5 |
+| SDF 维度 | **CONFLICT** | 本章为教学简化为"2D EDT + 垂直检查" | `DistanceTransformInterface` 接收 `vector3_t`，ANYmal 示例用 3D 体素 SDF | 2D 是降维教学近似；接口与数学定义均为 3D | 67.4, 67.7 |
+| 距离约束是否进 AD tape | **CONFLICT** | 笼统称"用 CppAD 求导距离约束" | 仅末端正运动学进 tape；距离值/梯度运行时由距离场显式提供 | 以源码为准，本章已澄清 | 67.4, 67.7 |
+| `EndEffectorDistanceConstraint` 基类 | PARTIAL | 论文不涉及实现基类 | 非 CppAd 版继承 `StateConstraint`，CppAd 版继承 `StateInputConstraint` | 从源码补全，区别重要 | 67.7 |
+| 高斯模糊 SDF | PARTIAL | 提及平滑处理 | 平滑核大小须从配置/实现确认 | 本章标为缓解梯度跳变的 trick | 67.4 |
+| 摆动轨迹初始猜测算法 | UNSPECIFIED | 论文未详细给出生成算法 | 本章给教学版三段样条；真实实现细节须查示例代码 | 标为教学重构，非源码原文 | 67.6 |
+| 实验数字的端到端复现 | UNSPECIFIED | 给结论，无开源复现脚本 | 需自行拼装多仓库 + 调参 | 区分"方法可信"与"数字可复现" | 67.8 🔬 |
+| 双线性插值角点顺序 | SPECIFIED（列此供对照） | 论文不涉及 | `(0,0),(1,0),(0,1),(1,1)`，与本章一致 | 已核实一致 | 67.7 |
+
+> **审计方法说明**：本表的 CONFLICT 项中，两处"2D vs 3D"和"AD tape 边界"是本轮源码核对（OCS2 `main` 分支）相对常见二手叙述最值得修正的点。它们不是论文错误，而是"教学简化/二手转述"与"真实接口契约"之间的落差——论文解读教学的独特价值，恰恰在于把这种落差显式标注出来，让读者读源码时不会困惑。
+
+---
+
 ## 延伸阅读
 
 ### 必读
@@ -1572,6 +1993,8 @@ def sdf_constraint(
 | 文献 | 类型 | 难度 | 核心贡献 |
 |------|------|------|---------|
 | Jacquet M., Harms M., Alexis K. (2025) "Neural NMPC through signed distance field encoding for collision avoidance" -- IJRR | 论文 | ⭐⭐⭐⭐ | 神经网络 SDF 编码 + NMPC |
+| Jenelten F., et al. (2025) "High-speed control and navigation for quadrupedal robots on complex and discrete terrain" -- Science Robotics | 论文 | ⭐⭐⭐ | DTC 路线推向高速 + 离散踏石 |
+| Lee J., et al. (2025) "Attention-based map encoding for learning generalized legged locomotion" -- Science Robotics | 论文 | ⭐⭐⭐ | 注意力地图编码，泛化运动表征 |
 | Agarwal A., et al. (2023) "Legged Locomotion in Challenging Terrains using Egocentric Vision" -- CoRL | 论文 | ⭐⭐⭐ | 第一人称视觉驱动运动 |
 | Yang R., et al. (2023) "Neural volumetric memory for visual locomotion control" -- CVPR | 论文 | ⭐⭐⭐⭐ | 神经体积记忆 |
 | Felzenszwalb P., Huttenlocher D. (2012) "Distance Transforms of Sampled Functions" -- Theory of Computing, Vol. 8, pp. 415-428 | 论文 | ⭐⭐ | EDT 算法的理论基础 |
