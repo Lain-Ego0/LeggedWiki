@@ -272,11 +272,78 @@ def _pick_best_arxiv_match(query: PaperQuery, candidates: list[dict[str, Any]]) 
     return best
 
 
+_LOCAL_PDF_LINK_RE = re.compile(r"\[(PDF|[^\]]+\.pdf)\]\(<\s*(\.\./recommended-papers/[^)]+\.pdf)\s*>\)")
+
+
+def _norm_filename_for_title(path: str) -> str:
+    """Normalize a local PDF path to a paper-title key for lookup."""
+    name = os.path.basename(path)
+    name = re.sub(r"\.pdf$", "", name, flags=re.IGNORECASE)
+    name = re.sub(r"^\d{4}\s*-\s*", "", name)
+    return _norm_title(name)
+
+
+def _update_readme_links(
+    readme_path: Path, url_by_title: dict[str, str], lang: str
+) -> tuple[int, int]:
+    """Rewrite `[PDF](<local>)` links in one reading-list README.
+
+    Lines whose paper has a resolved original URL become
+    `original-link · local-mirror`; the rest are left untouched.
+    Idempotent: lines already carrying the new labels are skipped.
+    Returns (updated, skipped).
+    """
+    text = readme_path.read_text(encoding="utf-8")
+    updated = 0
+    skipped = 0
+    out: list[str] = []
+    for line in text.splitlines():
+        if "原文 PDF" in line or "Original PDF" in line:
+            out.append(line)
+            continue
+        m = _LOCAL_PDF_LINK_RE.search(line)
+        if not m:
+            out.append(line)
+            continue
+        key = _norm_filename_for_title(m.group(2))
+        url = url_by_title.get(key)
+        if not url and url_by_title:
+            # fuzzy fallback: filename/title word variants (e.g. "in"/"on")
+            best_key, best_ratio = None, 0.0
+            for candidate, candidate_url in url_by_title.items():
+                ratio = _similarity(key, candidate)
+                if ratio > best_ratio:
+                    best_key, best_ratio = candidate, ratio
+            if best_ratio >= 0.9:
+                url = url_by_title[best_key]
+        if not url:
+            skipped += 1
+            out.append(line)
+            continue
+        is_notes_line = bool(re.match(r"^- PDF[：:]\s+", line))
+        if lang == "zh":
+            if is_notes_line:
+                prefix = re.sub(r"PDF[：:]\s*$", "", line[: m.start()])
+                out.append(f"{prefix}原文 PDF： {url} ｜ 本地镜像：[{m.group(1)}](<{m.group(2)}>)")
+            else:
+                out.append(line.replace(m.group(0), f"[原文 PDF]({url}) · [本地镜像](<{m.group(2)}>)"))
+        else:
+            if is_notes_line:
+                prefix = re.sub(r"PDF[：:]\s*$", "", line[: m.start()])
+                out.append(f"{prefix}Original PDF: {url} | Local mirror: [{m.group(1)}](<{m.group(2)}>)")
+            else:
+                out.append(line.replace(m.group(0), f"[Original PDF]({url}) · [Local mirror](<{m.group(2)}>)"))
+        updated += 1
+    readme_path.write_text("\n".join(out) + ("\n" if text.endswith("\n") else ""), encoding="utf-8")
+    return updated, skipped
+
+
 def _group_to_dir(group: str) -> str:
     group = group.strip()
     mapping = {
         "ETH-RSL": "recommended-papers/ETH-RSL",
         "KAIST": "recommended-papers/KAIST",
+        "MIT": "recommended-papers/MIT",
         "综述": "recommended-papers/surveys",
         "人形": "recommended-papers/humanoid",
     }
@@ -301,6 +368,21 @@ def main() -> int:
         "--download",
         action="store_true",
         help="Download open-access PDFs when available",
+    )
+    parser.add_argument(
+        "--update-index",
+        action="store_true",
+        help="Write resolved original PDF URLs back into papers.json (url field)",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="With --update-index: overwrite existing url fields (default: only fill missing ones)",
+    )
+    parser.add_argument(
+        "--update-readme",
+        action="store_true",
+        help="Rewrite PDF links in reading-list READMEs from papers.json url fields: original link primary, local mirror fallback (no API calls)",
     )
     parser.add_argument(
         "--use-semantic-scholar",
@@ -328,8 +410,13 @@ def main() -> int:
     downloaded = 0
     skipped_no_pdf = 0
     unmatched = 0
+    resolved_urls: dict[str, str] = {}
 
-    for i, pq in enumerate(papers, start=1):
+    # --update-readme alone rewrites links from papers.json; no API calls needed
+    if not (args.download or args.update_index):
+        print(f"skipping API resolution ({len(papers)} papers; use --download/--update-index to run it)")
+
+    for i, pq in enumerate(papers if (args.download or args.update_index) else [], start=1):
         print(f"[{i}/{len(papers)}] {pq.group} | {pq.title}")
         arxiv_match = None
         try:
@@ -411,6 +498,11 @@ def main() -> int:
             elif arxiv_id:
                 pdf_source_url = f"https://arxiv.org/pdf/{arxiv_id}.pdf"
 
+        if pdf_source_url:
+            resolved_urls[pq.title] = pdf_source_url
+        elif paper_url:
+            resolved_urls[pq.title] = paper_url
+
         if args.download and pdf_source_url:
             year = match.get("year") or pq.year
             year_prefix = f"{year} - " if year else ""
@@ -456,6 +548,41 @@ def main() -> int:
 
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    if args.update_index:
+        raw_papers = json.loads(papers_path.read_text(encoding="utf-8"))
+        added = 0
+        updated = 0
+        for item in raw_papers:
+            title = str(item.get("title") or "")
+            url = resolved_urls.get(title)
+            if not url:
+                continue
+            existing = item.get("url")
+            if existing and existing != url and not args.force:
+                continue
+            if existing == url:
+                continue
+            item["url"] = url
+            if existing:
+                updated += 1
+            else:
+                added += 1
+        papers_path.write_text(json.dumps(raw_papers, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"  index url fields: +{added} added, {updated} overwritten (--force)")
+
+    if args.update_readme:
+        url_by_title: dict[str, str] = {}
+        for item in json.loads(papers_path.read_text(encoding="utf-8")):
+            url = str(item.get("url") or "")
+            title = str(item.get("title") or "")
+            if url and title:
+                url_by_title[_norm_title(title)] = url
+        zh_path = papers_path.with_name("README.md")
+        en_path = papers_path.with_name("README.en.md")
+        zh_updated, zh_skipped = _update_readme_links(zh_path, url_by_title, "zh")
+        en_updated, en_skipped = _update_readme_links(en_path, url_by_title, "en")
+        print(f"  readme links: zh +{zh_updated} (skipped {zh_skipped}), en +{en_updated} (skipped {en_skipped})")
 
     print("")
     print("Summary:")
