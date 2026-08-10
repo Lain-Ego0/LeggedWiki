@@ -14,6 +14,9 @@ robot\_lab以其网络结构简单，环境，机器人设置全面作为入门I
 
 robot\_lab项目地址：[fan\-ziqi/robot\_lab: RL Extension Library for Robots, Based on IsaacLab\.](https://github.com/fan-ziqi/robot_lab)
 
+飞书版地址：[从robot\_lab开始的Isaaclab教程](https://mcn06ejdkuyu.feishu.cn/wiki/V64Xw10fJiqHAakcyT9cbqx5nMg)
+
+
 ## **运行环境**：
 
 **系统**：Ubuntu 22\.04
@@ -221,9 +224,9 @@ python -m pip install -e source/robot_lab
 
 ```Plaintext
 @configclass
-class DoggedGymEnvCfg(ManagerBasedRLEnvCfg):
+class LocomotionVelocityRoughEnvCfg(ManagerBasedRLEnvCfg):
     # Scene settings
-    scene: DoggedGymSceneCfg = DoggedGymSceneCfg(
+    scene: MySceneCfg = MySceneCfg(
         num_envs=4096,
         env_spacing=2.5,
     )
@@ -241,7 +244,7 @@ class DoggedGymEnvCfg(ManagerBasedRLEnvCfg):
 
     def __post_init__(self):
         self.decimation = 4
-        self.episode_length_s = 40.0
+        self.episode_length_s = 20.0
         self.sim.dt = 0.005
         self.sim.render_interval = self.decimation
 ```
@@ -267,7 +270,7 @@ class DoggedGymEnvCfg(ManagerBasedRLEnvCfg):
 ```Plaintext
 物理仿真频率 = 1 / sim.dt = 200 Hz
 策略频率     = 1 / (sim.dt * decimation) = 50 Hz
-单回合步数   = episode_length_s / (sim.dt * decimation) = 2000
+单回合步数   = episode_length_s / (sim.dt * decimation) = 1000
 ```
 
 `__post_init__` 是配置对象完成初始化后的处理入口，适合做派生字段设置和子类覆盖。它不是每个 episode 的 reset 回调
@@ -355,13 +358,13 @@ sky_light = AssetBaseCfg(
 
 ```Plaintext
 def ang_vel_xy_l2(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
-    //获取训练环境的资产
+    # 获取训练环境的资产
     asset: RigidObject = env.scene[asset_cfg.name]
-    //通过资产获取机器人base的xy平面的的角速度，获取一个[num_envs, 2]的tensor,再通过square和sum把他变成一个[num_envs]维度的tensor，每一维都放着各自环境的奖励
+    # 通过资产获取机器人base的xy平面的的角速度，获取一个[num_envs, 2]的tensor,再通过square和sum把他变成一个[num_envs]维度的tensor，每一维都放着各自环境的奖励
     reward = torch.sum(torch.square(asset.data.root_ang_vel_b[:, :2]), dim=1)
-    //在奖励输出前乘一个机器人自身方向表示直立程度，表示姿态稳定性权重因子
+    # 在奖励输出前乘一个机器人自身方向表示直立程度，表示姿态稳定性权重因子
     reward *= torch.clamp(-env.scene["robot"].data.projected_gravity_b[:, 2], 0, 0.7) / 0.7
-    //输出奖励
+    # 输出奖励
     return reward
 ```
 
@@ -1021,7 +1024,7 @@ $$A_t = \sum_{l=0}^{\infty}(\gamma\lambda)^l \delta_{t+l}$$
 
 $$\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)$$
 
-也就是当下获得的奖励\+下一次的奖励\-这次的预测值=预测误差
+当前奖励 + 折扣后的下一状态价值估计 - 当前状态价值估计
 
 其中折扣因子γ，表示机器人注重短期还是长期
 
@@ -1240,55 +1243,43 @@ Whether to enable debug visualization for the asset\.
 ---
 
 ### DelayedPDActuator可配置参数的说明
+[`min_delay`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.min_delay)
+Minimum number of physics time\-steps with which the actuator command may be delayed\.
 
-[`cfg`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.cfg)
-The configuration for the actuator model\.
+[`max_delay`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.max_delay)
+Maximum number of physics time\-steps with which the actuator command may be delayed\.
 
-[`is_implicit_model`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.is_implicit_model)
-Flag indicating if the actuator is an implicit or explicit actuator model\.
-
-[`joint_indices`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.joint_indices)
-Articulation's joint indices that are part of the group\.
-
-[`joint_names`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.joint_names)
+[`joint_names_expr`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.joint_names_expr)
 Articulation's joint names that are part of the group\.
 
-[`num_joints`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.num_joints)
-Number of actuators in the group\.
+[`effort_limit`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.effort_limit)
+Force/Torque limit of the joints in the group\.
 
-[`computed_effort`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.computed_effort)
-The computed effort for the actuator group\.
+[`velocity_limit`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.velocity_limit)
+Velocity limit of the joints in the group\.
 
-[`applied_effort`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.applied_effort)
-The applied effort for the actuator group\.
+[`effort_limit_sim`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.effort_limit_sim)
+Effort limit of the joints in the group applied to the simulation physics solver\.
 
-[`effort_limit`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.effort_limit)
-The effort limit for the actuator group\.
+[`velocity_limit_sim`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.velocity_limit_sim)
+Velocity limit of the joints in the group applied to the simulation physics solver\.
 
-[`effort_limit_sim`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.effort_limit_sim)
-The effort limit for the actuator group in the simulation\.
+[`stiffness`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.stiffness)
+Stiffness gains \(also known as p\-gain\) of the joints in the group\.
 
-[`velocity_limit`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.velocity_limit)
-The velocity limit for the actuator group\.
+[`damping`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.damping)
+Damping gains \(also known as d\-gain\) of the joints in the group\.
 
-[`velocity_limit_sim`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.velocity_limit_sim)
-The velocity limit for the actuator group in the simulation\.
+[`armature`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.armature)
+Armature of the joints in the group\.
 
-[`stiffness`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.stiffness)
-The stiffness \(P gain\) of the PD controller\.
+[`friction`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.friction)
+The static friction coefficient of the joints in the group\.
 
-[`damping`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.damping)
-The damping \(D gain\) of the PD controller\.
+[`dynamic_friction`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.dynamic_friction)
+The dynamic friction coefficient of the joints in the group\.
 
-[`armature`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.armature)
-The armature of the actuator joints\.
+[`viscous_friction`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuatorCfg.viscous_friction)
+The viscous friction coefficient of the joints in the group\.
 
-[`friction`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.friction)
-The joint static friction of the actuator joints\.
-
-[`dynamic_friction`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.dynamic_friction)
-The joint dynamic friction of the actuator joints\.
-
-[`viscous_friction`](https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.actuators.html#isaaclab.actuators.DelayedPDActuator.viscous_friction)
-The joint viscous friction of the actuator joints\.
 
