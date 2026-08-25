@@ -4,15 +4,14 @@
 
 This folder contains helper scripts for maintaining this repository.
 
-## fetch_open_access_pdfs.py
+## resolve_paper_links.py
 
-Resolves and fetches publicly available paper PDFs based on the unified paper list in `reading-list/papers.json` (e.g., arXiv / OpenReview when available).
+Resolves original paper source links based on the unified paper list in `reading-list/papers.json` (e.g., arXiv / OpenReview when available). The script does not download or store PDFs.
 
-- Show help: `python3 scripts/fetch_open_access_pdfs.py --help`
-- Download PDFs to the local mirror folder: `python3 scripts/fetch_open_access_pdfs.py --download`
-- Resolve original links and write them back into `papers.json` (`url` field): `python3 scripts/fetch_open_access_pdfs.py --update-index`
-- Update `reading-list/README(.en).md` links from the report (original link primary, local mirror as fallback): `python3 scripts/fetch_open_access_pdfs.py --update-readme`
+- Show help: `python3 scripts/resolve_paper_links.py --help`
+- Resolve original links and write them back into `papers.json` (`url` field): `python3 scripts/resolve_paper_links.py --update-index`
+- `reading-list/README(.en).md` keeps original-source links only; no local PDF mirror links are generated.
 
-> Link policy: the `url` field prefers the **original download link** of the open-access PDF (e.g., arXiv); falls back to a landing page (author page / OpenReview) when no PDF exists. Local PDFs are only a mirror fallback, not the primary download path.
+> Link policy: the `url` field prefers the original public source (e.g., arXiv); falls back to a landing page (author page / OpenReview) when no direct PDF exists. The repository does not store paper PDFs.
 
 Back to overview: [README.en.md](../README.en.md)

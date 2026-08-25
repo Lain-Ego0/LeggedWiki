@@ -29,7 +29,7 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 | Competition Rules | [Competition Rules](competition-rules/README.en.md) |
 | Network Open Source | [Network Open Source](network-open-source/README.en.md) |
 | Technical Sharing | [Technical Sharing](technical-sharing/README.en.md) |
-| Paper Study List | [Reading list (with recommended papers and local PDFs)](reading-list/README.en.md) |
+| Paper Study List | [Reading list (paper index and original links)](reading-list/README.en.md) |
 | Supporting Tool Scripts | [scripts](scripts/README.en.md) |
 
 ---
@@ -65,9 +65,9 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 
 ## 🤝 Contribution Guidelines
 We welcome developers and competition teams to improve this repository together. Contribution methods are:
-1. **Add New Materials**: Place files by content type in `competition-rules/`, `technical-sharing/`, and `recommended-papers/`. For new paper entries, also update index information in `reading-list/README.en.md` or `reading-list/papers.json` for easier search.
+1. **Add New Materials**: Place files by content type in `competition-rules/` and `technical-sharing/`. For papers, maintain metadata and original-source links in `reading-list/papers.json` or `reading-list/README.en.md`.
 2. **Add New External Links**: Prioritize official or original-author open-source repository links. Clearly label the project purpose and institution affiliation to keep information traceable.
-3. **Update the Paper List**: Maintain paper entries in `reading-list/papers.json`, then run `python3 scripts/fetch_open_access_pdfs.py --download` to fetch open-access PDF files.
+3. **Update the Paper List**: Maintain paper entries in `reading-list/papers.json`, then run `python3 scripts/resolve_paper_links.py --update-index` to resolve original-source links.
 4. **Large File Handling**: For single files larger than ~100MB, use Git LFS, or replace them with compliant external links.
 
 ---

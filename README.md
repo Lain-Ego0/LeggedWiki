@@ -29,7 +29,7 @@ LocoWiki 原名 ROBOCON_Legged_Robot，是专为机器人运控学习打造的�
 | 赛事规则 | [比赛规则](competition-rules/README.md)|
 | 网络开源 | [网络开源](network-open-source/README.md)|
 | 技术分享 | [技术分享](technical-sharing/README.md) |
-| 论文学习清单 | [阅读清单（含推荐论文与本地 PDF）](reading-list/README.md) |
+| 论文学习清单 | [阅读清单（论文索引与原文链接）](reading-list/README.md) |
 | 配套工具脚本 | [scripts](scripts/README.md)|
 
 ---
@@ -65,9 +65,9 @@ LocoWiki 原名 ROBOCON_Legged_Robot，是专为机器人运控学习打造的�
 
 ## 🤝 贡献指南
 欢迎各位开发者、参赛队伍一起完善本仓库，贡献方式如下：
-1. **新增资料**：按内容分类放入 `competition-rules/`、`technical-sharing/`、`recommended-papers/` 对应目录；若新增论文条目，请同步在 `reading-list/README.md` 或 `reading-list/papers.json` 补充索引信息，便于检索。
+1. **新增资料**：按内容分类放入 `competition-rules/`、`technical-sharing/` 对应目录；论文只维护元数据和原始来源链接，并同步更新 `reading-list/papers.json` 或 `reading-list/README.md`。
 2. **新增外链**：优先补充官方/原作者开源地址，标注清楚项目用途与所属单位，保证信息可溯源。
-3. **更新论文清单**：优先在 `reading-list/papers.json` 中维护论文条目，再执行 `python3 scripts/fetch_open_access_pdfs.py --download` 抓取开源 PDF 文件。
+3. **更新论文清单**：优先在 `reading-list/papers.json` 中维护论文条目，再执行 `python3 scripts/resolve_paper_links.py --update-index` 解析原始来源链接。
 4. **大文件处理**：单个文件超过 ~100MB 时，请使用 Git LFS 管理，或替换为合规外链。
 
 ---
