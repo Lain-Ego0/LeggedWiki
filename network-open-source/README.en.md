@@ -37,6 +37,44 @@ This page is the open-source resource index. Complete competition solutions, cor
 - Damiao Technology deep-RL notes for legged robots: [In-depth Reinforcement Learning Notes](https://my.feishu.cn/wiki/Sn4iwqtREio1llkzJ6Vc9wIwnmf)
 - Dalian Jiaotong University reinforcement-learning primer: [A Deep Dive into Reinforcement Learning](https://za8k8pe2ezm.feishu.cn/wiki/N5hFwIrC3isrVckQRRPcx6cHnPs?from=from_parent_docx)
 
+## Project Articles
+
+The project articles are grouped by their primary purpose.
+
+### Paper and Algorithm Reproductions
+
+| Project | Entry | Summary |
+| :--- | :--- | :--- |
+| [Extreme-RGMT Reproduction](paper-reproductions/extreme-rgmt-reproduction.md) | [Project Page](https://zeonsunlightyu.github.io/Extreme-RGMT.github.io/) | Humanoid whole-body control for highly dynamic skills, including backflips and recovery |
+| [SMP Score-Matching Motion Priors](paper-reproductions/smp-score-matching-motion-priors.md) | [GitHub](https://github.com/SUZ-tsinghua/smp) | Uses a frozen diffusion model as a reusable motion reward for Unitree G1 |
+| [AMP Go2 Basics](paper-reproductions/amp-go2.md) | [GitHub](https://github.com/ak1raljl/amp_go2) | Go2 AMP training, motion data, Sim2Sim, and Sim2Real workflow |
+| [AMP Go2 Stairs Experiment](paper-reproductions/go2-amp-stairs.md) | [GitHub](https://github.com/ak1raljl/amp_go2) | AMP-based Go2 stair-terrain reproduction experiment |
+| [M20 DreamWaQ High Platform](paper-reproductions/m20-dreamwaq-highplatform.md) | [GitHub](https://github.com/yusongmin1/Dreamwaq/tree/highplatform) | Curriculum-trained vision-free high-platform climbing for M20 |
+| [Go2 Controllable Jump](paper-reproductions/go2-controllable-jump.md) | [GitHub](https://github.com/yusongmin1/My_unitree_go2_gym) | Compares high-acceleration jumping across Isaac Gym, MuJoCo, and hardware |
+| [Go2 Flip Data Collection](paper-reproductions/go2-flip-data-collection.md) | [GitHub](https://github.com/yusongmin1/go2_flip_TO) | Generates Go2 flip motions with SE(3) whole-body trajectory optimization |
+| [Go2 Trot Gait Control](paper-reproductions/go2-trot-gait-control.md) | [GitHub](https://github.com/yusongmin1/My_unitree_go2_gym) | Controls trot frequency and 10/20 cm foot-clearance settings |
+| [Go2 Plum-Blossom Parkour](paper-reproductions/go2-plum-blossom-parkour.md) | [GitHub](https://github.com/jindadu00/legged_robot_competition) | Isaac Gym curriculum-learning experiment for complex terrain |
+
+### Development Tools and Frameworks
+
+| Project | Entry | Summary |
+| :--- | :--- | :--- |
+| [blender-mujoco-terrain](development-tools/blender-mujoco-hfield.md) | [GitHub](https://github.com/Eterith/blender-mujoco-hfield/tree/main) | Blender exporter for MuJoCo heightfields, meshes, and collision bodies |
+| [LeggedGym-Ex](development-tools/leggedgym-ex.md) | [GitHub](https://github.com/lupinjia/LeggedGym-Ex) | Extends legged_gym across Isaac Gym, Genesis, and Isaac Sim |
+| [Go2 Depth-Image Parkour](development-tools/go2-depth-parkour.md) | [GitHub](https://github.com/lupinjia/LeggedGym-Ex/tree/main/legged_gym/envs/go2/go2_ts_depth) | Go2 depth-image task example from LeggedGym-Ex |
+| [LeggedSkillDeploy](development-tools/leggedskilldeploy.md) | [GitHub](https://github.com/haozhang04/LeggedSkillDeploy) | Deployment framework for multiple legged robots and policy switching |
+
+### Projects and Competition Solutions
+
+| Project | Entry | Summary |
+| :--- | :--- | :--- |
+| [Engineering Robot and Seven-Axis Dual-Arm Development](projects-and-competition/humanoid-seven-axis-arm-control.md) | [专题入口](https://bbs.robomaster.com/article/1942648?source=1) | Mechanical design, custom controllers, seven-axis control, engineering vision, and the RM2026 vehicle report |
+| [RC_WheelLeg](projects-and-competition/rc-wheelleg.md) | [GitHub](https://github.com/zeitvex/RC_WheelLeg) | HYNova wheel-legged robot project with ROS 2 and reinforcement learning |
+| [Fuzhou University 12-DOF Quadruped](projects-and-competition/fuzhou-quadruped-robot-lab.md) | [GitHub](https://github.com/Taojunfeng123/quadruped_robot_lab) | RL training code for a 12-DOF point-foot quadruped |
+| [Nanhua University HIMLOCO Quadruped](projects-and-competition/nhu-himloco-quadruped.md) | [GitHub](https://github.com/uwvwko-zzz/uw-himloco) | HIMLOCO training framework and himdog deployment code |
+| [HIMLoco for Go2W](projects-and-competition/himloco-go2w.md) | [GitHub](https://github.com/TrackinBIT/HIMLoco-for-Go2W) | Go2W Isaac Gym training and MuJoCo verification based on HIMLoco |
+| [RoboGauge Go2 Champion Solution](projects-and-competition/robogauge-go2-champion.md) | [Project Page](https://robogauge.github.io/complete/) | Robust locomotion, automated evaluation, and multi-policy deployment for Go2 |
+
 ## Supplementary: Robot Hardware Open Source
 | Platform | Author/Uploader | Project | Link | One-line Description |
 | :--- | :--- | :--- | :--- | :--- |

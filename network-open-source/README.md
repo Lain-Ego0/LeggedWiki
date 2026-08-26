@@ -39,29 +39,41 @@
 
 ## 独立项目文章
 
-以下项目已整理为独立文章，便于记录项目背景、代码入口、训练配置和使用注意事项。
+以下项目已整理为独立文章，按文章的主要用途分为三类。
 
-| 项目 | 类型 | 入口 | 简介 |
-| :--- | :--- | :--- | :--- |
-| [Extreme-RGMT 复现](extreme-rgmt-reproduction.md) | 论文复现 | [Project Page](https://zeonsunlightyu.github.io/Extreme-RGMT.github.io/) | 面向后空翻、跌倒恢复等高动态动作的人形全身控制方案 |
-| [七轴双臂机械臂实车控制](humanoid-seven-axis-arm-control.md) | 方案分享 | [论坛原帖](https://bbs.robomaster.com/article/1941628?source=1#head0) | 包含冗余逆解、加权 DLS、重力补偿和分层控制 |
-| [RC_WheelLeg](rc-wheelleg.md) | 轮足机器人开源 | [GitHub](https://github.com/zeitvex/RC_WheelLeg) | HYNova 战队的轮足机器人、ROS 2 和强化学习项目 |
-| [blender-mujoco-terrain](blender-mujoco-hfield.md) | 工具插件 | [GitHub](https://github.com/Eterith/blender-mujoco-hfield/tree/main) | Blender 到 MuJoCo height field、网格和碰撞体导出工具 |
-| [福州大学浮舟湿地点足 12DOF](fuzhou-quadruped-robot-lab.md) | 四足强化学习 | [GitHub](https://github.com/Taojunfeng123/quadruped_robot_lab) | 点足 12DOF 四足机器人的 RL 训练代码 |
-| [南华大学衡山Π串联四足](nhu-himloco-quadruped.md) | 四足 Sim2Real | [GitHub](https://github.com/uwvwko-zzz/uw-himloco) | HIMLOCO 训练框架与 himdog 部署代码 |
-| [SMP 分数匹配运动先验](smp-score-matching-motion-priors.md) | 运动先验 / RL | [GitHub](https://github.com/SUZ-tsinghua/smp) | 将冻结的扩散模型作为可复用运动奖励，引导 G1 学习自然动作 |
-| [AMP Go2 楼梯实验](go2-amp-stairs.md) | AMP / 楼梯越障 | [GitHub](https://github.com/ak1raljl/amp_go2) | 基于 AMP 的 Go2 楼梯地形复现实验 |
-| [M20 DreamWaQ 盲爬高台](m20-dreamwaq-highplatform.md) | DreamWaQ / 轮足 | [GitHub](https://github.com/yusongmin1/Dreamwaq/tree/highplatform) | 通过课程学习训练 M20 不依赖视觉爬高台 |
-| [HIMLoco for Go2W](himloco-go2w.md) | 四轮足 / RL | [GitHub](https://github.com/TrackinBIT/HIMLoco-for-Go2W) | 基于 HIMLoco 的 Go2W Isaac Gym 训练和 MuJoCo 验证 |
-| [Go2 可控跳跃](go2-controllable-jump.md) | 跳跃 / Sim2Sim | [GitHub](https://github.com/yusongmin1/My_unitree_go2_gym) | 对比高加速度任务在 Isaac Gym、MuJoCo 与实物间的差异 |
-| [LeggedSkillDeploy](leggedskilldeploy.md) | 部署框架 | [GitHub](https://github.com/haozhang04/LeggedSkillDeploy) | 面向多种腿足机器人和多策略切换的部署框架 |
-| [LeggedGym-Ex](leggedgym-ex.md) | 多仿真器 RL 框架 | [GitHub](https://github.com/lupinjia/LeggedGym-Ex) | 将 legged_gym 扩展到 Isaac Gym、Genesis 和 Isaac Sim |
-| [Go2 深度图跑酷](go2-depth-parkour.md) | 深度感知 / 跑酷 | [GitHub](https://github.com/lupinjia/LeggedGym-Ex/tree/main/legged_gym/envs/go2/go2_ts_depth) | LeggedGym-Ex 中的 Go2 深度图任务示例 |
-| [AMP Go2 基础复现](amp-go2.md) | AMP / 四足模仿 | [GitHub](https://github.com/ak1raljl/amp_go2) | Go2 AMP 训练、动作数据、Sim2Sim 和 Sim2Real 基础流程 |
-| [Go2 空翻数据采集](go2-flip-data-collection.md) | 轨迹优化 / 动作数据 | [GitHub](https://github.com/yusongmin1/go2_flip_TO) | 基于 SE(3) 全身轨迹优化生成 Go2 空翻动作数据 |
-| [Go2 Trot 步态控制](go2-trot-gait-control.md) | Trot / 步态控制 | [GitHub](https://github.com/yusongmin1/My_unitree_go2_gym) | 控制小跑步态频率与 10/20 cm 抬脚高度 |
-| [Go2 梅花桩跑酷](go2-plum-blossom-parkour.md) | 复杂地形 / RL | [GitHub](https://github.com/jindadu00/legged_robot_competition) | 基于 Isaac Gym 的梅花桩课程学习与分层策略实验 |
-| [RoboGauge Go2 冠军方案](robogauge-go2-champion.md) | MoE / 评测 / Sim2Real | [Project Page](https://robogauge.github.io/complete/) | Go2 高鲁棒运动控制、自动评测和多策略部署方案 |
+### 论文与算法复现
+
+| 项目 | 入口 | 简介 |
+| :--- | :--- | :--- |
+| [Extreme-RGMT 复现](paper-reproductions/extreme-rgmt-reproduction.md) | [Project Page](https://zeonsunlightyu.github.io/Extreme-RGMT.github.io/) | 面向后空翻、跌倒恢复等高动态动作的人形全身控制方案 |
+| [SMP 分数匹配运动先验](paper-reproductions/smp-score-matching-motion-priors.md) | [GitHub](https://github.com/SUZ-tsinghua/smp) | 将冻结的扩散模型作为可复用运动奖励，引导 G1 学习自然动作 |
+| [AMP Go2 基础复现](paper-reproductions/amp-go2.md) | [GitHub](https://github.com/ak1raljl/amp_go2) | Go2 AMP 训练、动作数据、Sim2Sim 和 Sim2Real 基础流程 |
+| [AMP Go2 楼梯实验](paper-reproductions/go2-amp-stairs.md) | [GitHub](https://github.com/ak1raljl/amp_go2) | 基于 AMP 的 Go2 楼梯地形复现实验 |
+| [M20 DreamWaQ 盲爬高台](paper-reproductions/m20-dreamwaq-highplatform.md) | [GitHub](https://github.com/yusongmin1/Dreamwaq/tree/highplatform) | 通过课程学习训练 M20 不依赖视觉爬高台 |
+| [Go2 可控跳跃](paper-reproductions/go2-controllable-jump.md) | [GitHub](https://github.com/yusongmin1/My_unitree_go2_gym) | 对比高加速度任务在 Isaac Gym、MuJoCo 与实物间的差异 |
+| [Go2 空翻数据采集](paper-reproductions/go2-flip-data-collection.md) | [GitHub](https://github.com/yusongmin1/go2_flip_TO) | 基于 SE(3) 全身轨迹优化生成 Go2 空翻动作数据 |
+| [Go2 Trot 步态控制](paper-reproductions/go2-trot-gait-control.md) | [GitHub](https://github.com/yusongmin1/My_unitree_go2_gym) | 控制小跑步态频率与 10/20 cm 抬脚高度 |
+| [Go2 梅花桩跑酷](paper-reproductions/go2-plum-blossom-parkour.md) | [GitHub](https://github.com/jindadu00/legged_robot_competition) | 基于 Isaac Gym 的梅花桩课程学习与分层策略实验 |
+
+### 工具与开发框架
+
+| 项目 | 入口 | 简介 |
+| :--- | :--- | :--- |
+| [blender-mujoco-terrain](development-tools/blender-mujoco-hfield.md) | [GitHub](https://github.com/Eterith/blender-mujoco-hfield/tree/main) | Blender 到 MuJoCo height field、网格和碰撞体导出工具 |
+| [LeggedGym-Ex](development-tools/leggedgym-ex.md) | [GitHub](https://github.com/lupinjia/LeggedGym-Ex) | 将 legged_gym 扩展到 Isaac Gym、Genesis 和 Isaac Sim |
+| [Go2 深度图跑酷](development-tools/go2-depth-parkour.md) | [GitHub](https://github.com/lupinjia/LeggedGym-Ex/tree/main/legged_gym/envs/go2/go2_ts_depth) | LeggedGym-Ex 中的 Go2 深度图任务示例 |
+| [LeggedSkillDeploy](development-tools/leggedskilldeploy.md) | [GitHub](https://github.com/haozhang04/LeggedSkillDeploy) | 面向多种腿足机器人和多策略切换的部署框架 |
+
+### 项目与竞赛方案
+
+| 项目 | 入口 | 简介 |
+| :--- | :--- | :--- |
+| [工程机器人整车研发与七轴双臂控制](projects-and-competition/humanoid-seven-axis-arm-control.md) | [专题入口](https://bbs.robomaster.com/article/1942648?source=1) | 覆盖机械设计、自定义控制器、七轴双臂控制、工程视觉和 RM2026 整车技术报告 |
+| [RC_WheelLeg](projects-and-competition/rc-wheelleg.md) | [GitHub](https://github.com/zeitvex/RC_WheelLeg) | HYNova 战队的轮足机器人、ROS 2 和强化学习项目 |
+| [福州大学浮舟湿地点足 12DOF](projects-and-competition/fuzhou-quadruped-robot-lab.md) | [GitHub](https://github.com/Taojunfeng123/quadruped_robot_lab) | 点足 12DOF 四足机器人的 RL 训练代码 |
+| [南华大学衡山Π串联四足](projects-and-competition/nhu-himloco-quadruped.md) | [GitHub](https://github.com/uwvwko-zzz/uw-himloco) | HIMLOCO 训练框架与 himdog 部署代码 |
+| [HIMLoco for Go2W](projects-and-competition/himloco-go2w.md) | [GitHub](https://github.com/TrackinBIT/HIMLoco-for-Go2W) | 基于 HIMLoco 的 Go2W Isaac Gym 训练和 MuJoCo 验证 |
+| [RoboGauge Go2 冠军方案](projects-and-competition/robogauge-go2-champion.md) | [Project Page](https://robogauge.github.io/complete/) | Go2 高鲁棒运动控制、自动评测和多策略部署方案 |
 
 ## 补充：机器人硬件与实物开源
 | 平台 | 作者/上传者 | 项目 | 链接 | 一句话简介 |
