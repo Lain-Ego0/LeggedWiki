@@ -2,6 +2,19 @@
 
 > 中文 | [English](README.en.md)
 
+## 独立项目文章
+
+以下项目已整理为独立文章，便于记录项目背景、代码入口、训练配置和使用注意事项。
+
+| 项目 | 类型 | 入口 | 简介 |
+| :--- | :--- | :--- | :--- |
+| [Extreme-RGMT 复现](extreme-rgmt-reproduction.md) | 论文复现 | [Project Page](https://zeonsunlightyu.github.io/Extreme-RGMT.github.io/) | 面向后空翻、跌倒恢复等高动态动作的人形全身控制方案 |
+| [七轴双臂机械臂实车控制](humanoid-seven-axis-arm-control.md) | 方案分享 | [论坛原帖](https://bbs.robomaster.com/article/1941628?source=1#head0) | 包含冗余逆解、加权 DLS、重力补偿和分层控制 |
+| [RC_WheelLeg](rc-wheelleg.md) | 轮足机器人开源 | [GitHub](https://github.com/zeitvex/RC_WheelLeg) | HYNova 战队的轮足机器人、ROS 2 和强化学习项目 |
+| [blender-mujoco-terrain](blender-mujoco-hfield.md) | 工具插件 | [GitHub](https://github.com/Eterith/blender-mujoco-hfield/tree/main) | Blender 到 MuJoCo height field、网格和碰撞体导出工具 |
+| [福州大学浮舟湿地点足 12DOF](fuzhou-quadruped-robot-lab.md) | 四足强化学习 | [GitHub](https://github.com/Taojunfeng123/quadruped_robot_lab) | 点足 12DOF 四足机器人的 RL 训练代码 |
+| [南华大学衡山Π串联四足](nhu-himloco-quadruped.md) | 四足 Sim2Real | [GitHub](https://github.com/uwvwko-zzz/uw-himloco) | HIMLOCO 训练框架与 himdog 部署代码 |
+
 ## 实物开源
 | 平台 | 作者/上传者 | 项目 | 链接 | 一句话简介 |
 | :--- | :--- | :--- | :--- | :--- |
