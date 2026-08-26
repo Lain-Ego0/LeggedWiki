@@ -172,8 +172,6 @@ $$\boldsymbol{T}^{-1} =
 绕固定系转动
 主动变换
 
-$$$$
-
 被动变换
 
 $$\boldsymbol R_{new}=\Delta\boldsymbol R \cdot\boldsymbol R_{curr}$$
@@ -181,11 +179,8 @@ $$\boldsymbol R_{new}=\Delta\boldsymbol R \cdot\boldsymbol R_{curr}$$
 绕自身系转动
 主动变换
 
-$$$$
-
 被动变换
 
-$$$$
 但是这种变换矩阵的方法是有缺陷的：
 1. SO(3)的旋转矩阵有九个量，但一次旋转只有三个自由度。因此这种表达方式是冗余的。同理，变换矩阵用十六个量表达了六自由度的变换。那么，是否有更紧凑的表示呢?
 2. 旋转矩阵自身带有约束：它必须是个正交矩阵,且行列式为 1。变换矩阵也是如此。当我们想要估计或优化一个旋转矩阵,变换矩阵时，这些约束会使得求解变得更困难。
@@ -291,13 +286,16 @@ $$\min_{\boldsymbol{T}} J(\boldsymbol{T}) = \sum_{i=1}^{N} \|\boldsymbol{z}_i - 
 计算最优就需要求导，求导就需要进行加减，但是由于其性质，我们无法完成这个求导操作，自然无法完成优化，所以我们需要用一种新理论去完成这个操作
 代数基础
 之前的章节介绍了旋转矩阵和变换矩阵的定义。当时，我们说三维旋转矩阵构成了特殊正交群 $$SO(3)$$，而变换矩阵构成了特殊欧氏群 $$SE(3)$$。它们写起来像这样：
-$$SO(3) = \{ \boldsymbol{R} \in \mathbb{R}^{3 \times 3} \mid \boldsymbol{R}\boldsymbol{R}^T = \boldsymbol{I}, \det(\boldsymbol{R}) = 1 \}\\
-
-SE(3) = \left\{ \boldsymbol{T} = 
+$$
+\begin{aligned}
+SO(3) &= \{ \boldsymbol{R} \in \mathbb{R}^{3 \times 3} \mid \boldsymbol{R}\boldsymbol{R}^T = \boldsymbol{I}, \det(\boldsymbol{R}) = 1 \}, \\
+SE(3) &= \left\{ \boldsymbol{T} =
 \begin{bmatrix}
 \boldsymbol{R} & \boldsymbol{t} \\\boldsymbol{0}^T & 1
 \end{bmatrix}
-\in \mathbb{R}^{4 \times 4} \mid \boldsymbol{R} \in SO(3), \boldsymbol{t} \in \mathbb{R}^3 \right\}$$
+\in \mathbb{R}^{4 \times 4} \mid \boldsymbol{R} \in SO(3), \boldsymbol{t} \in \mathbb{R}^3 \right\}.
+\end{aligned}
+$$
 不过，当时我们并未详细解释群的含义。细心的读者应该会注意到，旋转矩阵也好，变换矩阵也好，它们对加法是不封闭的。换句话说，对于任意两个旋转矩阵 $$\boldsymbol{R}_1$$，$$\boldsymbol{R}_2$$，按照矩阵加法的定义，和不再是一个旋转矩阵：
 $$\boldsymbol{R}_1 + \boldsymbol{R}_2 \notin SO(3), \quad \boldsymbol{T}_1 + \boldsymbol{T}_2 \notin SE(3)$$
 你也可以说两种矩阵并没有良好定义的加法，或者通常矩阵加法对这两个集合不封闭。相对地，它们只有一种较好的运算：乘法。$$SO(3)$$ 和 $$SE(3)$$ 关于乘法是封闭的：
