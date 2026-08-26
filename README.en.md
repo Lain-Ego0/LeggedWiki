@@ -15,6 +15,8 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 
 **Supporting System Tutorial**: [Knowledge Base for Robot Motion Control Development](<https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home>)
 
+> This repository owns robotics knowledge content. Website code, interface copy, and site-maintenance documents belong in [LocoWiki.github.io](https://github.com/LocoWiki/LocoWiki.github.io). See [Content Structure and Website Boundary](CONTENT_STRUCTURE.en.md) for the directory-to-collection rules.
+
 <p align="center">
   <a href="https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home">
     <img src="assets/image.png" alt="Introduction to Legged Robot Motion Control Development" width="820" />
