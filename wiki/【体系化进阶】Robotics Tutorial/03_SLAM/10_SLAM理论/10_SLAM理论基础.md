@@ -658,7 +658,7 @@ y_{distorted} = y(1 + k_1 r^2 + k_2 r^4 + k_3 r^6) + p_1 (r^2 + 2y^2) + 2p_2 xy$
 则最终的像素坐标可以表示为
 $$u=f_x \cdot x_d+c_x\\
 v=f_y \cdot y_d+c_y\\$$
-当然，由于制造工艺的提升，目前相机畸变主要是径向畸变，具体的使用可以灵活选择，比如使用单独的 $$k_1、k_2$$
+当然，由于制造工艺的提升，目前相机畸变主要是径向畸变，具体的使用可以灵活选择，比如使用单独的 $k_1$、$k_2$
 当然，上面的去畸变公式也可以使用更低阶的形式或者更高阶的形式，没有十分的严格，参数量越多则近似效果越强，但是也会带来更高的计算量
 鱼眼相机也可以使用类似的方式描述畸变，不过其调整的是
 在工业上，我们也会使用畸变率来描述畸变情况，定义畸变率为
@@ -912,7 +912,12 @@ VSLAM前端
 假设对应点的齐次像素坐标为 $$p_1$$ 和 $$p_2$$，那么在两个时刻的相机坐标系下有下面的公式，其中相机内参矩阵已知
 $$p_1=KP_{C1}\\p_2=KP_{C2}$$
 那么以第一个相机坐标系为基准（或者为世界坐标系的话），那么有
-$$P_{C2}=RP_{C1}+t\\K^{-1}p_2=P_{C2}=RP_{C1}+t=RK^{-1}p_{1}+t\\t^\wedge K^{-1}p_2=t^\wedge R K^{-1}p_{1}+t^\wedge t\\其中，向量与自身的叉乘为零$$
+$$
+P_{C2}=RP_{C1}+t\\
+K^{-1}p_2=P_{C2}=RP_{C1}+t=RK^{-1}p_{1}+t\\
+t^\wedge K^{-1}p_2=t^\wedge R K^{-1}p_{1}+t^\wedge t
+$$
+其中，向量与自身的叉乘为零。
 然后左边乘以 $$(K^{-1}p_2)^T$$，其中左侧为 $$t^\wedge K^{-1}p_2$$，也就是 t 与向量的叉乘，方向上垂直于此向量，再进行与向量的点乘结果为0，故有
 $$
 (K^{-1}p_2)^Tt^\wedge R K^{-1}p_{1}=p_2^TK^{-T}t^\wedge R K^{-1}p_{1}=0
@@ -1605,7 +1610,7 @@ make install
 git clone https://github.com/strasdat/Sophus.git
 cd Sophus
 git checkout a621ff
-perl -0777 -pi -e 's/SO2::SO2\(\)\s*\{\s*unit_complex_\.real\(\)\s*=\s*1\.\s*;\s*unit_complex_\.imag\(\)\s*=\s*0\.\s*;\s*\}/SO2::SO2()\n{\n  unit_complex_.real(1.);\n  unit_complex_.imag(0.);\n}/s' sophus/so2.cpp
+`perl -0777 -pi -e 's/SO2::SO2\(\)\s*\{\s*unit_complex_\.real\(\)\s*=\s*1\.\s*;\s*unit_complex_\.imag\(\)\s*=\s*0\.\s*;\s*\}/SO2::SO2()\n{\n  unit_complex_.real(1.);\n  unit_complex_.imag(0.);\n}/s' sophus/so2.cpp`
 # 方法一
 cmake -S . -B build \
   -DCMAKE_BUILD_TYPE=Release \

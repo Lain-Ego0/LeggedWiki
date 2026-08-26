@@ -472,7 +472,7 @@ DESPOT 保留了 POMCP "用采样破两个 curse"的优点，但用一组**固�
 
 **过拟合风险与 R-DESPOT**。但只看"在 $K$ 个场景上的平均回报"有个陷阱：一个**复杂**策略可能在这 $K$ 个特定场景上表现完美（过拟合了这几个采样场景），却在真实分布上泛化很差。**R-DESPOT（Regularized DESPOT）** 的对策：搜索 DESPOT 时优化一个**正则化目标**
 
-$$\max_{\pi}\ \Big[\underbrace{\hat V_\pi(b_0)}_{\text{$K$ 场景平均回报}}\ -\ \underbrace{\lambda\,|\pi|}_{\text{策略大小惩罚}}\Big],$$
+$$\max_{\pi}\ \Big[\underbrace{\hat V_\pi(b_0)}_{\text{场景 }K\text{ 的平均回报}}\ -\ \underbrace{\lambda\,|\pi|}_{\text{策略大小惩罚}}\Big],$$
 
 其中 $|\pi|$ 是策略（子树）的大小，$\lambda$ 是正则化系数。它在"策略在采样场景上的价值"和"策略的复杂度"之间权衡——惩罚过大的策略，逼它简洁、从而泛化好。R-DESPOT 的理论保证：**当存在一个小的最优策略时，R-DESPOT 计算出近最优策略**。不加正则化的版本叫 **B-DESPOT（Basic DESPOT）**，在场景少时易过拟合。
 

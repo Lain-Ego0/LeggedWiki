@@ -1282,7 +1282,7 @@ $$y_{k+1} = y_k + \rho(Ax_{k+1} + Bz_{k+1} - c)$$
 ### 缩放形式（更简洁）
 
 定义 $u = y/\rho$（缩放对偶变量），ADMM 变为：
-$$x_{k+1} = \text{prox}_{f/\rho}(z_k - u_k) \quad \text{（$A = I, B = -I, c = 0$ 的简化情形）}$$
+$$x_{k+1} = \text{prox}_{f/\rho}(z_k - u_k) \quad \text{（}A = I, B = -I, c = 0\text{ 的简化情形）}$$
 $$z_{k+1} = \text{prox}_{g/\rho}(x_{k+1} + u_k)$$
 $$u_{k+1} = u_k + (x_{k+1} - z_{k+1})$$
 

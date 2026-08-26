@@ -1767,7 +1767,7 @@ $$\text{Exp}(\tau' + \delta\tau') = \text{Exp}(\mathbf{J}_r(\tau) \delta\tau') \
 
 还有一个常用的等价形式：
 
-$$\mathbf{J}_l(\tau) = \mathbf{J}_r(\tau)^T \quad \text{（仅对 SO(3)，因为 $[\tau]_\times$ 的反对称性）}$$
+$$\mathbf{J}_l(\tau) = \mathbf{J}_r(\tau)^T \quad \text{（仅对 SO(3)，因为 }[\tau]_\times\text{ 的反对称性）}$$
 
 注意这个转置关系仅在 SO(3) 中成立，SE(3) 中不成立。
 

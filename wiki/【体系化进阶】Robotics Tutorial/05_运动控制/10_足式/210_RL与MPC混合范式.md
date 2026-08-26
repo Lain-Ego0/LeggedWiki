@@ -132,7 +132,7 @@ $$\theta^* = \arg\max_\theta \mathbb{E}_{\tau \sim \pi_\theta} \left[\sum_{t=0}^
 
 **部署阶段**（在线）：
 
-$$a_t = \pi_{\theta^*}(s_t) \quad \text{（一次前向传播，100 $\mu$s）}$$
+$$a_t = \pi_{\theta^*}(s_t) \quad \text{（一次前向传播，100\,\mu\mathrm{s}）}$$
 
 **RL 的数学特性**：
 
