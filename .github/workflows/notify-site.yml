@@ -3,8 +3,6 @@ name: Notify LocoWiki Website
 on:
   push:
     branches: [main]
-    paths:
-      - '**/*.md'
   workflow_dispatch:
 
 jobs:
