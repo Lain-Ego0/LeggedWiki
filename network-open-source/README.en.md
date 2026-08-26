@@ -2,7 +2,42 @@
 
 > [中文](README.md) | English
 
-## Hardware Open Source
+## Scope
+
+This page is the open-source resource index. Complete competition solutions, core drivers, competition resources, and learning knowledge bases belong to the Open Source collection. General theory, tutorials, and methodology remain under `wiki/`, while paper metadata remains under `reading-list/`. Different experiments from the same repository may have separate articles, but each article should identify the related repository.
+
+## 🏆 Complete Competition Solutions
+
+| Institution | Season/Project | Open-Source Repository |
+| :--- | :--- | :--- |
+| Hubei University of Technology | 2019 Parallel Quadruped HCRT-DOG | [HCRT-DOG](https://github.com/yltzdhbc/HCRT-DOG) |
+| Dalian Jiaotong University | 2023 Quadruped Project orthrus-1 | [orthrus-1](https://github.com/evencewu/orthrus-1) |
+| Harbin Engineering University | 2024 Electronic Control Framework Corgi_for_ROBOCON | [Corgi_for_ROBOCON](https://github.com/Prcheems/Corgi_for_ROBOCON) |
+| Hefei University of Technology | VMC-based Quadruped Project | [VMC-based-QMR](https://github.com/HFUT-YYH/VMC-based-QMR) |
+| Fujian University of Technology | 2024 3508 Motor Quadruped Project | [ROBOCON2024-3508DOG](https://github.com/Lain-Ego0/ROBOCON2024-3508DOG) |
+| Fujian University of Technology | 2025 8-DOF Serial Mechanism | [ROBOCON2025-8-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-8-DOF-serial) |
+| Fujian University of Technology | 2025 12-DOF Serial Mechanism | [ROBOCON2025-12-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-12-DOF-serial) |
+| Ningbo University of Technology | 2025 VMC Electronic Control Framework | [VMC_Quadruped_Controller](https://github.com/Leader-txt/VMC_Quadruped_Controller) |
+| Fujian University of Technology | 2025 Full-Stack Legged Robot Project BRS | [ROBOCON-BRS_robot](https://github.com/Lain-Ego0/ROBOCON-BRS_robot) |
+
+## 🧩 Core Component Drivers
+
+- ZeitVex: Damiao USB-to-CAN, Lingzu motor, and MC02 driver [DM_RS](https://github.com/zeitvex/DM_RS)
+- Jinzhong College of Information: MC02 Unitree motor driver [MC02_for_Unitree](https://github.com/Lain-Ego0/MC02_for_Unitree)
+- Guilin University of Aerospace Technology: common Damiao H7 motor, remote-control, and chassis libraries [DM02_control](https://github.com/heartpain-kong/DM02_control)
+
+## 🎯 Competition Resources
+
+- Hefei University of Technology: 2026 season competition-field 3D model [26RC_Field](https://github.com/Ruixi-Cheng/26RC_Field)
+
+## 📚 Learning Knowledge Bases
+
+- Fujian University of Technology 2025 full-stack quadruped knowledge base: [Main Knowledge Base](https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home)
+- Damiao Technology fundamentals of legged robot control: [Legged Robot Control](https://my.feishu.cn/wiki/D88NwctmXieODakf3f1cPWCinfe)
+- Damiao Technology deep-RL notes for legged robots: [In-depth Reinforcement Learning Notes](https://my.feishu.cn/wiki/Sn4iwqtREio1llkzJ6Vc9wIwnmf)
+- Dalian Jiaotong University reinforcement-learning primer: [A Deep Dive into Reinforcement Learning](https://za8k8pe2ezm.feishu.cn/wiki/N5hFwIrC3isrVckQRRPcx6cHnPs?from=from_parent_docx)
+
+## Supplementary: Robot Hardware Open Source
 | Platform | Author/Uploader | Project | Link | One-line Description |
 | :--- | :--- | :--- | :--- | :--- |
 | Github | michaelkubina | SpotMicroESP32 | [SpotMicroESP32](https://github.com/michaelkubina/SpotMicroESP32) | A classic Spot-like direct-drive servo dog; relatively easy to replicate |
@@ -28,7 +63,7 @@
 | Others | Nathan Kau | Stanford Pupper | [Stanford Pupper](https://pupper.readthedocs.io/en/latest/) | A well-known Stanford servo quadruped |
 | Others | 高擎机电 | HTM5046版本四足机器人 | [HTM5046版本四足机器人](https://www.hightorque.cn/category/service) | A commercial quadruped product based on HTM5046 motors |
 
-## Framework Open Source
+## Supplementary: Algorithms and Training Frameworks
 | Platform | Author/Uploader | Project | Link | One-line Description |
 | :--- | :--- | :--- | :--- | :--- |
 | Github | fan-ziqi | rl_sar | [rl_sar](https://github.com/fan-ziqi/rl_sar) | A Chinese-built RL framework supporting both simulation and real robot deployment |

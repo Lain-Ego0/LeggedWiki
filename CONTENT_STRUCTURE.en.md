@@ -11,6 +11,13 @@ This repository is LocoWiki's robotics knowledge source. Website code, visual st
 | Paper metadata, notes, and original links | `reading-list/` | Papers |
 | Open-source projects and learning-resource indexes | `network-open-source/` | Open Source |
 
+## Open-Source Responsibilities
+
+- `network-open-source/README.md`: the unified index for complete competition solutions, core drivers, competition resources, learning knowledge bases, and independent project articles.
+- `network-open-source/*.md`: concrete repositories, hardware, datasets, tools, paper reproductions, and team projects; explain what the project is and where/how to access it.
+- `wiki/`: general theory, training methods, controller design, and engineering experience. Citing a team repository does not require moving the tutorial.
+- `reading-list/`: paper titles, authors, abstracts, original links, and reading status. Link related code without duplicating the project article.
+
 ## Content that belongs elsewhere
 
 - Copy for Home, About, Downloads, and Contributors

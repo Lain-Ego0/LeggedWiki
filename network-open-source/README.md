@@ -2,6 +2,41 @@
 
 > 中文 | [English](README.en.md)
 
+## 内容边界
+
+本页统一维护网络开源资源。完整参赛方案、核心组件驱动、赛题功能资源和学习知识库均归入开源栏目；通用原理、系统教程和方法论仍放在 `wiki/`，论文研究元数据仍放在 `reading-list/`。同一仓库的不同实验可以分别建立文章，但需要在正文中注明关联仓库。
+
+## 🏆 完整参赛方案开源
+
+| 所属高校 | 赛季/项目 | 开源仓库地址 |
+| :--- | :--- | :--- |
+| 湖北工业大学 | 2019 并联四足 HCRT-DOG | [HCRT-DOG](https://github.com/yltzdhbc/HCRT-DOG) |
+| 大连交通大学 | 2023 四足项目 orthrus-1 | [orthrus-1](https://github.com/evencewu/orthrus-1) |
+| 哈尔滨工程大学 | 2024 电控框架 Corgi_for_ROBOCON | [Corgi_for_ROBOCON](https://github.com/Prcheems/Corgi_for_ROBOCON) |
+| 合肥工业大学 | 基于 VMC 的四足项目 | [VMC-based-QMR](https://github.com/HFUT-YYH/VMC-based-QMR) |
+| 福建理工大学 | 2024 3508 电机四足项目 | [ROBOCON2024-3508DOG](https://github.com/Lain-Ego0/ROBOCON2024-3508DOG) |
+| 福建理工大学 | 2025 8 自由度串联机械开源 | [ROBOCON2025-8-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-8-DOF-serial) |
+| 福建理工大学 | 2025 12 自由度串联机械开源 | [ROBOCON2025-12-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-12-DOF-serial) |
+| 宁波工程学院 | 2025 VMC 电控框架 | [VMC_Quadruped_Controller](https://github.com/Leader-txt/VMC_Quadruped_Controller) |
+| 福建理工大学 | 2025 全栈足式机器人项目 BRS | [ROBOCON-BRS_robot](https://github.com/Lain-Ego0/ROBOCON-BRS_robot) |
+
+## 🧩 核心组件驱动开源
+
+- 时维科技：达妙 USB 转 CAN、灵足电机和 MC02 驱动 [DM_RS](https://github.com/zeitvex/DM_RS)
+- 晋中信息学院：MC02 宇树电机驱动 [MC02_for_Unitree](https://github.com/Lain-Ego0/MC02_for_Unitree)
+- 桂林航天工业学院：达妙 H7 常用电机、遥控器和底盘控制库 [DM02_control](https://github.com/heartpain-kong/DM02_control)
+
+## 🎯 赛题功能性开源
+
+- 合肥工业大学：2026 赛季赛事场地三维模型 [26RC_Field](https://github.com/Ruixi-Cheng/26RC_Field)
+
+## 📚 学习知识库
+
+- 福建理工大学 2025 四足机器人全栈知识库：[总知识库](https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home)
+- 达妙科技足式机器人控制基础：[足式机器人控制](https://my.feishu.cn/wiki/D88NwctmXieODakf3f1cPWCinfe)
+- 达妙科技足式强化学习笔记：[足式深度强化学习笔记](https://my.feishu.cn/wiki/Sn4iwqtREio1llkzJ6Vc9wIwnmf)
+- 大连交通大学强化学习快速入门：[深入浅出强化学习](https://za8k8pe2ezm.feishu.cn/wiki/N5hFwIrC3isrVckQRRPcx6cHnPs?from=from_parent_docx)
+
 ## 独立项目文章
 
 以下项目已整理为独立文章，便于记录项目背景、代码入口、训练配置和使用注意事项。
@@ -28,7 +63,7 @@
 | [Go2 梅花桩跑酷](go2-plum-blossom-parkour.md) | 复杂地形 / RL | [GitHub](https://github.com/jindadu00/legged_robot_competition) | 基于 Isaac Gym 的梅花桩课程学习与分层策略实验 |
 | [RoboGauge Go2 冠军方案](robogauge-go2-champion.md) | MoE / 评测 / Sim2Real | [Project Page](https://robogauge.github.io/complete/) | Go2 高鲁棒运动控制、自动评测和多策略部署方案 |
 
-## 实物开源
+## 补充：机器人硬件与实物开源
 | 平台 | 作者/上传者 | 项目 | 链接 | 一句话简介 |
 | :--- | :--- | :--- | :--- | :--- |
 | Github | michaelkubina | SpotMicroESP32 | [SpotMicroESP32](https://github.com/michaelkubina/SpotMicroESP32) | 很经典的仿 spot 关节直驱舵狗，复刻难度较低 |
@@ -54,7 +89,7 @@
 | Others | Nathan Kau | Stanford Pupper | [Stanford Pupper](https://pupper.readthedocs.io/en/latest/) | 很著名的斯坦福舵机狗 |
 | Others | 高擎机电 | HTM5046版本四足机器人 | [HTM5046版本四足机器人](https://www.hightorque.cn/category/service) | 基于 HTM5046 电机，高擎自家产品 |
 
-## 框架开源
+## 补充：算法与训练框架
 | 平台 | 作者/上传者 | 项目 | 链接 | 一句话简介 |
 | :--- | :--- | :--- | :--- | :--- |
 | Github | fan-ziqi | rl_sar | [rl_sar](https://github.com/fan-ziqi/rl_sar) | 国人制作的强化学习算法框架，同时支持仿真验证与实物部署 |

@@ -37,32 +37,7 @@ LocoWiki 原名 ROBOCON_Legged_Robot，是面向机器人运动控制学习与�
 
 ---
 
-### 🏆 完整参赛方案开源
-| 所属高校 | 赛季/项目 | 开源仓库地址 |
-| :--- | :--- | :--- |
-| 湖北工业大学 | 2019 并联四足 HCRT-DOG | [HCRT-DOG](https://github.com/yltzdhbc/HCRT-DOG) |
-| 大连交通大学 | 2023 四足项目 orthrus-1 | [orthrus-1](https://github.com/evencewu/orthrus-1) |
-| 哈尔滨工程大学 | 2024 电控框架 Corgi_for_ROBOCON | [Corgi_for_ROBOCON](https://github.com/Prcheems/Corgi_for_ROBOCON) |
-| 合肥工业大学 | 基于VMC的四足项目 | [VMC-based-QMR](https://github.com/HFUT-YYH/VMC-based-QMR) |
-| 福建理工大学 | 2024 3508电机四足项目 | [ROBOCON2024-3508DOG](https://github.com/Lain-Ego0/ROBOCON2024-3508DOG) |
-| 福建理工大学 | 2025 8自由度串联机械开源 | [ROBOCON2025-8-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-8-DOF-serial) |
-| 福建理工大学 | 2025 12自由度串联机械开源 | [ROBOCON2025-12-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-12-DOF-serial) |
-| 宁波工程学院 | 2025 VMC电控框架 | [VMC_Quadruped_Controller](https://github.com/Leader-txt/VMC_Quadruped_Controller) |
-| 福建理工大学 | 2025 全栈足式机器人项目 BRS | [ROBOCON-BRS_robot](https://github.com/Lain-Ego0/ROBOCON-BRS_robot) |
-
-### 🧩 核心组件驱动开源
-- 时维科技：达妙USB转CAN/灵足电机+MC02驱动 [DM_RS](https://github.com/zeitvex/DM_RS)
-- 晋中信息学院：MC02 宇树电机驱动 [MC02_for_Unitree](https://github.com/Lain-Ego0/MC02_for_Unitree)
-- 桂林航天工业学院：基于达妙H7中常用开源,包括宇树+DMA、灵足、达妙、大疆的电机驱动库、大疆遥控器和底盘控制 [DM02_control](https://github.com/heartpain-kong/DM02_control)
-
-### 🎯 赛题功能性开源
-- 合肥工业大学：2026赛季赛事场地三维模型 [26RC_Field](https://github.com/Ruixi-Cheng/26RC_Field)
-
-### 📚 学习知识库
-- 福建理工大学 2025 四足机器人全栈开源知识库：[总知识库](https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home)
-- 达妙科技 足式机器人控制基础知识库：[足式机器人控制](https://my.feishu.cn/wiki/D88NwctmXieODakf3f1cPWCinfe)
-- 达妙科技 足式机器人强化学习深度笔记：[足式深度强化学习笔记](https://my.feishu.cn/wiki/Sn4iwqtREio1llkzJ6Vc9wIwnmf)
-- 大连交通大学 强化学习快速入门知识库：[深入浅出强化学习](https://za8k8pe2ezm.feishu.cn/wiki/N5hFwIrC3isrVckQRRPcx6cHnPs?from=from_parent_docx)
+> 完整参赛方案、核心组件驱动、赛题资源和学习知识库统一维护在[网络开源](network-open-source/README.md)。
 
 ---
 

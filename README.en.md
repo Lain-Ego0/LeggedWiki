@@ -36,32 +36,7 @@ LocoWiki, formerly known as ROBOCON_Legged_Robot, is a one-stop resource reposit
 
 ---
 
-### 🏆 Complete Competition Solution Open Source
-| Institution | Season/Project | Open-Source Repository |
-| :--- | :--- | :--- |
-| Hubei University of Technology | 2019 Parallel Quadruped HCRT-DOG | [HCRT-DOG](https://github.com/yltzdhbc/HCRT-DOG) |
-| Dalian Jiaotong University | 2023 Quadruped Project orthrus-1 | [orthrus-1](https://github.com/evencewu/orthrus-1) |
-| Harbin Engineering University | 2024 Electronic Control Framework Corgi_for_ROBOCON | [Corgi_for_ROBOCON](https://github.com/Prcheems/Corgi_for_ROBOCON) |
-| Hefei University of Technology | VMC-based Quadruped Project | [VMC-based-QMR](https://github.com/HFUT-YYH/VMC-based-QMR) |
-| Fujian University of Technology | 2024 3508 Motor Quadruped Project | [ROBOCON2024-3508DOG](https://github.com/Lain-Ego0/ROBOCON2024-3508DOG) |
-| Fujian University of Technology | 2025 8-DOF Serial Mechanism Open Source | [ROBOCON2025-8-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-8-DOF-serial) |
-| Fujian University of Technology | 2025 12-DOF Serial Mechanism Open Source | [ROBOCON2025-12-DOF-serial](https://github.com/Lain-Ego0/ROBOCON2025-12-DOF-serial) |
-| Ningbo University of Technology | 2025 VMC Electronic Control Framework | [VMC_Quadruped_Controller](https://github.com/Leader-txt/VMC_Quadruped_Controller) |
-| Fujian University of Technology | 2025 Full-Stack Legged Robot Project BRS | [ROBOCON-BRS_robot](https://github.com/Lain-Ego0/ROBOCON-BRS_robot) |
-
-### 🧩 Core Component Driver Open Source
-- ZeitVex: Damiao USB-to-CAN / Lingzu Motor + MC02 Driver [DM_RS](https://github.com/zeitvex/DM_RS)
-- Jinzhong College of Information: MC02 Unitree Motor Driver [MC02_for_Unitree](https://github.com/Lain-Ego0/MC02_for_Unitree)
-- Guilin University of Aerospace Technology: Based on common open-source projects for DM H7.[DM02_control](https://github.com/heartpain-kong/DM02_control)
-
-### 🎯 Competition Task Functionality Open Source
-- Hefei University of Technology: 2026 season competition field 3D model [26RC_Field](https://github.com/Ruixi-Cheng/26RC_Field)
-
-### 📚 Learning Knowledge Bases
-- Fujian University of Technology 2025 full-stack quadruped robot open-source knowledge base: [Main Knowledge Base](https://wcn9j5638vrr.feishu.cn/wiki/space/7570988375279517715?ccm_open_type=lark_wiki_spaceLink&open_tab_from=wiki_home)
-- Damiao Technology fundamental knowledge base for legged robot control: [Legged Robot Control](https://my.feishu.cn/wiki/D88NwctmXieODakf3f1cPWCinfe)
-- Damiao Technology in-depth notes on reinforcement learning for legged robots: [In-depth Reinforcement Learning Notes](https://my.feishu.cn/wiki/Sn4iwqtREio1llkzJ6Vc9wIwnmf)
-- Dalian Jiaotong University quick-start knowledge base for reinforcement learning: [A Deep Dive into Reinforcement Learning](https://za8k8pe2ezm.feishu.cn/wiki/N5hFwIrC3isrVckQRRPcx6cHnPs?from=from_parent_docx)
+> Complete competition solutions, core drivers, competition resources, and learning knowledge bases are maintained in [Network Open Source](network-open-source/README.en.md).
 
 ---
 
